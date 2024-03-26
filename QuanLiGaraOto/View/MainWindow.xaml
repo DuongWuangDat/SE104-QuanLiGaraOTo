@@ -1,0 +1,600 @@
+﻿<Window x:Class="QuanLiGaraOto.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        x:Name="MainWD"
+        d:DesignHeight="864"
+        d:DesignWidth="1536"
+        Background="White"
+        Closed="AdminWD_Closed"
+        WindowState="Maximized"
+        xmlns:local="clr-namespace:QuanLiGaraOto.View"
+        mc:Ignorable="d"
+        Title="MainWindow">
+    <Window.Resources>
+        <Storyboard x:Key="MenuOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MenuBar"
+                                           Storyboard.TargetProperty="Width">
+                <EasingDoubleKeyFrame KeyTime="0"
+                                      Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3"
+                                      Value="220" />
+            </DoubleAnimationUsingKeyFrames>
+            <!--  Show the overlay  -->
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Overlay"
+                                           Storyboard.TargetProperty="Visibility">
+                <DiscreteObjectKeyFrame KeyTime="0"
+                                        Value="{x:Static Visibility.Visible}" />
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="MenuClose">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MenuBar"
+                                           Storyboard.TargetProperty="Width">
+                <EasingDoubleKeyFrame KeyTime="0"
+                                      Value="220" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3"
+                                      Value="0" />
+            </DoubleAnimationUsingKeyFrames>
+            <!--  Hide the overlay  -->
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Overlay"
+                                           Storyboard.TargetProperty="Visibility">
+                <DiscreteObjectKeyFrame KeyTime="0"
+                                        Value="{x:Static Visibility.Collapsed}" />
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+
+    </Window.Resources>
+    <!--<i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FirstLoadCM}"
+                                   CommandParameter="{Binding ElementName=MainFrame}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>-->
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click"
+                      SourceName="OpenMenu_btn">
+            <BeginStoryboard Storyboard="{StaticResource MenuOpen}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click"
+                      SourceName="CloseMenu_btn">
+            <BeginStoryboard Storyboard="{StaticResource MenuClose}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click"
+                      SourceName="SPbtn">
+            <BeginStoryboard Storyboard="{StaticResource MenuClose}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click"
+                      SourceName="KHbtn">
+            <BeginStoryboard Storyboard="{StaticResource MenuClose}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click"
+                      SourceName="ThongKebtn">
+            <BeginStoryboard Storyboard="{StaticResource MenuClose}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click"
+                      SourceName="Errbtn">
+            <BeginStoryboard Storyboard="{StaticResource MenuClose}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click"
+                      SourceName="NVbtn">
+            <BeginStoryboard Storyboard="{StaticResource MenuClose}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click"
+                      SourceName="Banbtn">
+            <BeginStoryboard Storyboard="{StaticResource MenuClose}" />
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid>
+        <!--  Frame  -->
+        <Grid>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="64" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <!--  Main Frame  -->
+                <Frame x:Name="MainFrame"
+                       Grid.Row="1">
+                    <Frame.Style>
+                        <Style TargetType="Frame">
+                            <Setter Property="NavigationUIVisibility"
+                                    Value="Hidden" />
+                        </Style>
+                    </Frame.Style>
+                </Frame>
+
+                <materialDesign:ColorZone Grid.Row="0"
+                                          Padding="13"
+                                          VerticalAlignment="Stretch"
+                                          Background="#3F7B88"
+                                          Mode="PrimaryLight">
+                    <DockPanel>
+                        <!--  OpenMenu_btn  -->
+                        <Button x:Name="OpenMenu_btn"
+                                Margin="10,0,0,0"
+                                Cursor="Hand">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter />
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                            <Button.Content>
+                                <Image Width="27"
+                                       Source="/QuanLiGaraOto;component/Resources/Icon/menu_open.png" />
+                            </Button.Content>
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background"
+                                            Value="{x:Null}" />
+                                    <Setter Property="BorderBrush"
+                                            Value="{x:Null}" />
+                                    <Setter Property="Foreground"
+                                            Value="{x:Null}" />
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                        <TextBlock Margin="13,0,0,0"
+                                   VerticalAlignment="Center"
+                                   FontSize="20"
+                                   FontWeight="Bold"
+                                   Foreground="#FFFFFF">
+                            Garage management
+                        </TextBlock>
+
+
+                    </DockPanel>
+
+                </materialDesign:ColorZone>
+
+
+
+            </Grid>
+
+            <Grid x:Name="MenuBar"
+                  Width="0"
+                  Height="864"
+                  HorizontalAlignment="Left"
+                  Panel.ZIndex="4"
+                  Background="#2F4A5E">
+                <StackPanel>
+                    <StackPanel.Resources>
+                        <Style x:Key="btnStyle"
+                               TargetType="RadioButton">
+                            <Setter Property="Height"
+                                    Value="58" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="RadioButton">
+
+                                        <Border x:Name="border"
+                                                Height="58"
+                                                CornerRadius="16">
+                                            <ContentPresenter />
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsChecked"
+                                                     Value="True">
+                                                <Setter TargetName="border"
+                                                        Property="Background"
+                                                        Value="#FFE0AE8A" />
+                                            </Trigger>
+                                            <Trigger Property="IsChecked"
+                                                     Value="False">
+                                                <Setter TargetName="border"
+                                                        Property="Background"
+                                                        Value="White" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+
+                    </StackPanel.Resources>
+                    <Grid Height="64">
+                        <StackPanel Margin="0,0,0,8"
+                                    HorizontalAlignment="Right"
+                                    Cursor="Hand"
+                                    Orientation="Horizontal">
+                            <TextBlock Margin="0,0,12,0"
+                                       VerticalAlignment="Center"
+                                       FontSize="20"
+                                       FontWeight="Bold"
+                                       Foreground="#FFE0AE8A">
+                                Coffee Shop
+                            </TextBlock>
+                            <!--  CloseMenu_btn  -->
+                            <Button x:Name="CloseMenu_btn"
+                                    Margin="0,0,24,0"
+                                    Padding="0"
+                                    Background="{x:Null}"
+                                    BorderBrush="{x:Null}"
+                                    Foreground="{x:Null}">
+                                <Image Width="27"
+                                       Source="/QuanLiGaraOto;component/Resources/Icon/menu_open.png"
+                                       />
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+
+                    <!--  SanPham-Menu_btn  -->
+                    <RadioButton x:Name="SPbtn"
+                                 Command="{Binding LoadSanPhamPage}"
+                                 CommandParameter="{Binding ElementName=MainFrame}"
+                                 Cursor="Hand"
+                                 IsChecked="True">
+                        <RadioButton.Style>
+                            <Style TargetType="RadioButton">
+                                <Setter Property="Height"
+                                        Value="58" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="RadioButton">
+
+                                            <Border x:Name="border"
+                                                    Height="58"
+                                                    CornerRadius="16">
+                                                <StackPanel Cursor="Hand"
+                                                            Orientation="Horizontal">
+                                                    <!--<Image x:Name="image"
+                                                           Width="27"
+                                                           Height="30"
+                                                           Margin="24,0,0,0"
+                                                           Source="/QuanLiCoffeeShop;component/Resources/Icon/SanPham_Brown_Icon.png" />-->
+                                                    <TextBlock x:Name="text"
+                                                               Margin="13,0,0,0"
+                                                               VerticalAlignment="Center"
+                                                               FontSize="18"
+                                                               Foreground="#FFE0AE8A"
+                                                               Text="Sản phẩm" />
+                                                </StackPanel>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsChecked"
+                                                         Value="True">
+                                                    <Setter TargetName="border"
+                                                            Property="Background"
+                                                            Value="#FFE0AE8A" />
+                                                    <Setter TargetName="text"
+                                                            Property="Foreground"
+                                                            Value="White" />
+                                                    <!--<Setter TargetName="image"
+                                                            Property="Source"
+                                                            Value="/QuanLiCoffeeShop;component/Resources/Icon/SanPham_White_Icon.png" />-->
+                                                </Trigger>
+                                                <Trigger Property="IsChecked"
+                                                         Value="False">
+                                                    <Setter TargetName="border"
+                                                            Property="Background"
+                                                            Value="Transparent" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </RadioButton.Style>
+
+
+                    </RadioButton>
+
+                    <!--  NhanVien-Menu_btn  -->
+                    <RadioButton x:Name="NVbtn"
+                                 Command="{Binding LoadNhanVienPage}"
+                                 CommandParameter="{Binding ElementName=MainFrame}"
+                                 Cursor="Hand">
+                        <RadioButton.Style>
+                            <Style TargetType="RadioButton">
+                                <Setter Property="Height"
+                                        Value="58" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="RadioButton">
+
+                                            <Border x:Name="border"
+                                                    Height="58"
+                                                    CornerRadius="16">
+                                                <StackPanel Cursor="Hand"
+                                                            Orientation="Horizontal">
+                                                    <!--<Image x:Name="image"
+                                                           Width="27"
+                                                           Height="30"
+                                                           Margin="24,0,0,0"
+                                                           Source="/QuanLiCoffeeShop;component/Resources/Icon/NhanVien_Brown_Icon.png" />-->
+                                                    <TextBlock x:Name="text"
+                                                               Margin="13,0,0,0"
+                                                               VerticalAlignment="Center"
+                                                               FontSize="18"
+                                                               Foreground="#FFE0AE8A"
+                                                               Text="Nhân viên" />
+                                                </StackPanel>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsChecked"
+                                                         Value="True">
+                                                    <Setter TargetName="border"
+                                                            Property="Background"
+                                                            Value="#FFE0AE8A" />
+                                                    <Setter TargetName="text"
+                                                            Property="Foreground"
+                                                            Value="White" />
+                                                    <!--<Setter TargetName="image"
+                                                            Property="Source"
+                                                            Value="/QuanLiCoffeeShop;component/Resources/Icon/NhanVien_White_Icon.png" />-->
+                                                </Trigger>
+                                                <Trigger Property="IsChecked"
+                                                         Value="False">
+                                                    <Setter TargetName="border"
+                                                            Property="Background"
+                                                            Value="Transparent" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </RadioButton.Style>
+
+                    </RadioButton>
+
+                    <!--  Ban-Menu_btn  -->
+                    <RadioButton Name="Banbtn"
+                                 Command="{Binding LoadTablePage}"
+                                 CommandParameter="{Binding ElementName=MainFrame}"
+                                 Cursor="Hand">
+                        <RadioButton.Style>
+                            <Style TargetType="RadioButton">
+                                <Setter Property="Height"
+                                        Value="58" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="RadioButton">
+
+                                            <Border x:Name="border"
+                                                    Height="58"
+                                                    CornerRadius="16">
+                                                <StackPanel Cursor="Hand"
+                                                            Orientation="Horizontal">
+                                                    <!--<Image x:Name="image"
+                                                           Width="27"
+                                                           Height="30"
+                                                           Margin="24,0,0,0"
+                                                           Source="/QuanLiCoffeeShop;component/Resources/Icon/Ban_Brown_Icon.png" />-->
+                                                    <TextBlock x:Name="text"
+                                                               Margin="13,0,0,0"
+                                                               VerticalAlignment="Center"
+                                                               FontSize="18"
+                                                               Foreground="#FFE0AE8A"
+                                                               Text="Bàn" />
+                                                </StackPanel>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsChecked"
+                                                         Value="True">
+                                                    <Setter TargetName="border"
+                                                            Property="Background"
+                                                            Value="#FFE0AE8A" />
+                                                    <Setter TargetName="text"
+                                                            Property="Foreground"
+                                                            Value="White" />
+                                                    <!--<Setter TargetName="image"
+                                                            Property="Source"
+                                                            Value="/QuanLiCoffeeShop;component/Resources/Icon/Ban_White_Icon.png" />-->
+                                                </Trigger>
+                                                <Trigger Property="IsChecked"
+                                                         Value="False">
+                                                    <Setter TargetName="border"
+                                                            Property="Background"
+                                                            Value="Transparent" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </RadioButton.Style>
+
+
+                    </RadioButton>
+
+                    <!--  KhachHang-Menu_btn  -->
+                    <RadioButton x:Name="KHbtn"
+                                 Command="{Binding LoadKhachHangPage}"
+                                 CommandParameter="{Binding ElementName=MainFrame}"
+                                 Cursor="Hand">
+                        <RadioButton.Style>
+                            <Style TargetType="RadioButton">
+                                <Setter Property="Height"
+                                        Value="58" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="RadioButton">
+
+                                            <Border x:Name="border"
+                                                    Height="58"
+                                                    CornerRadius="16">
+                                                <StackPanel Cursor="Hand"
+                                                            Orientation="Horizontal">
+                                                    <!--<Image x:Name="image"
+                                                           Width="27"
+                                                           Height="30"
+                                                           Margin="24,0,0,0"
+                                                           Source="/QuanLiCoffeeShop;component/Resources/Icon/KhachHang_Brown_Icon.png" />-->
+                                                    <TextBlock x:Name="text"
+                                                               Margin="13,0,0,0"
+                                                               VerticalAlignment="Center"
+                                                               FontSize="18"
+                                                               Foreground="#FFE0AE8A"
+                                                               Text="Khách hàng" />
+                                                </StackPanel>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsChecked"
+                                                         Value="True">
+                                                    <Setter TargetName="border"
+                                                            Property="Background"
+                                                            Value="#FFE0AE8A" />
+                                                    <Setter TargetName="text"
+                                                            Property="Foreground"
+                                                            Value="White" />
+                                                    <!--<Setter TargetName="image"
+                                                            Property="Source"
+                                                            Value="/QuanLiCoffeeShop;component/Resources/Icon/KhachHang_White_Icon.png" />-->
+                                                </Trigger>
+                                                <Trigger Property="IsChecked"
+                                                         Value="False">
+                                                    <Setter TargetName="border"
+                                                            Property="Background"
+                                                            Value="Transparent" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </RadioButton.Style>
+
+
+                    </RadioButton>
+
+                    <!--  ThongKe-Menu_btn  -->
+                    <RadioButton x:Name="ThongKebtn"
+                                 Command="{Binding LoadThongKePage}"
+                                 CommandParameter="{Binding ElementName=MainFrame}"
+                                 Cursor="Hand">
+                        <RadioButton.Style>
+                            <Style TargetType="RadioButton">
+                                <Setter Property="Height"
+                                        Value="58" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="RadioButton">
+
+                                            <Border x:Name="border"
+                                                    Height="58"
+                                                    CornerRadius="16">
+                                                <StackPanel Cursor="Hand"
+                                                            Orientation="Horizontal">
+                                                    <!--<Image x:Name="image"
+                                                           Width="27"
+                                                           Height="30"
+                                                           Margin="24,0,0,0"
+                                                           Source="/QuanLiCoffeeShop;component/Resources/Icon/ThongKe_Brown_Icon.png" />-->
+                                                    <TextBlock x:Name="text"
+                                                               Margin="13,0,0,0"
+                                                               VerticalAlignment="Center"
+                                                               FontSize="18"
+                                                               Foreground="#FFE0AE8A"
+                                                               Text="Thống kê" />
+                                                </StackPanel>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsChecked"
+                                                         Value="True">
+                                                    <Setter TargetName="border"
+                                                            Property="Background"
+                                                            Value="#FFE0AE8A" />
+                                                    <Setter TargetName="text"
+                                                            Property="Foreground"
+                                                            Value="White" />
+                                                    <!--<Setter TargetName="image"
+                                                            Property="Source"
+                                                            Value="/QuanLiCoffeeShop;component/Resources/Icon/ThongKe_White_Icon.png" />-->
+                                                </Trigger>
+                                                <Trigger Property="IsChecked"
+                                                         Value="False">
+                                                    <Setter TargetName="border"
+                                                            Property="Background"
+                                                            Value="Transparent" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </RadioButton.Style>
+
+                    </RadioButton>
+
+                    <!--  SuCo-Menu_btn  -->
+                    <RadioButton x:Name="Errbtn"
+                                 Command="{Binding LoadErrorPage}"
+                                 CommandParameter="{Binding ElementName=MainFrame}"
+                                 Cursor="Hand">
+                        <RadioButton.Style>
+                            <Style TargetType="RadioButton">
+                                <Setter Property="Height"
+                                        Value="58" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="RadioButton">
+
+                                            <Border x:Name="border"
+                                                    Height="58"
+                                                    CornerRadius="16">
+                                                <StackPanel Cursor="Hand"
+                                                            Orientation="Horizontal">
+                                                    <!--<Image x:Name="image"
+                                                           Width="27"
+                                                           Height="30"
+                                                           Margin="24,0,0,0"
+                                                           Source="/QuanLiCoffeeShop;component/Resources/Icon/SuCo_Brown_Icon.png" />-->
+                                                    <TextBlock x:Name="text"
+                                                               Margin="13,5,0,0"
+                                                               VerticalAlignment="Center"
+                                                               FontSize="18"
+                                                               Foreground="#FFE0AE8A"
+                                                               Text="Sự cố" />
+                                                </StackPanel>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsChecked"
+                                                         Value="True">
+                                                    <Setter TargetName="border"
+                                                            Property="Background"
+                                                            Value="#FFE0AE8A" />
+                                                    <Setter TargetName="text"
+                                                            Property="Foreground"
+                                                            Value="White" />
+                                                    <!--<Setter TargetName="image"
+                                                            Property="Source"
+                                                            Value="/QuanLiCoffeeShop;component/Resources/Icon/SuCo_White_Icon.png" />-->
+                                                </Trigger>
+                                                <Trigger Property="IsChecked"
+                                                         Value="False">
+                                                    <Setter TargetName="border"
+                                                            Property="Background"
+                                                            Value="Transparent" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </RadioButton.Style>
+                    </RadioButton>
+
+                </StackPanel>
+            </Grid>
+            <Grid Panel.ZIndex="2">
+                <!--  Overlay  -->
+                <Border x:Name="Overlay"
+                        Width="1536"
+                        HorizontalAlignment="Right"
+                        Panel.ZIndex="2"
+                        Background="#99CCCCCC"
+                        MouseDown="Overlay_MouseDown"
+                        Visibility="Collapsed">
+                    <Grid />
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
