@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e07e05029d864aa0922b69c44aac5802" Name="Diagram1">
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.Bill" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.BrandCar" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.Customer" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.InventoryReport" Width="1.5" PointX="7.5" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.InventoryReportDetail" Width="1.5" PointX="9.75" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.Parameter" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.Reception" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.Repair" Width="1.5" PointX="5.25" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.RepairDetail" Width="1.5" PointX="7.5" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.RepairSuppliesDetail" Width="1.5" PointX="9.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.Revenue" Width="1.5" PointX="3.75" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.RevenueDetail" Width="1.5" PointX="6" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.Supply" Width="1.5" PointX="7.5" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.SuppliesInput" Width="1.5" PointX="7.5" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.SuppliesInputDetail" Width="1.5" PointX="9.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.sysdiagram" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.Wage" Width="1.5" PointX="5.25" PointY="10.875" IsExpanded="true" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_Bill_Recept" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_Recept_Brand" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_RevenueDT_Brand" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_Recept_Cus" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_InventoryDT_Inventory" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_InventoryDT_Supplies" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_Repair_Recept" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_RepairDT_Repair" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_RepairDT_Wage" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_RepairSupDT_RepairDT" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_RepairSupDT_Sup" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_RevenueDT_Revenue" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_SuppliesInputDetail_Supply" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_SuppliesInputDetail_Input" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
