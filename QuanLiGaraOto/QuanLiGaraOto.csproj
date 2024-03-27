@@ -134,6 +134,48 @@
   <ItemGroup>
     <Resource Include="Resources\Icon\menu_open.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icon\back_menu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icon\icon_app.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icon\bao_cao_thang_ico_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icon\bao_cao_thang_ico_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icon\bao_tri_xe_ico_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icon\bao_tri_xe_ico_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icon\cai_dat_ico_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icon\cai_dat_ico_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icon\phieu_thu_tien_ico_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icon\phieu_thu_tien_ico_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icon\sua_chua_xe_ico_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icon\sua_chua_xe_ico_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icon\tra_cuu_xe_ico_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icon\tra_cuu_xe_ico_white.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
