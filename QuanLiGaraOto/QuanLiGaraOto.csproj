@@ -153,7 +153,11 @@
     <Compile Include="Resources\Icon\placeholder.cs" />
     <Compile Include="Resources\Img\placeholder.cs" />
     <Compile Include="Utils\placeholder.cs" />
+    <Compile Include="ViewModel\BaoTriXeVM\BaoTriXeViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="View\BaoTriXePage\BaoTriXePage.xaml.cs">
+      <DependentUpon>BaoTriXePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -171,6 +175,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ResourcesXAML\MainResource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\BaoTriXePage\BaoTriXePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -269,6 +277,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Icon\add_button_brand.png" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
