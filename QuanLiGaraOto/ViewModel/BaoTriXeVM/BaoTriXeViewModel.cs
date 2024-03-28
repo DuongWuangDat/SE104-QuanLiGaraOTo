@@ -8,7 +8,14 @@ namespace QuanLiGaraOto.ViewModel.BaoTriXeVM
 {
     public class BaoTriXeViewModel : BaseViewModel
     {
+		private int _receptionCount;
 
-        
-    }
+		public int ReceptionCount
+        {
+			get { return _receptionCount; }
+			set { _receptionCount = value; }
+		}
+
+
+	}
 }
