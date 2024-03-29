@@ -1,7 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:viewmodel="clr-namespace:QuanLiGaraOto.ViewModel"
+                    xmlns:viewmodel1="clr-namespace:QuanLiGaraOto.ViewModel.BaoTriXeVM">
                     xmlns:tracuuxeviewmodel="clr-namespace:QuanLiGaraOto.ViewModel.TraCuuXeVM"
                     >
+    <viewmodel1:BaoTriXeViewModel x:Key="BaoTriXeVM" />
     <tracuuxeviewmodel:TraCuuXeViewModel x:Key="TraCuuXeVM"/>
 </ResourceDictionary>
