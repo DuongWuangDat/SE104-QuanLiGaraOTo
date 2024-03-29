@@ -1,10 +1,12 @@
-﻿using System;
+﻿using QuanLiGaraOto.Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace QuanLiGaraOto.ViewModel.BaoTriXeVM
 {
@@ -36,12 +38,23 @@ namespace QuanLiGaraOto.ViewModel.BaoTriXeVM
 			set { selectedDate = value; OnPropertyChanged(); }
 		}
 
+		private ObservableCollection<BrandCar> _brandCars;
 
+		public ObservableCollection<BrandCar> BrandCarS
+        {
+			get { return new ObservableCollection<BrandCar> { 
+				new BrandCar("Audi"),
+                new BrandCar("Audi")
+            }; }
+			set { _brandCars = value; OnPropertyChanged(); }
+		}
 
+		public ICommand FirstLoadBrandCar { get; set;}
 
 		public BaoTriXeViewModel()
 		{
-			ReceptionCount = 0;
+			
+			
            
         }
 

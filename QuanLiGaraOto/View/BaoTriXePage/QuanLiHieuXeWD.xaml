@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuanLiGaraOto.View.BaoTriXePage"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:converter="clr-namespace:QuanLiGaraOto.Converters"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -12,6 +14,7 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         FontFamily="{DynamicResource MaterialDesignFont}"
+        DataContext="{StaticResource BaoTriXeVM}"
         Title="QuanLiHieuXeWD"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
@@ -20,6 +23,9 @@
         Height="524"
         Width="499"
         Background="Transparent">
+    <Window.Resources>
+        <converter:IndexConverter x:Key="IndexConverter" />
+    </Window.Resources>
     <Grid>
         <Border Background="White"
                 CornerRadius="20">
@@ -81,7 +87,165 @@
                         Width="419"
                         Height="257"
                         CornerRadius="20">
-                    
+                    <ListView Margin="22,12,22,12"
+                              ItemsSource="{Binding BrandCarS}"
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        
+                        <ListView.ItemContainerStyle >
+
+                            <Style 
+                                   TargetType="ListViewItem">
+                                <Setter Property="BorderBrush"
+                                        Value="Black" />
+                                <Setter Property="BorderThickness"
+                                        Value="0,0,0,1" />
+                                <Setter Property="HorizontalContentAlignment"
+                                        Value="Stretch" />
+                                <Setter Property="Height"
+                                        Value="31" />
+                                
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background"
+                                                Value="#C2DDDF" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background"
+                                                Value="#C2DDDF" />
+                                        <Setter Property="BorderBrush"
+                                                Value="Black" />
+
+                                    </Trigger>
+                                 
+                                </Style.Triggers>
+                            </Style>
+                            
+                            
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="STT"
+                                                Width="71">
+                                    <GridViewColumn.HeaderContainerStyle>
+                                        <Style TargetType="{x:Type GridViewColumnHeader}">
+                                            
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                                                        <StackPanel 
+                                                            Height="29">
+                                                            <Border Height="20.14" 
+                                                                BorderBrush="Black"
+                                                                    BorderThickness="0,0,1,0">
+                                                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                                                  Margin="{TemplateBinding Padding}" />
+                                                            </Border>
+                                                            <Border Margin="0,8,0,0"
+                                                                BorderBrush="Black"
+                                                                    BorderThickness="0,0,0,1"/>
+                                                        </StackPanel>
+                                                        
+
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+
+                                        </Style>
+                                    </GridViewColumn.HeaderContainerStyle>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding RelativeSource={RelativeSource FindAncestor, 
+                           AncestorType={x:Type ListViewItem}}, 
+                           Converter={StaticResource IndexConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                                       FontSize="15"
+                                                       TextAlignment="Center"
+                                                       HorizontalAlignment="Left"
+                                                       Width="50" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+
+                                </GridViewColumn>
+                                <GridViewColumn Header="Hiệu xe"
+                                                Width="220">
+                                    <GridViewColumn.HeaderContainerStyle>
+                                        <Style TargetType="{x:Type GridViewColumnHeader}">
+                                       
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                                                        <StackPanel Height="29">
+                                                            <Border Height="20.14"
+                                                                    BorderBrush="Black"
+                                                                    BorderThickness="0,0,1,0">
+                                                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                                                  Margin="{TemplateBinding Padding}" />
+                                                            </Border>
+                                                            <Border Margin="0,8,0,0"
+                                                                    BorderBrush="Black"
+                                                                    BorderThickness="0,0,0,1" />
+                                                        </StackPanel>
+
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </GridViewColumn.HeaderContainerStyle>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}"
+                                                       TextAlignment="Center"
+                                                       Width="200"
+                                                       HorizontalAlignment="Left"
+                                                       FontSize="15" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn >
+                                <GridViewColumn Width="90">
+                                    <GridViewColumn.HeaderContainerStyle>
+                                        <Style TargetType="{x:Type GridViewColumnHeader}">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                                                        <StackPanel Height="29">
+                                                            <Border Height="20.14"
+                                                                    BorderBrush="Black"
+                                                                    BorderThickness="0,0,0,0">
+                                                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                                                  Margin="{TemplateBinding Padding}" />
+                                                            </Border>
+                                                            <Border Margin="0,8,0,0"
+                                                                    BorderBrush="Black"
+                                                                    BorderThickness="0,0,0,1" />
+                                                        </StackPanel>
+
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </GridViewColumn.HeaderContainerStyle>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border Margin="19,0,0,0"
+                                                    Background="Transparent"
+                                                    Width="18"
+                                                    Height="18"
+                                                    BorderThickness="0"
+                                                    HorizontalAlignment="Left"
+                                                    Cursor="Hand">
+                                                <Image Source="/QuanLiGaraOto;component/Resources/Img/delete_button.png" />
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                 </Border>
                 <Button Grid.Row="3"
                         Content="Hủy bỏ"
@@ -99,5 +263,5 @@
             </Grid>
         </Border>
     </Grid>
-    
+
 </Window>
