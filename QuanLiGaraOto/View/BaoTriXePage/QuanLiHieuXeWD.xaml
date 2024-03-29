@@ -1,0 +1,103 @@
+﻿<Window x:Class="QuanLiGaraOto.View.BaoTriXePage.QuanLiHieuXeWD"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuanLiGaraOto.View.BaoTriXePage"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="QuanLiHieuXeWD"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        ResizeMode="NoResize"
+        Height="524"
+        Width="499"
+        Background="Transparent">
+    <Grid>
+        <Border Background="White"
+                CornerRadius="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="89" />
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="76" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0"
+                           Text="Thêm hiệu xe"
+                           FontSize="40"
+                           FontWeight="Bold"
+                           Margin="46,42,0,0" />
+                <StackPanel Grid.Row="1"
+                            Orientation="Horizontal">
+                    <TextBlock Text="Hiệu xe"
+                               FontSize="25"
+                               FontWeight="Light"
+                               Margin="46,22,0,0" />
+                    <TextBox Width="201"
+                             Margin="19,20,0,10"
+                             FontSize="20">
+                        <TextBox.Template>
+                            <ControlTemplate TargetType="TextBox">
+
+                                <Border Name="border"
+                                        BorderThickness="0,0,0,1"
+                                        Padding="2"
+                                        BorderBrush="#616161"
+                                        Background="Transparent">
+                                    <ScrollViewer Margin="0"
+                                                  x:Name="PART_ContentHost" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsFocused"
+                                             Value="True">
+                                        <Setter TargetName="border"
+                                                Property="BorderBrush"
+                                                Value="#3F7B88" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </TextBox.Template>
+                    </TextBox>
+                    <Button Background="#3093A0"
+                            materialDesign:ButtonAssist.CornerRadius="20"
+                            Width="106"
+                            Height="57"
+                            Content="Thêm"
+                            FontSize="20"
+                            FontWeight="Bold"
+                            Margin="10,0,0,0"
+                            BorderBrush="Transparent" />
+                </StackPanel>
+                <Border Grid.Row="2"
+                        Background="#C2DDDF"
+                        Width="419"
+                        Height="257"
+                        CornerRadius="20">
+                    
+                </Border>
+                <Button Grid.Row="3"
+                        Content="Hủy bỏ"
+                        FontSize="20"
+                        FontWeight="Bold"
+                        HorizontalAlignment="Left"
+                        materialDesign:ButtonAssist.CornerRadius="20"
+                        Width="120"
+                        Height="57"
+                        Background="#3093A0"
+                        Opacity="0.57"
+                        BorderBrush="Transparent"
+                        Margin="353,0,0,19"
+                        Click="Button_Click" />
+            </Grid>
+        </Border>
+    </Grid>
+    
+</Window>

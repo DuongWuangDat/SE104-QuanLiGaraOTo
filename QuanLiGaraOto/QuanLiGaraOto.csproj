@@ -158,6 +158,9 @@
     <Compile Include="View\BaoTriXePage\BaoTriXePage.xaml.cs">
       <DependentUpon>BaoTriXePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\BaoTriXePage\QuanLiHieuXeWD.xaml.cs">
+      <DependentUpon>QuanLiHieuXeWD.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -179,6 +182,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\BaoTriXePage\BaoTriXePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\BaoTriXePage\QuanLiHieuXeWD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
