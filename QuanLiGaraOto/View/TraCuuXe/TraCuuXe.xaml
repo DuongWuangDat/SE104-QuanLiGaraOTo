@@ -144,7 +144,7 @@
                         ItemsSource="{Binding StaffObservation, Mode=TwoWay}"
                         SelectedItem="{Binding SelectedItem}"
                         SelectionMode="Single"
-                        SelectionUnit="FullRow" SelectionChanged="dataGrid_SelectionChanged">
+                        SelectionUnit="FullRow">
                         <DataGrid.CellStyle>
                             <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                                 <Setter Property="BorderThickness" Value="0" />
@@ -170,7 +170,7 @@
 
                             <DataGridTemplateColumn
                                 Width="auto"
-                                Header="Họ tên"
+                                Header=""
                                 SortMemberPath="DisplayName">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
