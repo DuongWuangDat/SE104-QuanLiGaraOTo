@@ -11,8 +11,9 @@
     Title="MainWindow"
     MinWidth="500"
     MinHeight="1000"
-    Height="864"
-    Width="1536"
+    d:DesignHeight="864"
+    
+    d:DesignWidth="1536"
     Background="#3F7B88"
     Closed="AdminWD_Closed"
     WindowState="Maximized"
