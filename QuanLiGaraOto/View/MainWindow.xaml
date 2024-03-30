@@ -12,7 +12,7 @@
     MinWidth="500"
     MinHeight="1000"
     d:DesignHeight="864"
-    
+    ResizeMode="NoResize"
     d:DesignWidth="1536"
     Background="#3F7B88"
     Closed="AdminWD_Closed"
