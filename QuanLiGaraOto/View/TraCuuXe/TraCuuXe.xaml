@@ -10,14 +10,16 @@
     Title="TraCuuXe"
     Width="1536"
     Height="800"
+    MinHeight="1000"
+    MinWidth='500'
     DataContext="{StaticResource TraCuuXeVM}"
     mc:Ignorable="d">
 
-    <Grid Background="White">
-        <Grid Margin="30">
+    <Grid Background="#3F7B88">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
-                <RowDefinition Height="6*" />
+                <RowDefinition Height="10*" />
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
@@ -26,61 +28,98 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <StackPanel
-                    Grid.Column="0"
-                    Width="auto"
-                    Orientation="Horizontal">
+                <Grid Grid.Column="0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
                     <!--  Search Box  -->
                     <Border
-                        Height="57"
-                        Margin="0,0,20,0"
-                        Background="#FFF4F4"
-                        BorderBrush="DarkGray"
-                        BorderThickness="2"
+                        Grid.Column="0"
+                        Height="47"
+                        Margin="20 0"
+                        Background="#FFFFFF"
+                        BorderThickness="0"
                         CornerRadius="16">
                         <Grid>
-                            <TextBox
-                                x:Name="searchBox"
-                                Width="300"
-                                HorizontalContentAlignment="Center"
-                                VerticalContentAlignment="Center"
-                                materialDesign:HintAssist.Hint="Tìm kiếm"
-                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                FontSize="17.6"
-                                TextAlignment="Center">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="TextChanged">
-                                        <i:InvokeCommandAction Command="{Binding SearchStaff}" CommandParameter="{Binding ElementName=searchBox}" />
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </TextBox>
+                            <StackPanel Orientation="Horizontal">
+                                <Grid
+                                    Width="50"
+                                    Height="47">
+                                    <Image
+                                        Width="35"
+                                        Height="35"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Source="/QuanLiGaraOto;component/Resources/Icon/Search.png" />
+                                </Grid>
 
-                            <Image
-                                Width="50"
-                                Height="50"
-                                Margin="0,0,10,0"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Source="/QuanLiGaraOto;component/Resources/Icon/Search.png" />
-
+                                <TextBox
+                                    x:Name="searchBox"
+                                    Margin="5,0"
+                                    HorizontalContentAlignment="Left"
+                                    VerticalContentAlignment="Center"
+                                    materialDesign:HintAssist.Hint="Tìm kiếm"
+                                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    FontFamily="Roboto Condensed"
+                                    FontSize="20"
+                                    FontWeight="Medium"
+                                    Foreground="#353535">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="TextChanged">
+                                            <i:InvokeCommandAction Command="{Binding SearchStaff}" CommandParameter="{Binding ElementName=searchBox}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBox>
+                            </StackPanel>
                         </Grid>
                     </Border>
 
                     <!--  Button Thêm  -->
-                    <Button
-                        Width="50"
-                        Height="50"
-                        Margin="0,0,30,0"
-                        BorderThickness="0"
-                        Command="{Binding OpenAddWindowCommand}"
-                        CommandParameter="{Binding ElementName=staffPage}">
-                        <Button.Background>
-                            <ImageBrush ImageSource="/QuanLiCoffeeShop;component/Resources/Icon/AddCusBtn.png" />
-                        </Button.Background>
-                    </Button>
-                </StackPanel>
+                    <Grid Grid.Column="1" Grid.RowSpan="2">
+                        <Border
+                            Width="151"
+                            Height="57"
+                            Margin="30,0"
+                            materialDesign:ElevationAssist.Elevation="Dp4"
+                            Background="White"
+                            BorderBrush="DarkGray"
+                            BorderThickness="0"
+                            CornerRadius="20">
+
+                            <Button
+                                Width="151"
+                                Height="57"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                materialDesign:ElevationAssist.Elevation="Dp3"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Command="{Binding OpenAddWindowCommand}"
+                                CommandParameter="{Binding ElementName=staffPage}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image
+                                        Width="30"
+                                        Height="30"
+                                        Source="/QuanLiGaraOto;component/Resources/Icon/Add.png" />
+
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontFamily="Roboto Condensed"
+                                        FontWeight="Bold"
+                                        Foreground="#3093A0">
+                                        Thêm
+                                    </TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </Border>
+                    </Grid>
+
+                </Grid>
+
             </Grid>
         </Grid>
 
