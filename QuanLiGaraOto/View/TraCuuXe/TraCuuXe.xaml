@@ -8,15 +8,13 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="TraCuuXe"
-    Width="1536"
-    Height="800"
-    MinHeight="1000"
-    MinWidth='500'
+    MaxWidth="1536"
+    MaxHeight="800"
     DataContext="{StaticResource TraCuuXeVM}"
     mc:Ignorable="d">
 
     <Grid Background="#3F7B88">
-        <Grid>
+        <Grid Margin="30">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="10*" />
@@ -24,103 +22,326 @@
 
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="1.5*" />
                     <ColumnDefinition />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+                <!--  Search Box  -->
+                <Border
+                    Grid.Column="0"
+                    MaxHeight="47"
+                    Background="#FFFFFF"
+                    BorderThickness="0"
+                    CornerRadius="16">
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <Grid MaxWidth="50" MaxHeight="47">
+                                <Image
+                                    Width="35"
+                                    Height="35"
+                                    Margin="10,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Source="/QuanLiGaraOto;component/Resources/Icon/Search.png" />
+                            </Grid>
 
-                <Grid Grid.Column="0" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <!--  Search Box  -->
-                    <Border
-                        Grid.Column="0"
-                        Height="47"
-                        Margin="20 0"
-                        Background="#FFFFFF"
-                        BorderThickness="0"
-                        CornerRadius="16">
-                        <Grid>
-                            <StackPanel Orientation="Horizontal">
-                                <Grid
-                                    Width="50"
-                                    Height="47">
-                                    <Image
-                                        Width="35"
-                                        Height="35"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Source="/QuanLiGaraOto;component/Resources/Icon/Search.png" />
-                                </Grid>
-
-                                <TextBox
-                                    x:Name="searchBox"
-                                    Margin="5,0"
-                                    HorizontalContentAlignment="Left"
-                                    VerticalContentAlignment="Center"
-                                    materialDesign:HintAssist.Hint="Tìm kiếm"
-                                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                    Background="Transparent"
-                                    BorderThickness="0"
-                                    FontFamily="Roboto Condensed"
-                                    FontSize="20"
-                                    FontWeight="Medium"
-                                    Foreground="#353535">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="TextChanged">
-                                            <i:InvokeCommandAction Command="{Binding SearchStaff}" CommandParameter="{Binding ElementName=searchBox}" />
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </TextBox>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-
-                    <!--  Button Thêm  -->
-                    <Grid Grid.Column="1" Grid.RowSpan="2">
-                        <Border
-                            Width="151"
-                            Height="57"
-                            Margin="30,0"
-                            materialDesign:ElevationAssist.Elevation="Dp4"
-                            Background="White"
-                            BorderBrush="DarkGray"
-                            BorderThickness="0"
-                            CornerRadius="20">
-
-                            <Button
-                                Width="151"
-                                Height="57"
-                                HorizontalContentAlignment="Center"
+                            <TextBox
+                                x:Name="searchBox"
+                                MinWidth="200"
+                                Margin="5,0"
+                                HorizontalContentAlignment="Left"
                                 VerticalContentAlignment="Center"
-                                materialDesign:ElevationAssist.Elevation="Dp3"
+                                materialDesign:HintAssist.Hint="Tìm kiếm"
+                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                 Background="Transparent"
                                 BorderThickness="0"
-                                Command="{Binding OpenAddWindowCommand}"
-                                CommandParameter="{Binding ElementName=staffPage}">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image
-                                        Width="30"
-                                        Height="30"
-                                        Source="/QuanLiGaraOto;component/Resources/Icon/Add.png" />
-
-                                    <TextBlock
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontFamily="Roboto Condensed"
-                                        FontWeight="Bold"
-                                        Foreground="#3093A0">
-                                        Thêm
-                                    </TextBlock>
-                                </StackPanel>
-                            </Button>
-                        </Border>
+                                FontFamily="Roboto Condensed"
+                                FontSize="20"
+                                FontWeight="Medium"
+                                Foreground="#353535">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="TextChanged">
+                                        <i:InvokeCommandAction Command="{Binding SearchStaff}" CommandParameter="{Binding ElementName=searchBox}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+                        </StackPanel>
                     </Grid>
+                </Border>
 
+                <!--  Button Thêm  -->
+                <Grid Grid.Column="1">
+
+                    <Button
+                        MinWidth="120"
+                        MinHeight="50"
+                        MaxWidth="151"
+                        MaxHeight="57"
+                        Margin="20,0"
+                        HorizontalAlignment="Left"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        materialDesign:ButtonAssist.CornerRadius="20"
+                        materialDesign:ElevationAssist.Elevation="Dp3"
+                        Background="White"
+                        BorderThickness="0"
+                        Command="{Binding OpenAddWindowCommand}"
+                        CommandParameter="{Binding ElementName=staffPage}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                MaxWidth="30"
+                                MaxHeight="30"
+                                Source="/QuanLiGaraOto;component/Resources/Icon/Add.png" />
+
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontFamily="Roboto Condensed"
+                                FontWeight="Bold"
+                                Foreground="#3093A0">
+                                Thêm
+                            </TextBlock>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+
+                <Grid
+                    Grid.Column="3"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center">
+                    <TextBlock
+                        FontFamily="Roboto Condensed"
+                        FontSize="26"
+                        FontWeight="Bold"
+                        Foreground="White">
+                        Số xe: 4
+                    </TextBlock>
                 </Grid>
 
             </Grid>
+
+            <!--  Tra cứu xe  -->
+            <Border
+                Grid.Row="1"
+                Margin="30,0,30,30"
+                Background="Transparent"
+                CornerRadius="35">
+                <Border
+                    Margin="18"
+                    Background="White"
+                    CornerRadius="20">
+                    <DataGrid
+                        x:Name="dataGrid"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        AutoGenerateColumns="False"
+                        Background="White"
+                        CanUserReorderColumns="False"
+                        CanUserResizeColumns="False"
+                        CanUserSortColumns="True"
+                        ColumnWidth="SizeToCells"
+                        IsReadOnly="True"
+                        ItemsSource="{Binding StaffObservation, Mode=TwoWay}"
+                        SelectedItem="{Binding SelectedItem}"
+                        SelectionMode="Single"
+                        SelectionUnit="FullRow" SelectionChanged="dataGrid_SelectionChanged">
+                        <DataGrid.CellStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                            </Style>
+                        </DataGrid.CellStyle>
+
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn
+                                Width="auto"
+                                Header="ID"
+                                SortMemberPath="ID">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontSize="15"
+                                            Text="{Binding ID}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn
+                                Width="auto"
+                                Header="Họ tên"
+                                SortMemberPath="DisplayName">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontSize="15"
+                                            Text="{Binding DisplayName}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn
+                                Width="auto"
+                                Header="Số điện thoại"
+                                SortMemberPath="PhoneNumber">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontSize="15"
+                                            Text="{Binding PhoneNumber}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn
+                                Width="auto"
+                                Header="Email"
+                                SortMemberPath="Email">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontSize="15"
+                                            Text="{Binding Email}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn
+                                Width="auto"
+                                Header="Giới tính"
+                                SortMemberPath="Gender">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontSize="15"
+                                            Text="{Binding Gender}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn
+                                Width="auto"
+                                Header="Ngày sinh"
+                                SortMemberPath="BirthDay">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <DatePicker
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontSize="15"
+                                            IsHitTestVisible="False"
+                                            IsTodayHighlighted="True"
+                                            SelectedDate="{Binding BirthDay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn
+                                Width="auto"
+                                Header="Ngày bắt đầu"
+                                SortMemberPath="StartDate">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <DatePicker
+                                            FontSize="15"
+                                            IsHitTestVisible="False"
+                                            IsTodayHighlighted="True"
+                                            SelectedDate="{Binding StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn
+                                Width="auto"
+                                Header="Chức vụ"
+                                SortMemberPath="Role">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontSize="15"
+                                            Text="{Binding Role}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn
+                                Width="auto"
+                                Header="Lương"
+                                SortMemberPath="Wage">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontSize="15"
+                                            Text="{Binding Wage, StringFormat={}{0:N0} VNĐ}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn
+                                Width="auto"
+                                Header="Trạng thái"
+                                SortMemberPath="Status">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontSize="15"
+                                            Text="{Binding Status}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <!--  Button chỉnh sửa, xóa cho mỗi staff  -->
+                            <DataGridTemplateColumn Width="auto" Header="">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button
+                                                Width="24.8"
+                                                Height="24.8"
+                                                BorderBrush="Transparent"
+                                                Click="Edit_Click">
+                                                <Button.Background>
+                                                    <ImageBrush ImageSource="/QuanLiGaraOto;component/Resources/Icon/Edit.png" />
+                                                </Button.Background>
+                                            </Button>
+
+                                            <Button
+                                                Width="24.8"
+                                                Height="24.8"
+                                                Margin="12,0,0,0"
+                                                BorderBrush="Transparent"
+                                                Click="Delete_Click">
+                                                <Button.Background>
+                                                    <ImageBrush ImageSource="/QuanLiGaraOto;component/Resources/Icon/Trash.png" />
+                                                </Button.Background>
+                                            </Button>
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Border>
+
+            </Border>
+
         </Grid>
 
     </Grid>

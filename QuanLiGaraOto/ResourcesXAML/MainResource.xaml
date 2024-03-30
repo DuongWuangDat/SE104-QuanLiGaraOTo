@@ -1,7 +1,9 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:viewmodel="clr-namespace:QuanLiGaraOto.ViewModel"
-                    xmlns:tracuuxeviewmodel="clr-namespace:QuanLiGaraOto.ViewModel.TraCuuXeVM"
-                    >
-    <tracuuxeviewmodel:TraCuuXeViewModel x:Key="TraCuuXeVM"/>
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:viewmodel1="clr-namespace:QuanLiGaraOto.ViewModel.BaoTriXeVM"
+    xmlns:tracuuxeviewmodel="clr-namespace:QuanLiGaraOto.ViewModel.TraCuuXeVM"
+    xmlns:viewmodel="clr-namespace:QuanLiGaraOto.ViewModel">
+
+    <tracuuxeviewmodel:TraCuuXeViewModel x:Key="TraCuuXeVM" />
 </ResourceDictionary>

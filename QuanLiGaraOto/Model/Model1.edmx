@@ -1,0 +1,1043 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="QuanLiGaraOtoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bill">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReceptionID" Type="int" />
+          <Property Name="CreateAt" Type="smalldatetime" />
+          <Property Name="TotalPrice" Type="money" />
+        </EntityType>
+        <EntityType Name="BrandCar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="20" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="InventoryReport">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Month" Type="int" />
+          <Property Name="Year" Type="int" />
+        </EntityType>
+        <EntityType Name="InventoryReportDetail">
+          <Key>
+            <PropertyRef Name="InventoryReportID" />
+            <PropertyRef Name="SuppliesID" />
+          </Key>
+          <Property Name="InventoryReportID" Type="int" Nullable="false" />
+          <Property Name="SuppliesID" Type="int" Nullable="false" />
+          <Property Name="TonDau" Type="int" />
+          <Property Name="PhatSinh" Type="int" />
+          <Property Name="TonCuoi" Type="int" />
+        </EntityType>
+        <EntityType Name="Parameter">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Value" Type="float" />
+        </EntityType>
+        <EntityType Name="Reception">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerID" Type="int" />
+          <Property Name="LicensePlate" Type="varchar" MaxLength="20" />
+          <Property Name="BrandID" Type="int" />
+          <Property Name="Debt" Type="money" />
+          <Property Name="CreatedAt" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="Repair">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReceptionID" Type="int" />
+          <Property Name="TotalPrice" Type="money" />
+          <Property Name="RepairDate" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="RepairDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RepairID" Type="int" />
+          <Property Name="WageID" Type="int" />
+          <Property Name="Content" Type="int" />
+          <Property Name="Price" Type="money" />
+        </EntityType>
+        <EntityType Name="RepairSuppliesDetail">
+          <Key>
+            <PropertyRef Name="RepairDetailID" />
+            <PropertyRef Name="SuppliesID" />
+          </Key>
+          <Property Name="RepairDetailID" Type="int" Nullable="false" />
+          <Property Name="SuppliesID" Type="int" Nullable="false" />
+          <Property Name="Count" Type="int" />
+          <Property Name="Price" Type="money" />
+        </EntityType>
+        <EntityType Name="Revenue">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Month" Type="int" />
+          <Property Name="Year" Type="int" />
+          <Property Name="TotalPrice" Type="money" />
+        </EntityType>
+        <EntityType Name="RevenueDetail">
+          <Key>
+            <PropertyRef Name="RevenueId" />
+            <PropertyRef Name="BrandCarId" />
+          </Key>
+          <Property Name="RevenueId" Type="int" Nullable="false" />
+          <Property Name="BrandCarId" Type="int" Nullable="false" />
+          <Property Name="RepairCount" Type="int" />
+          <Property Name="Ratio" Type="float" />
+          <Property Name="Price" Type="money" />
+        </EntityType>
+        <EntityType Name="Supplies">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="CountInStock" Type="int" />
+          <Property Name="Price" Type="money" />
+        </EntityType>
+        <EntityType Name="SuppliesInput">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateInput" Type="smalldatetime" />
+          <Property Name="TotalMoney" Type="money" />
+        </EntityType>
+        <EntityType Name="SuppliesInputDetail">
+          <Key>
+            <PropertyRef Name="InputID" />
+            <PropertyRef Name="SuppliesID" />
+          </Key>
+          <Property Name="InputID" Type="int" Nullable="false" />
+          <Property Name="SuppliesID" Type="int" Nullable="false" />
+          <Property Name="Count" Type="int" />
+          <Property Name="PriceItem" Type="money" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Wage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Price" Type="money" />
+        </EntityType>
+        <Association Name="FK_Bill_Recept">
+          <End Role="Reception" Type="Self.Reception" Multiplicity="0..1" />
+          <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reception">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="ReceptionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InventoryDT_Inventory">
+          <End Role="InventoryReport" Type="Self.InventoryReport" Multiplicity="1" />
+          <End Role="InventoryReportDetail" Type="Self.InventoryReportDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InventoryReport">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="InventoryReportDetail">
+              <PropertyRef Name="InventoryReportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InventoryDT_Supplies">
+          <End Role="Supplies" Type="Self.Supplies" Multiplicity="1" />
+          <End Role="InventoryReportDetail" Type="Self.InventoryReportDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplies">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="InventoryReportDetail">
+              <PropertyRef Name="SuppliesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recept_Brand">
+          <End Role="BrandCar" Type="Self.BrandCar" Multiplicity="0..1" />
+          <End Role="Reception" Type="Self.Reception" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BrandCar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Reception">
+              <PropertyRef Name="BrandID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recept_Cus">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Reception" Type="Self.Reception" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Reception">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Repair_Recept">
+          <End Role="Reception" Type="Self.Reception" Multiplicity="0..1" />
+          <End Role="Repair" Type="Self.Repair" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reception">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Repair">
+              <PropertyRef Name="ReceptionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairDT_Repair">
+          <End Role="Repair" Type="Self.Repair" Multiplicity="0..1" />
+          <End Role="RepairDetail" Type="Self.RepairDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Repair">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RepairDetail">
+              <PropertyRef Name="RepairID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairDT_Wage">
+          <End Role="Wage" Type="Self.Wage" Multiplicity="0..1" />
+          <End Role="RepairDetail" Type="Self.RepairDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wage">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RepairDetail">
+              <PropertyRef Name="RepairID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairSupDT_RepairDT">
+          <End Role="RepairDetail" Type="Self.RepairDetail" Multiplicity="1" />
+          <End Role="RepairSuppliesDetail" Type="Self.RepairSuppliesDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RepairDetail">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RepairSuppliesDetail">
+              <PropertyRef Name="RepairDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairSupDT_Sup">
+          <End Role="Supplies" Type="Self.Supplies" Multiplicity="1" />
+          <End Role="RepairSuppliesDetail" Type="Self.RepairSuppliesDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplies">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RepairSuppliesDetail">
+              <PropertyRef Name="SuppliesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RevenueDT_Brand">
+          <End Role="BrandCar" Type="Self.BrandCar" Multiplicity="1" />
+          <End Role="RevenueDetail" Type="Self.RevenueDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BrandCar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RevenueDetail">
+              <PropertyRef Name="BrandCarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RevenueDT_Revenue">
+          <End Role="Revenue" Type="Self.Revenue" Multiplicity="1" />
+          <End Role="RevenueDetail" Type="Self.RevenueDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Revenue">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RevenueDetail">
+              <PropertyRef Name="RevenueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SuppliesInputDetail_Input">
+          <End Role="SuppliesInput" Type="Self.SuppliesInput" Multiplicity="1" />
+          <End Role="SuppliesInputDetail" Type="Self.SuppliesInputDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SuppliesInput">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SuppliesInputDetail">
+              <PropertyRef Name="InputID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SuppliesInputDetail_Supply">
+          <End Role="Supplies" Type="Self.Supplies" Multiplicity="1" />
+          <End Role="SuppliesInputDetail" Type="Self.SuppliesInputDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplies">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SuppliesInputDetail">
+              <PropertyRef Name="SuppliesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QuanLiGaraOtoModelStoreContainer">
+          <EntitySet Name="Bill" EntityType="Self.Bill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BrandCar" EntityType="Self.BrandCar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InventoryReport" EntityType="Self.InventoryReport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InventoryReportDetail" EntityType="Self.InventoryReportDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Parameter" EntityType="Self.Parameter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reception" EntityType="Self.Reception" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Repair" EntityType="Self.Repair" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RepairDetail" EntityType="Self.RepairDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RepairSuppliesDetail" EntityType="Self.RepairSuppliesDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Revenue" EntityType="Self.Revenue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RevenueDetail" EntityType="Self.RevenueDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplies" EntityType="Self.Supplies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SuppliesInput" EntityType="Self.SuppliesInput" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SuppliesInputDetail" EntityType="Self.SuppliesInputDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wage" EntityType="Self.Wage" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Bill_Recept" Association="Self.FK_Bill_Recept">
+            <End Role="Reception" EntitySet="Reception" />
+            <End Role="Bill" EntitySet="Bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InventoryDT_Inventory" Association="Self.FK_InventoryDT_Inventory">
+            <End Role="InventoryReport" EntitySet="InventoryReport" />
+            <End Role="InventoryReportDetail" EntitySet="InventoryReportDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InventoryDT_Supplies" Association="Self.FK_InventoryDT_Supplies">
+            <End Role="Supplies" EntitySet="Supplies" />
+            <End Role="InventoryReportDetail" EntitySet="InventoryReportDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recept_Brand" Association="Self.FK_Recept_Brand">
+            <End Role="BrandCar" EntitySet="BrandCar" />
+            <End Role="Reception" EntitySet="Reception" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recept_Cus" Association="Self.FK_Recept_Cus">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Reception" EntitySet="Reception" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Repair_Recept" Association="Self.FK_Repair_Recept">
+            <End Role="Reception" EntitySet="Reception" />
+            <End Role="Repair" EntitySet="Repair" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairDT_Repair" Association="Self.FK_RepairDT_Repair">
+            <End Role="Repair" EntitySet="Repair" />
+            <End Role="RepairDetail" EntitySet="RepairDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairDT_Wage" Association="Self.FK_RepairDT_Wage">
+            <End Role="Wage" EntitySet="Wage" />
+            <End Role="RepairDetail" EntitySet="RepairDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairSupDT_RepairDT" Association="Self.FK_RepairSupDT_RepairDT">
+            <End Role="RepairDetail" EntitySet="RepairDetail" />
+            <End Role="RepairSuppliesDetail" EntitySet="RepairSuppliesDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairSupDT_Sup" Association="Self.FK_RepairSupDT_Sup">
+            <End Role="Supplies" EntitySet="Supplies" />
+            <End Role="RepairSuppliesDetail" EntitySet="RepairSuppliesDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RevenueDT_Brand" Association="Self.FK_RevenueDT_Brand">
+            <End Role="BrandCar" EntitySet="BrandCar" />
+            <End Role="RevenueDetail" EntitySet="RevenueDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RevenueDT_Revenue" Association="Self.FK_RevenueDT_Revenue">
+            <End Role="Revenue" EntitySet="Revenue" />
+            <End Role="RevenueDetail" EntitySet="RevenueDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SuppliesInputDetail_Input" Association="Self.FK_SuppliesInputDetail_Input">
+            <End Role="SuppliesInput" EntitySet="SuppliesInput" />
+            <End Role="SuppliesInputDetail" EntitySet="SuppliesInputDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SuppliesInputDetail_Supply" Association="Self.FK_SuppliesInputDetail_Supply">
+            <End Role="Supplies" EntitySet="Supplies" />
+            <End Role="SuppliesInputDetail" EntitySet="SuppliesInputDetail" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QuanLiGaraOtoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bill">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReceptionID" Type="Int32" />
+          <Property Name="CreateAt" Type="DateTime" Precision="0" />
+          <Property Name="TotalPrice" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Reception" Relationship="Self.FK_Bill_Recept" FromRole="Bill" ToRole="Reception" />
+        </EntityType>
+        <EntityType Name="BrandCar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Receptions" Relationship="Self.FK_Recept_Brand" FromRole="BrandCar" ToRole="Reception" />
+          <NavigationProperty Name="RevenueDetails" Relationship="Self.FK_RevenueDT_Brand" FromRole="BrandCar" ToRole="RevenueDetail" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Receptions" Relationship="Self.FK_Recept_Cus" FromRole="Customer" ToRole="Reception" />
+        </EntityType>
+        <EntityType Name="InventoryReport">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Month" Type="Int32" />
+          <Property Name="Year" Type="Int32" />
+          <NavigationProperty Name="InventoryReportDetails" Relationship="Self.FK_InventoryDT_Inventory" FromRole="InventoryReport" ToRole="InventoryReportDetail" />
+        </EntityType>
+        <EntityType Name="InventoryReportDetail">
+          <Key>
+            <PropertyRef Name="InventoryReportID" />
+            <PropertyRef Name="SuppliesID" />
+          </Key>
+          <Property Name="InventoryReportID" Type="Int32" Nullable="false" />
+          <Property Name="SuppliesID" Type="Int32" Nullable="false" />
+          <Property Name="TonDau" Type="Int32" />
+          <Property Name="PhatSinh" Type="Int32" />
+          <Property Name="TonCuoi" Type="Int32" />
+          <NavigationProperty Name="InventoryReport" Relationship="Self.FK_InventoryDT_Inventory" FromRole="InventoryReportDetail" ToRole="InventoryReport" />
+          <NavigationProperty Name="Supply" Relationship="Self.FK_InventoryDT_Supplies" FromRole="InventoryReportDetail" ToRole="Supplies" />
+        </EntityType>
+        <EntityType Name="Parameter">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="Double" />
+        </EntityType>
+        <EntityType Name="Reception">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="Int32" />
+          <Property Name="LicensePlate" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BrandID" Type="Int32" />
+          <Property Name="Debt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Bills" Relationship="Self.FK_Bill_Recept" FromRole="Reception" ToRole="Bill" />
+          <NavigationProperty Name="BrandCar" Relationship="Self.FK_Recept_Brand" FromRole="Reception" ToRole="BrandCar" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Recept_Cus" FromRole="Reception" ToRole="Customer" />
+          <NavigationProperty Name="Repairs" Relationship="Self.FK_Repair_Recept" FromRole="Reception" ToRole="Repair" />
+        </EntityType>
+        <EntityType Name="Repair">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReceptionID" Type="Int32" />
+          <Property Name="TotalPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="RepairDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Reception" Relationship="Self.FK_Repair_Recept" FromRole="Repair" ToRole="Reception" />
+          <NavigationProperty Name="RepairDetails" Relationship="Self.FK_RepairDT_Repair" FromRole="Repair" ToRole="RepairDetail" />
+        </EntityType>
+        <EntityType Name="RepairDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RepairID" Type="Int32" />
+          <Property Name="WageID" Type="Int32" />
+          <Property Name="Content" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Repair" Relationship="Self.FK_RepairDT_Repair" FromRole="RepairDetail" ToRole="Repair" />
+          <NavigationProperty Name="Wage" Relationship="Self.FK_RepairDT_Wage" FromRole="RepairDetail" ToRole="Wage" />
+          <NavigationProperty Name="RepairSuppliesDetails" Relationship="Self.FK_RepairSupDT_RepairDT" FromRole="RepairDetail" ToRole="RepairSuppliesDetail" />
+        </EntityType>
+        <EntityType Name="RepairSuppliesDetail">
+          <Key>
+            <PropertyRef Name="RepairDetailID" />
+            <PropertyRef Name="SuppliesID" />
+          </Key>
+          <Property Name="RepairDetailID" Type="Int32" Nullable="false" />
+          <Property Name="SuppliesID" Type="Int32" Nullable="false" />
+          <Property Name="Count" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="RepairDetail" Relationship="Self.FK_RepairSupDT_RepairDT" FromRole="RepairSuppliesDetail" ToRole="RepairDetail" />
+          <NavigationProperty Name="Supply" Relationship="Self.FK_RepairSupDT_Sup" FromRole="RepairSuppliesDetail" ToRole="Supplies" />
+        </EntityType>
+        <EntityType Name="Revenue">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Month" Type="Int32" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="TotalPrice" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="RevenueDetails" Relationship="Self.FK_RevenueDT_Revenue" FromRole="Revenue" ToRole="RevenueDetail" />
+        </EntityType>
+        <EntityType Name="RevenueDetail">
+          <Key>
+            <PropertyRef Name="RevenueId" />
+            <PropertyRef Name="BrandCarId" />
+          </Key>
+          <Property Name="RevenueId" Type="Int32" Nullable="false" />
+          <Property Name="BrandCarId" Type="Int32" Nullable="false" />
+          <Property Name="RepairCount" Type="Int32" />
+          <Property Name="Ratio" Type="Double" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="BrandCar" Relationship="Self.FK_RevenueDT_Brand" FromRole="RevenueDetail" ToRole="BrandCar" />
+          <NavigationProperty Name="Revenue" Relationship="Self.FK_RevenueDT_Revenue" FromRole="RevenueDetail" ToRole="Revenue" />
+        </EntityType>
+        <EntityType Name="Supply">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CountInStock" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="InventoryReportDetails" Relationship="Self.FK_InventoryDT_Supplies" FromRole="Supplies" ToRole="InventoryReportDetail" />
+          <NavigationProperty Name="RepairSuppliesDetails" Relationship="Self.FK_RepairSupDT_Sup" FromRole="Supplies" ToRole="RepairSuppliesDetail" />
+          <NavigationProperty Name="SuppliesInputDetails" Relationship="Self.FK_SuppliesInputDetail_Supply" FromRole="Supplies" ToRole="SuppliesInputDetail" />
+        </EntityType>
+        <EntityType Name="SuppliesInput">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateInput" Type="DateTime" Precision="0" />
+          <Property Name="TotalMoney" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="SuppliesInputDetails" Relationship="Self.FK_SuppliesInputDetail_Input" FromRole="SuppliesInput" ToRole="SuppliesInputDetail" />
+        </EntityType>
+        <EntityType Name="SuppliesInputDetail">
+          <Key>
+            <PropertyRef Name="InputID" />
+            <PropertyRef Name="SuppliesID" />
+          </Key>
+          <Property Name="InputID" Type="Int32" Nullable="false" />
+          <Property Name="SuppliesID" Type="Int32" Nullable="false" />
+          <Property Name="Count" Type="Int32" />
+          <Property Name="PriceItem" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Supply" Relationship="Self.FK_SuppliesInputDetail_Supply" FromRole="SuppliesInputDetail" ToRole="Supplies" />
+          <NavigationProperty Name="SuppliesInput" Relationship="Self.FK_SuppliesInputDetail_Input" FromRole="SuppliesInputDetail" ToRole="SuppliesInput" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Wage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="RepairDetails" Relationship="Self.FK_RepairDT_Wage" FromRole="Wage" ToRole="RepairDetail" />
+        </EntityType>
+        <Association Name="FK_Bill_Recept">
+          <End Role="Reception" Type="Self.Reception" Multiplicity="0..1" />
+          <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reception">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="ReceptionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recept_Brand">
+          <End Role="BrandCar" Type="Self.BrandCar" Multiplicity="0..1" />
+          <End Role="Reception" Type="Self.Reception" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BrandCar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Reception">
+              <PropertyRef Name="BrandID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RevenueDT_Brand">
+          <End Role="BrandCar" Type="Self.BrandCar" Multiplicity="1" />
+          <End Role="RevenueDetail" Type="Self.RevenueDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BrandCar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RevenueDetail">
+              <PropertyRef Name="BrandCarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recept_Cus">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Reception" Type="Self.Reception" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Reception">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InventoryDT_Inventory">
+          <End Role="InventoryReport" Type="Self.InventoryReport" Multiplicity="1" />
+          <End Role="InventoryReportDetail" Type="Self.InventoryReportDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InventoryReport">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="InventoryReportDetail">
+              <PropertyRef Name="InventoryReportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InventoryDT_Supplies">
+          <End Role="Supplies" Type="Self.Supply" Multiplicity="1" />
+          <End Role="InventoryReportDetail" Type="Self.InventoryReportDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplies">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="InventoryReportDetail">
+              <PropertyRef Name="SuppliesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Repair_Recept">
+          <End Role="Reception" Type="Self.Reception" Multiplicity="0..1" />
+          <End Role="Repair" Type="Self.Repair" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reception">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Repair">
+              <PropertyRef Name="ReceptionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairDT_Repair">
+          <End Role="Repair" Type="Self.Repair" Multiplicity="0..1" />
+          <End Role="RepairDetail" Type="Self.RepairDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Repair">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RepairDetail">
+              <PropertyRef Name="RepairID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairDT_Wage">
+          <End Role="Wage" Type="Self.Wage" Multiplicity="0..1" />
+          <End Role="RepairDetail" Type="Self.RepairDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wage">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RepairDetail">
+              <PropertyRef Name="RepairID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairSupDT_RepairDT">
+          <End Role="RepairDetail" Type="Self.RepairDetail" Multiplicity="1" />
+          <End Role="RepairSuppliesDetail" Type="Self.RepairSuppliesDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RepairDetail">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RepairSuppliesDetail">
+              <PropertyRef Name="RepairDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairSupDT_Sup">
+          <End Role="Supplies" Type="Self.Supply" Multiplicity="1" />
+          <End Role="RepairSuppliesDetail" Type="Self.RepairSuppliesDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplies">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RepairSuppliesDetail">
+              <PropertyRef Name="SuppliesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RevenueDT_Revenue">
+          <End Role="Revenue" Type="Self.Revenue" Multiplicity="1" />
+          <End Role="RevenueDetail" Type="Self.RevenueDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Revenue">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RevenueDetail">
+              <PropertyRef Name="RevenueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SuppliesInputDetail_Supply">
+          <End Role="Supplies" Type="Self.Supply" Multiplicity="1" />
+          <End Role="SuppliesInputDetail" Type="Self.SuppliesInputDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplies">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SuppliesInputDetail">
+              <PropertyRef Name="SuppliesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SuppliesInputDetail_Input">
+          <End Role="SuppliesInput" Type="Self.SuppliesInput" Multiplicity="1" />
+          <End Role="SuppliesInputDetail" Type="Self.SuppliesInputDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SuppliesInput">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SuppliesInputDetail">
+              <PropertyRef Name="InputID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QuanLiGaraOtoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bills" EntityType="Self.Bill" />
+          <EntitySet Name="BrandCars" EntityType="Self.BrandCar" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="InventoryReports" EntityType="Self.InventoryReport" />
+          <EntitySet Name="InventoryReportDetails" EntityType="Self.InventoryReportDetail" />
+          <EntitySet Name="Parameters" EntityType="Self.Parameter" />
+          <EntitySet Name="Receptions" EntityType="Self.Reception" />
+          <EntitySet Name="Repairs" EntityType="Self.Repair" />
+          <EntitySet Name="RepairDetails" EntityType="Self.RepairDetail" />
+          <EntitySet Name="RepairSuppliesDetails" EntityType="Self.RepairSuppliesDetail" />
+          <EntitySet Name="Revenues" EntityType="Self.Revenue" />
+          <EntitySet Name="RevenueDetails" EntityType="Self.RevenueDetail" />
+          <EntitySet Name="Supplies" EntityType="Self.Supply" />
+          <EntitySet Name="SuppliesInputs" EntityType="Self.SuppliesInput" />
+          <EntitySet Name="SuppliesInputDetails" EntityType="Self.SuppliesInputDetail" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Wages" EntityType="Self.Wage" />
+          <AssociationSet Name="FK_Bill_Recept" Association="Self.FK_Bill_Recept">
+            <End Role="Reception" EntitySet="Receptions" />
+            <End Role="Bill" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recept_Brand" Association="Self.FK_Recept_Brand">
+            <End Role="BrandCar" EntitySet="BrandCars" />
+            <End Role="Reception" EntitySet="Receptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RevenueDT_Brand" Association="Self.FK_RevenueDT_Brand">
+            <End Role="BrandCar" EntitySet="BrandCars" />
+            <End Role="RevenueDetail" EntitySet="RevenueDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recept_Cus" Association="Self.FK_Recept_Cus">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Reception" EntitySet="Receptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InventoryDT_Inventory" Association="Self.FK_InventoryDT_Inventory">
+            <End Role="InventoryReport" EntitySet="InventoryReports" />
+            <End Role="InventoryReportDetail" EntitySet="InventoryReportDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InventoryDT_Supplies" Association="Self.FK_InventoryDT_Supplies">
+            <End Role="Supplies" EntitySet="Supplies" />
+            <End Role="InventoryReportDetail" EntitySet="InventoryReportDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Repair_Recept" Association="Self.FK_Repair_Recept">
+            <End Role="Reception" EntitySet="Receptions" />
+            <End Role="Repair" EntitySet="Repairs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairDT_Repair" Association="Self.FK_RepairDT_Repair">
+            <End Role="Repair" EntitySet="Repairs" />
+            <End Role="RepairDetail" EntitySet="RepairDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairDT_Wage" Association="Self.FK_RepairDT_Wage">
+            <End Role="Wage" EntitySet="Wages" />
+            <End Role="RepairDetail" EntitySet="RepairDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairSupDT_RepairDT" Association="Self.FK_RepairSupDT_RepairDT">
+            <End Role="RepairDetail" EntitySet="RepairDetails" />
+            <End Role="RepairSuppliesDetail" EntitySet="RepairSuppliesDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairSupDT_Sup" Association="Self.FK_RepairSupDT_Sup">
+            <End Role="Supplies" EntitySet="Supplies" />
+            <End Role="RepairSuppliesDetail" EntitySet="RepairSuppliesDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RevenueDT_Revenue" Association="Self.FK_RevenueDT_Revenue">
+            <End Role="Revenue" EntitySet="Revenues" />
+            <End Role="RevenueDetail" EntitySet="RevenueDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SuppliesInputDetail_Supply" Association="Self.FK_SuppliesInputDetail_Supply">
+            <End Role="Supplies" EntitySet="Supplies" />
+            <End Role="SuppliesInputDetail" EntitySet="SuppliesInputDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SuppliesInputDetail_Input" Association="Self.FK_SuppliesInputDetail_Input">
+            <End Role="SuppliesInput" EntitySet="SuppliesInputs" />
+            <End Role="SuppliesInputDetail" EntitySet="SuppliesInputDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QuanLiGaraOtoModelStoreContainer" CdmEntityContainer="QuanLiGaraOtoEntities">
+          <EntitySetMapping Name="Bills">
+            <EntityTypeMapping TypeName="QuanLiGaraOtoModel.Bill">
+              <MappingFragment StoreEntitySet="Bill">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ReceptionID" ColumnName="ReceptionID" />
+                <ScalarProperty Name="CreateAt" ColumnName="CreateAt" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BrandCars">
+            <EntityTypeMapping TypeName="QuanLiGaraOtoModel.BrandCar">
+              <MappingFragment StoreEntitySet="BrandCar">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="QuanLiGaraOtoModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InventoryReports">
+            <EntityTypeMapping TypeName="QuanLiGaraOtoModel.InventoryReport">
+              <MappingFragment StoreEntitySet="InventoryReport">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InventoryReportDetails">
+            <EntityTypeMapping TypeName="QuanLiGaraOtoModel.InventoryReportDetail">
+              <MappingFragment StoreEntitySet="InventoryReportDetail">
+                <ScalarProperty Name="InventoryReportID" ColumnName="InventoryReportID" />
+                <ScalarProperty Name="SuppliesID" ColumnName="SuppliesID" />
+                <ScalarProperty Name="TonDau" ColumnName="TonDau" />
+                <ScalarProperty Name="PhatSinh" ColumnName="PhatSinh" />
+                <ScalarProperty Name="TonCuoi" ColumnName="TonCuoi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parameters">
+            <EntityTypeMapping TypeName="QuanLiGaraOtoModel.Parameter">
+              <MappingFragment StoreEntitySet="Parameter">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Receptions">
+            <EntityTypeMapping TypeName="QuanLiGaraOtoModel.Reception">
+              <MappingFragment StoreEntitySet="Reception">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="LicensePlate" ColumnName="LicensePlate" />
+                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
+                <ScalarProperty Name="Debt" ColumnName="Debt" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Repairs">
+            <EntityTypeMapping TypeName="QuanLiGaraOtoModel.Repair">
+              <MappingFragment StoreEntitySet="Repair">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ReceptionID" ColumnName="ReceptionID" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="RepairDate" ColumnName="RepairDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RepairDetails">
+            <EntityTypeMapping TypeName="QuanLiGaraOtoModel.RepairDetail">
+              <MappingFragment StoreEntitySet="RepairDetail">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="RepairID" ColumnName="RepairID" />
+                <ScalarProperty Name="WageID" ColumnName="WageID" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RepairSuppliesDetails">
+            <EntityTypeMapping TypeName="QuanLiGaraOtoModel.RepairSuppliesDetail">
+              <MappingFragment StoreEntitySet="RepairSuppliesDetail">
+                <ScalarProperty Name="RepairDetailID" ColumnName="RepairDetailID" />
+                <ScalarProperty Name="SuppliesID" ColumnName="SuppliesID" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Revenues">
+            <EntityTypeMapping TypeName="QuanLiGaraOtoModel.Revenue">
+              <MappingFragment StoreEntitySet="Revenue">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RevenueDetails">
+            <EntityTypeMapping TypeName="QuanLiGaraOtoModel.RevenueDetail">
+              <MappingFragment StoreEntitySet="RevenueDetail">
+                <ScalarProperty Name="RevenueId" ColumnName="RevenueId" />
+                <ScalarProperty Name="BrandCarId" ColumnName="BrandCarId" />
+                <ScalarProperty Name="RepairCount" ColumnName="RepairCount" />
+                <ScalarProperty Name="Ratio" ColumnName="Ratio" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supplies">
+            <EntityTypeMapping TypeName="QuanLiGaraOtoModel.Supply">
+              <MappingFragment StoreEntitySet="Supplies">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CountInStock" ColumnName="CountInStock" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SuppliesInputs">
+            <EntityTypeMapping TypeName="QuanLiGaraOtoModel.SuppliesInput">
+              <MappingFragment StoreEntitySet="SuppliesInput">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DateInput" ColumnName="DateInput" />
+                <ScalarProperty Name="TotalMoney" ColumnName="TotalMoney" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SuppliesInputDetails">
+            <EntityTypeMapping TypeName="QuanLiGaraOtoModel.SuppliesInputDetail">
+              <MappingFragment StoreEntitySet="SuppliesInputDetail">
+                <ScalarProperty Name="InputID" ColumnName="InputID" />
+                <ScalarProperty Name="SuppliesID" ColumnName="SuppliesID" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="PriceItem" ColumnName="PriceItem" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="QuanLiGaraOtoModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wages">
+            <EntityTypeMapping TypeName="QuanLiGaraOtoModel.Wage">
+              <MappingFragment StoreEntitySet="Wage">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
