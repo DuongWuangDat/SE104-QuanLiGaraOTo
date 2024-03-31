@@ -145,9 +145,6 @@
     <Compile Include="Model\Supply.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\sysdiagram.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Model\Wage.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

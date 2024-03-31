@@ -22,12 +22,13 @@ namespace QuanLiGaraOto.Model
         }
         public BrandCar(string name)
         {
+            this.Name = name;
             this.Receptions = new HashSet<Reception>();
             this.RevenueDetails = new HashSet<RevenueDetail>();
-            this.Name = name;
         }
         public int ID { get; set; }
         public string Name { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reception> Receptions { get; set; }

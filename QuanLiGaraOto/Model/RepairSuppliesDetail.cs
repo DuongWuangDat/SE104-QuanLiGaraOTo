@@ -18,6 +18,7 @@ namespace QuanLiGaraOto.Model
         public int SuppliesID { get; set; }
         public Nullable<int> Count { get; set; }
         public Nullable<decimal> Price { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
     
         public virtual RepairDetail RepairDetail { get; set; }
         public virtual Supply Supply { get; set; }
