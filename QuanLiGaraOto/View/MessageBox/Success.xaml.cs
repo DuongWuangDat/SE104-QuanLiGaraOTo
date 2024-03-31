@@ -8,7 +8,7 @@ namespace QuanLiGaraOto.View.MessageBox
 	/// <summary>
 	/// Interaction logic for MessageBox.xaml
 	/// </summary>
-	public partial class Success : UserControl
+	public partial class Success : Window
 	{
 
 		public Success(string text)
@@ -21,13 +21,13 @@ namespace QuanLiGaraOto.View.MessageBox
 		{
 			if (e.LeftButton == MouseButtonState.Pressed)
 			{
-				//DragMove();
+				DragMove();
 			}
 		}
 
 		private void Ok_btn_Click(object sender, RoutedEventArgs e)
 		{
-			//Window.GetWindow(this).Close();
+			Window.GetWindow(this).Close();
 		}
 	}
 }

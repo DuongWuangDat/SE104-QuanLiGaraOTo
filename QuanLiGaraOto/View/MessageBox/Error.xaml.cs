@@ -18,7 +18,7 @@ namespace QuanLiGaraOto.View.MessageBox
     /// <summary>
     /// Interaction logic for Error.xaml
     /// </summary>
-    public partial class Error : UserControl
+    public partial class Error : Window
     {
         public Error(string message)
         {
@@ -30,7 +30,7 @@ namespace QuanLiGaraOto.View.MessageBox
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                //DragMove();
+                DragMove();
             }
         }
 
