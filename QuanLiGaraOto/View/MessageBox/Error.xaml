@@ -1,4 +1,4 @@
-﻿<UserControl
+﻿<Window
     x:Class="QuanLiGaraOto.View.MessageBox.Error"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -8,6 +8,7 @@
     x:Name="messageBoxWindow"
     Width="auto"
     Height="180"
+    WindowStyle="None"
     Background="Transparent"
     FontFamily="{DynamicResource MaterialDesignFont}"
     MouseLeftButtonDown="UserControl_MouseLeftButtonDown"
@@ -68,4 +69,4 @@
         </Border>
     </Grid>
 
-</UserControl>
+</Window>
