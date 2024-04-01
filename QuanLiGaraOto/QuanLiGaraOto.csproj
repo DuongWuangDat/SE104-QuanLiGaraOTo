@@ -156,6 +156,9 @@
     <Compile Include="Utils\placeholder.cs" />
     <Compile Include="ViewModel\BaoTriXeVM\BaoTriXeViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="View\BaoCao\PageBaoCao.xaml.cs">
+      <DependentUpon>PageBaoCao.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\BaoTriXePage\BaoTriXePage.xaml.cs">
       <DependentUpon>BaoTriXePage.xaml</DependentUpon>
     </Compile>
@@ -194,6 +197,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ResourcesXAML\MainResource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\BaoCao\PageBaoCao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
