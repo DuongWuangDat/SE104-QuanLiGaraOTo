@@ -52,5 +52,18 @@ namespace QuanLiGaraOto.Model.service
                 return (true, "Sửa parameter thành công");
             }
         }
+
+        public async Task<double> GetValueByName(string name)
+        {
+            using (var context = new QuanLiGaraOtoEntities())
+            {
+                var parameter = await context.Parameters.FirstOrDefaultAsync(x => x.Name == name);
+                if (parameter == null)
+                {
+                    return -1;
+                }
+                return (double)parameter.Value;
+            }
+        }
     }
 }

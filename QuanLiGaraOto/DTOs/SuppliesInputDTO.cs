@@ -12,6 +12,6 @@ namespace QuanLiGaraOto.DTOs
         public Nullable<System.DateTime> DateInput { get; set; }
         public Nullable<decimal> TotalMoney { get; set; }
     
-        public ICollection<SuppliesInputDetailDTO> SuppliesInputDetails { get; set; }
+        public List<SuppliesInputDetailDTO> SuppliesInputDetails { get; set; }
     }
 }

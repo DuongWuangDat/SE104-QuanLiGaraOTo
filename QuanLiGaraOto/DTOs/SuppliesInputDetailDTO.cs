@@ -7,8 +7,6 @@ namespace QuanLiGaraOto.DTOs
     
     public class SuppliesInputDetailDTO
     {
-        public int InputID { get; set; }
-        public int SuppliesID { get; set; }
         public Nullable<int> Count { get; set; }
         public Nullable<decimal> PriceItem { get; set; }
     

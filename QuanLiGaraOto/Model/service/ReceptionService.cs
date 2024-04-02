@@ -85,5 +85,15 @@ namespace QuanLiGaraOto.Model.service
                 return (true, "Add new reception successfully!");
             }
         }
+
+
+        public async Task<int> CountByDate (DateTime date)
+        {
+            using(var context = new QuanLiGaraOtoEntities())
+            {
+                var count = await context.Receptions.Where(r => r.CreatedAt == date).CountAsync();
+                return count;
+            }
+        }
     }
 }
