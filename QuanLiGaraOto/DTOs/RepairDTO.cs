@@ -9,11 +9,10 @@ namespace QuanLiGaraOto.DTOs
     {
     
         public int ID { get; set; }
-        public Nullable<int> ReceptionID { get; set; }
         public Nullable<decimal> TotalPrice { get; set; }
         public Nullable<System.DateTime> RepairDate { get; set; }
     
         public ReceptionDTO Reception { get; set; }
-        public ICollection<RepairDetailDTO> RepairDetails { get; set; }
+        public List<RepairDetailDTO> RepairDetails { get; set; }
     }
 }

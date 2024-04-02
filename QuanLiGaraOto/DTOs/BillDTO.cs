@@ -8,7 +8,6 @@ namespace QuanLiGaraOto.DTOs
     public class BillDTO
     {
         public int ID { get; set; }
-        public Nullable<int> ReceptionID { get; set; }
         public Nullable<System.DateTime> CreateAt { get; set; }
         public Nullable<decimal> Proceeds { get; set; }
     
