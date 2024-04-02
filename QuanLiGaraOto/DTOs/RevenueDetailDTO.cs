@@ -12,9 +12,8 @@ namespace QuanLiGaraOto.DTOs
         public Nullable<int> RepairCount { get; set; }
         public Nullable<double> Ratio { get; set; }
         public Nullable<decimal> Price { get; set; }
-        public Nullable<bool> IsDeleted { get; set; }
     
-        public virtual BrandCarDTO BrandCar { get; set; }
-        public virtual RevenueDTO Revenue { get; set; }
+        public BrandCarDTO BrandCar { get; set; }
+        public RevenueDTO Revenue { get; set; }
     }
 }

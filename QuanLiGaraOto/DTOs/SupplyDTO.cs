@@ -13,12 +13,11 @@ namespace QuanLiGaraOto.DTOs
         public Nullable<int> CountInStock { get; set; }
         public Nullable<decimal> InputPrices { get; set; }
         public Nullable<decimal> OutputPrices { get; set; }
-        public Nullable<bool> IsDeleted { get; set; }
     
-        public virtual ICollection<InventoryReportDetailDTO> InventoryReportDetails { get; set; }
+        public ICollection<InventoryReportDetailDTO> InventoryReportDetails { get; set; }
 
-        public virtual ICollection<RepairSuppliesDetailDTO> RepairSuppliesDetails { get; set; }
+        public ICollection<RepairSuppliesDetailDTO> RepairSuppliesDetails { get; set; }
 
-        public virtual ICollection<SuppliesInputDetailDTO> SuppliesInputDetails { get; set; }
+        public ICollection<SuppliesInputDetailDTO> SuppliesInputDetails { get; set; }
     }
 }

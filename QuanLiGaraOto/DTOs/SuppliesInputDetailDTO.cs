@@ -11,9 +11,8 @@ namespace QuanLiGaraOto.DTOs
         public int SuppliesID { get; set; }
         public Nullable<int> Count { get; set; }
         public Nullable<decimal> PriceItem { get; set; }
-        public Nullable<bool> IsDeleted { get; set; }
     
-        public virtual SupplyDTO Supply { get; set; }
-        public virtual SuppliesInputDTO SuppliesInput { get; set; }
+        public SupplyDTO Supply { get; set; }
+        public SuppliesInputDTO SuppliesInput { get; set; }
     }
 }

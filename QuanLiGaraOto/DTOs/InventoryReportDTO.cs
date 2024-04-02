@@ -11,7 +11,6 @@ namespace QuanLiGaraOto.DTOs
         public int ID { get; set; }
         public Nullable<int> Month { get; set; }
         public Nullable<int> Year { get; set; }
-        public Nullable<bool> IsDeleted { get; set; }
-        public virtual ICollection<InventoryReportDetailDTO> InventoryReportDetails { get; set; }
+        public ICollection<InventoryReportDetailDTO> InventoryReportDetails { get; set; }
     }
 }

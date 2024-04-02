@@ -151,7 +151,16 @@
     <Compile Include="Model\RevenueDetail.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\service\placeholder.cs" />
+    <Compile Include="Model\service\BillService.cs" />
+    <Compile Include="Model\service\BrandCarService.cs" />
+    <Compile Include="Model\service\CustomerService.cs" />
+    <Compile Include="Model\service\InvetoryReportService.cs" />
+    <Compile Include="Model\service\ParameterService.cs" />
+    <Compile Include="Model\service\ReceptionService.cs" />
+    <Compile Include="Model\service\RepairService.cs" />
+    <Compile Include="Model\service\RevenueService.cs" />
+    <Compile Include="Model\service\SuppliesService.cs" />
+    <Compile Include="Model\service\WageService.cs" />
     <Compile Include="Model\SuppliesInput.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

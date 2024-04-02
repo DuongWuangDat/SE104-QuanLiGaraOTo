@@ -12,9 +12,8 @@ namespace QuanLiGaraOto.DTOs
         public Nullable<int> TonDau { get; set; }
         public Nullable<int> PhatSinh { get; set; }
         public Nullable<int> TonCuoi { get; set; }
-        public Nullable<bool> IsDeleted { get; set; }
     
-        public virtual InventoryReportDTO InventoryReport { get; set; }
-        public virtual SupplyDTO Supply { get; set; }
+        public InventoryReportDTO InventoryReport { get; set; }
+        public SupplyDTO Supply { get; set; }
     }
 }

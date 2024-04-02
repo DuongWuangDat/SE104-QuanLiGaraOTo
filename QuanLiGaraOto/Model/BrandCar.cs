@@ -20,12 +20,7 @@ namespace QuanLiGaraOto.Model
             this.Receptions = new HashSet<Reception>();
             this.RevenueDetails = new HashSet<RevenueDetail>();
         }
-        public BrandCar(string name)
-        {
-            this.Name = name;
-            this.Receptions = new HashSet<Reception>();
-            this.RevenueDetails = new HashSet<RevenueDetail>();
-        }
+    
         public int ID { get; set; }
         public string Name { get; set; }
         public Nullable<bool> IsDeleted { get; set; }

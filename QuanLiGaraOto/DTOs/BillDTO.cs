@@ -11,8 +11,7 @@ namespace QuanLiGaraOto.DTOs
         public Nullable<int> ReceptionID { get; set; }
         public Nullable<System.DateTime> CreateAt { get; set; }
         public Nullable<decimal> Proceeds { get; set; }
-        public Nullable<bool> IsDeleted { get; set; }
     
-        public virtual ReceptionDTO Reception { get; set; }
+        public ReceptionDTO Reception { get; set; }
     }
 }
