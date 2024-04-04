@@ -172,6 +172,12 @@
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\PhieuThuTienVM\PhieuThuTienViewModel.cs" />
     <Compile Include="ViewModel\PhieuThuTienVM\ThemPhieuThuTienViewModel.cs" />
+    <Compile Include="View\BaoCao\DoanhThu.xaml.cs">
+      <DependentUpon>DoanhThu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\BaoCao\TonKho.xaml.cs">
+      <DependentUpon>TonKho.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\BaoTriXePage\BaoTriXePage.xaml.cs">
       <DependentUpon>BaoTriXePage.xaml</DependentUpon>
     </Compile>
@@ -180,6 +186,9 @@
     </Compile>
     <Compile Include="ViewModel\MessageBoxVM\MessageBoxViewModel.cs" />
     <Compile Include="ViewModel\TraCuuXeVM\TraCuuXeViewModel.cs" />
+    <Compile Include="View\CaiDatQuyDinh\CaiDatQuyDinh.xaml.cs">
+      <DependentUpon>CaiDatQuyDinh.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -219,7 +228,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\BaoCao\DoanhThu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\BaoCao\PageBaoCao.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\BaoCao\TonKho.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -228,6 +245,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\BaoTriXePage\QuanLiHieuXeWD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CaiDatQuyDinh\CaiDatQuyDinh.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
