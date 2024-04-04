@@ -16,11 +16,11 @@ namespace QuanLiGaraOto.View.MessageBox
             if (type == Success)
             {
                 // show Success 
-                //new Success(message).ShowDialog();
+                new Success(message).ShowDialog();
             }
             else if (type == Error)
             {
-                //new Error(message).ShowDialog();
+                new Error(message).ShowDialog();
             }
         }
     }

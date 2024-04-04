@@ -13,26 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QuanLiGaraOto.View.TraCuuXe
+namespace QuanLiGaraOto.View.BaoCao
 {
-	/// <summary>
-	/// Interaction logic for TraCuuXe.xaml
-	/// </summary>
-	public partial class TraCuuXe : Page
-	{
-		public TraCuuXe()
-		{
-			InitializeComponent();
-		}
-
-		private void Edit_Click(object sender, RoutedEventArgs e)
-		{
-
-		}
-
-		private void Delete_Click(object sender, RoutedEventArgs e)
-		{
-
-		}
+    /// <summary>
+    /// Interaction logic for DoanhThu.xaml
+    /// </summary>
+    public partial class DoanhThu : UserControl
+    {
+        public DoanhThu()
+        {
+            InitializeComponent();
+        }
     }
 }
