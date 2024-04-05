@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,15 @@ namespace QuanLiGaraOto.Model.service
                 return _ins;
             }
             private set { _ins = value; }
+        }
+
+        public async Task<decimal> GetTotalDebt(int id)
+        {
+            using(var context = new QuanLiGaraOtoEntities())
+            {
+                var user = await context.Customers.Where(c => c.ID == id).FirstOrDefaultAsync();
+                return (decimal)user.TotalDebt;
+            }
         }
     }
 }

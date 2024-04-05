@@ -51,6 +51,11 @@ namespace QuanLiGaraOto.Model.service
 
         public async Task<(bool, string)> AddNewBill(BillDTO newBill)
         {
+            var cusDebt = await CustomerService.Ins.GetTotalDebt(newBill.Reception.Customer.ID);
+            if(newBill.Proceeds > cusDebt)
+            {
+                return (false, "Không thể tạo hóa đơn với số tiền lớn hơn số tiền nợ của khách hàng");
+            }
             using (var context = new QuanLiGaraOtoEntities())
             {
                 var bill = new Bill

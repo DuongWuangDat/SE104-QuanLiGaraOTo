@@ -106,6 +106,8 @@ namespace QuanLiGaraOto.Model.service
                 {
                     curRepairDetailID = 1;
                 }   
+                var recept = await context.Receptions.Where(b => b.ID == newRepair.Reception.ID).FirstOrDefaultAsync();
+                var customer = await context.Customers.Where(b => b.ID == recept.CustomerID).FirstOrDefaultAsync();
                 var repair = new Repair
                 {
                     ReceptionID = newRepair.Reception.ID,
@@ -128,6 +130,12 @@ namespace QuanLiGaraOto.Model.service
                     };
                     foreach (var rpSDT in rpDT.RepairSuppliesDetails)
                     {
+
+                        var countInStock = await SuppliesService.Ins.GetCountInStock(rpSDT.Supply.ID);
+                        if (countInStock < rpSDT.Count)
+                        {
+                            return (false, "Not enough supply in stock");
+                        }
                         var repairSuppliesDetail = new RepairSuppliesDetail
                         {
                             RepairDetailID = curRepairDetailID,
@@ -140,6 +148,7 @@ namespace QuanLiGaraOto.Model.service
                         RepairSuppliesDetailsList.Add(repairSuppliesDetail);
                         //Modify supply
                         var (isSuccessSp, newCountInStock) = await DecreaseCountInStockSp((int)rpSDT.Count, rpSDT.Supply.ID);
+                        
                         //-----------------
                         //Modify inventory report
                         var isSuccessTonCuoi = await InvetoryReportService.Ins.UpdateTonCuoi(newCountInStock, rpSDT.Supply.ID);
@@ -156,6 +165,8 @@ namespace QuanLiGaraOto.Model.service
                     RepairDetailsList.Add(repairDetail);
                     curRepairDetailID++;
                 }
+                recept.Debt = totalPrice;
+                customer.TotalDebt += totalPrice;
                 repair.TotalPrice = totalPrice;
                 context.RepairSuppliesDetails.AddRange(RepairSuppliesDetailsList);
                 context.RepairDetails.AddRange(RepairDetailsList);

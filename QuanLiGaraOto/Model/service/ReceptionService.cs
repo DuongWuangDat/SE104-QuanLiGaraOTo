@@ -61,7 +61,7 @@ namespace QuanLiGaraOto.Model.service
                     var reception = new Reception
                     {
                         LicensePlate = newReception.LicensePlate,
-                        Debt = newReception.Debt,
+                        Debt = 0,
                         CreatedAt = DateTime.Now,
                         BrandID = newReception.BrandCar.ID,
                         CustomerID = newReception.Customer.ID,
@@ -74,7 +74,7 @@ namespace QuanLiGaraOto.Model.service
                 var receptionCus = new Reception
                 {
                     LicensePlate = newReception.LicensePlate,
-                    Debt = newReception.Debt,
+                    Debt = 0,
                     CreatedAt = DateTime.Now,
                     BrandID = newReception.BrandCar.ID,
                     Customer = newReception.Customer,
@@ -95,5 +95,7 @@ namespace QuanLiGaraOto.Model.service
                 return count;
             }
         }
+
+
     }
 }

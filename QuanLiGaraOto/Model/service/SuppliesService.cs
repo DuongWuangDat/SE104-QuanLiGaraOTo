@@ -172,5 +172,18 @@ namespace QuanLiGaraOto.Model.service
                 return count;
             }
         }
+
+        public async Task<int> GetCountInStock(int supplyId)
+        {
+            using(var context = new QuanLiGaraOtoEntities())
+            {
+                var supply = await context.Supplies.Where(s => s.ID == supplyId).FirstOrDefaultAsync();
+                if(supply == null)
+                {
+                    return -1;
+                }
+                return (int)supply.CountInStock;
+            }
+        }
     }
 }
