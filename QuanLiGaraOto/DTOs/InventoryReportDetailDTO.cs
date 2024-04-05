@@ -7,13 +7,10 @@ namespace QuanLiGaraOto.DTOs
     
     public class InventoryReportDetailDTO
     {
-        public int InventoryReportID { get; set; }
-        public int SuppliesID { get; set; }
+        public int SupplyID { get; set; }
         public Nullable<int> TonDau { get; set; }
         public Nullable<int> PhatSinh { get; set; }
         public Nullable<int> TonCuoi { get; set; }
-    
-        public InventoryReportDTO InventoryReport { get; set; }
-        public SupplyDTO Supply { get; set; }
+        public string SupplyName { get; set; }
     }
 }

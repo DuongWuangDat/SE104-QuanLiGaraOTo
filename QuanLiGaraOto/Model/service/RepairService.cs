@@ -50,18 +50,15 @@ namespace QuanLiGaraOto.Model.service
                                                         {
                                                            ID = x.ID,
                                                            Content = x.Content,
-                                                           Wage = new WageDTO
-                                                           {
-                                                               ID = x.Wage.ID,
-                                                               Name = x.Wage.Name,
-                                                               Price = x.Wage.Price
-                                                           },
+                                                           WageId = x.Wage.ID,
+                                                           WageName = x.Wage.Name,
+                                                           WagePrice = x.WagePrice,
                                                            RepairSuppliesDetails = (from t in x.RepairSuppliesDetails
                                                                                 where t.RepairDetailID == x.ID && t.IsDeleted == false
                                                                                 select new RepairSuppliesDetailDTO
                                                                                 {
                                                                                         Count = t.Count,
-                                                                                        Price = t.Price,
+                                                                                        PriceItem = t.PriceItem,
                                                                                         Supply = new SupplyDTO
                                                                                         {
                                                                                             ID = t.Supply.ID,
@@ -118,30 +115,41 @@ namespace QuanLiGaraOto.Model.service
                 var totalPrice = 0;
                 List<RepairDetail> RepairDetailsList = new List<RepairDetail>();
                 List<RepairSuppliesDetail> RepairSuppliesDetailsList = new List<RepairSuppliesDetail>();
-                foreach(var rpDT in newRepair.RepairDetails){
+                foreach (var rpDT in newRepair.RepairDetails) {
                     var totalPriceDetail = 0;
                     var repairDetail = new RepairDetail
                     {
                         RepairID = curRepairID,
-                        WageID = rpDT.Wage.ID,
+                        WageID = rpDT.WageId,
                         Content = rpDT.Content,
                         Price = rpDT.Price,
+                        WagePrice = rpDT.WagePrice,
                         IsDeleted = false
                     };
-                    foreach(var rpSDT in rpDT.RepairSuppliesDetails)
+                    foreach (var rpSDT in rpDT.RepairSuppliesDetails)
                     {
                         var repairSuppliesDetail = new RepairSuppliesDetail
                         {
                             RepairDetailID = curRepairDetailID,
                             SuppliesID = rpSDT.Supply.ID,
                             Count = rpSDT.Count,
-                            Price = rpSDT.Price,
+                            PriceItem = rpSDT.PriceItem,
                             IsDeleted = false
                         };
-                        totalPriceDetail += (int)rpSDT.Price*(int)(rpSDT.Count);
+                        totalPriceDetail += (int)rpSDT.PriceItem * (int)(rpSDT.Count);
                         RepairSuppliesDetailsList.Add(repairSuppliesDetail);
+                        //Modify supply
+                        var (isSuccessSp, newCountInStock) = await DecreaseCountInStockSp((int)rpSDT.Count, rpSDT.Supply.ID);
+                        //-----------------
+                        //Modify inventory report
+                        var isSuccessTonCuoi = await InvetoryReportService.Ins.UpdateTonCuoi(newCountInStock, rpSDT.Supply.ID);
+                        if (!isSuccessTonCuoi || !isSuccessSp)
+                        {
+                            return (false, "Something went wrong");
+                        }
+                        //-----------------------
                     }
-                    totalPriceDetail += (int)rpDT.Wage.Price;
+                    totalPriceDetail += (int)rpDT.WagePrice;
                     repairDetail.Price = totalPriceDetail;
                     totalPrice += totalPriceDetail;
                     totalPriceDetail = 0;
@@ -179,6 +187,21 @@ namespace QuanLiGaraOto.Model.service
                 }
                 await context.SaveChangesAsync();
                 return (true, "Delete repair successfully!");
+            }
+        }
+
+        public async Task<(bool, int)> DecreaseCountInStockSp(int delta, int supplyId)
+        {
+            if(delta <= 0)
+            {
+                return (false,-1);
+            }
+            using(var context = new QuanLiGaraOtoEntities())
+            {
+                var supply = await context.Supplies.Where(s => s.ID == supplyId).FirstOrDefaultAsync();
+                supply.CountInStock -= delta;
+                await context.SaveChangesAsync();
+                return (true,(int)supply.CountInStock);
             }
         }
     }

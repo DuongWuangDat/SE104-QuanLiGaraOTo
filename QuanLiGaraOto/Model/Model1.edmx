@@ -91,6 +91,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RepairID" Type="int" />
           <Property Name="WageID" Type="int" />
+          <Property Name="WagePrice" Type="money" />
           <Property Name="Content" Type="int" />
           <Property Name="Price" Type="money" />
           <Property Name="IsDeleted" Type="bit" />
@@ -103,7 +104,7 @@
           <Property Name="RepairDetailID" Type="int" Nullable="false" />
           <Property Name="SuppliesID" Type="int" Nullable="false" />
           <Property Name="Count" Type="int" />
-          <Property Name="Price" Type="money" />
+          <Property Name="PriceItem" Type="money" />
           <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="Revenue">
@@ -587,6 +588,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RepairID" Type="Int32" />
           <Property Name="WageID" Type="Int32" />
+          <Property Name="WagePrice" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Content" Type="Int32" />
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="IsDeleted" Type="Boolean" />
@@ -602,7 +604,7 @@
           <Property Name="RepairDetailID" Type="Int32" Nullable="false" />
           <Property Name="SuppliesID" Type="Int32" Nullable="false" />
           <Property Name="Count" Type="Int32" />
-          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PriceItem" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="IsDeleted" Type="Boolean" />
           <NavigationProperty Name="RepairDetail" Relationship="QuanLiGaraOtoModel.FK_RepairSupDT_RepairDT" FromRole="RepairSuppliesDetail" ToRole="RepairDetail" />
           <NavigationProperty Name="Supply" Relationship="QuanLiGaraOtoModel.FK_RepairSupDT_Sup" FromRole="RepairSuppliesDetail" ToRole="Supply" />
@@ -847,7 +849,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -945,6 +947,7 @@
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="WagePrice" ColumnName="WagePrice" />
                 <ScalarProperty Name="WageID" ColumnName="WageID" />
                 <ScalarProperty Name="RepairID" ColumnName="RepairID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -955,7 +958,7 @@
             <EntityTypeMapping TypeName="QuanLiGaraOtoModel.RepairSuppliesDetail">
               <MappingFragment StoreEntitySet="RepairSuppliesDetail">
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="PriceItem" ColumnName="PriceItem" />
                 <ScalarProperty Name="Count" ColumnName="Count" />
                 <ScalarProperty Name="SuppliesID" ColumnName="SuppliesID" />
                 <ScalarProperty Name="RepairDetailID" ColumnName="RepairDetailID" />

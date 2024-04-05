@@ -10,8 +10,11 @@ namespace QuanLiGaraOto.DTOs
     
         public int ID { get; set; }
         public Nullable<int> Content { get; set; }
+
+        public Nullable<int> WageId { get; set; }
+        public Nullable<decimal> WagePrice { get; set; }
         public Nullable<decimal> Price { get; set; }
-        public WageDTO Wage { get; set; }
+        public string WageName { get; set; }
         public List<RepairSuppliesDetailDTO> RepairSuppliesDetails { get; set; }
     }
 }

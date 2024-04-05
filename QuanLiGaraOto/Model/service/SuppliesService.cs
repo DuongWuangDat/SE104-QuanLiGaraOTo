@@ -1,8 +1,10 @@
 ﻿using QuanLiGaraOto.DTOs;
+using QuanLiGaraOto.View.MessageBox;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -53,6 +55,13 @@ namespace QuanLiGaraOto.Model.service
                     OutputPrices = 0,
                     IsDeleted = false
                 };
+                //Modify inventory report
+                var isSuccess = await InvetoryReportService.Ins.AddNewSupply(supply);
+                if (!isSuccess)
+                {
+                    return (false, "Something went wrong");
+                }
+                //------------------------
                 context.Supplies.Add(supply);
                 await context.SaveChangesAsync();
                 return (true, "Add new supply successfully!");
@@ -69,6 +78,13 @@ namespace QuanLiGaraOto.Model.service
                     return (false, "Supply is not exist!");
                 }
                 supply.IsDeleted = true;
+                //Modify inventory report
+                var isSuccess = await InvetoryReportService.Ins.DeleteDetail(supply.ID);
+                if (!isSuccess)
+                {
+                    return (false, "Something went wrong");
+                }
+                //----------------------
                 await context.SaveChangesAsync();
                 return (true, "Delete supply successfully!");
             }
@@ -125,6 +141,7 @@ namespace QuanLiGaraOto.Model.service
                         PriceItem = suppliesInputDT.PriceItem,
                         IsDeleted= false
                     };
+                    
                     var supply = await context.Supplies.Where(s => s.ID == suppliesInputDT.Supply.ID).FirstOrDefaultAsync();
                     supply.CountInStock += suppliesInputDT.Count;
                     supply.InputPrices = suppliesInputDT.PriceItem;
@@ -132,6 +149,14 @@ namespace QuanLiGaraOto.Model.service
                     supply.OutputPrices = (decimal)(supply.InputPrices * (decimal)valuePara);
                     await context.SaveChangesAsync();
                     suppliesInputDetails.Add(supplyInputDetail);
+                    //Modify inventory report
+                    var isSuccessPhatSinh = await InvetoryReportService.Ins.UpdatePhatSinh((int)supplyInputDetail.Count, supplyInputDetail.SuppliesID);
+                    var isSuccessTonCuoi = await InvetoryReportService.Ins.UpdateTonCuoi((int)supply.CountInStock, suppliesInputDT.Supply.ID);
+                    if (!isSuccessPhatSinh || !isSuccessTonCuoi)
+                    {
+                        return (false, "Something went wrong");
+                    }
+                    //-----------------------
                 }
                 context.SuppliesInputDetails.AddRange(suppliesInputDetails);
                 context.SuppliesInputs.Add(supplyInput);
