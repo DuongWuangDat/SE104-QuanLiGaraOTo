@@ -114,6 +114,7 @@ namespace QuanLiGaraOto.Model.service
                     RepairDate = DateTime.Now,
                     IsDeleted = false,
                 };
+                
                 var totalPrice = 0;
                 List<RepairDetail> RepairDetailsList = new List<RepairDetail>();
                 List<RepairSuppliesDetail> RepairSuppliesDetailsList = new List<RepairSuppliesDetail>();
@@ -172,6 +173,14 @@ namespace QuanLiGaraOto.Model.service
                 context.RepairDetails.AddRange(RepairDetailsList);
                 context.Repairs.Add(repair);
                 await context.SaveChangesAsync();
+                //Modify revenue service
+                var isSuccessRevenue = await RevenueService.Ins.AddRepairRevenueDetail(newRepair);
+                if (!isSuccessRevenue)
+                {
+                    return (false, "Something went wrong");
+                }
+
+                //---------------------
                 return (true, "Add new repair successfully");
             }
         }
@@ -185,17 +194,15 @@ namespace QuanLiGaraOto.Model.service
                 {
                     return (false, "Repair is not exist!");
                 }
-                repair.IsDeleted = true;
-                foreach(var repairDetail in repair.RepairDetails)
+                
+                var isSuccessDeleteRevenue = await RevenueService.Ins.DeleteRepairRevenueDetail(repair);
+                var isSuccessRecoveryInventory = await InvetoryReportService.Ins.RecoveryInventory(repair);
+                if (!isSuccessDeleteRevenue || !isSuccessRecoveryInventory)
                 {
-                    var repairDT = await context.RepairDetails.Where(b => b.ID == repairDetail.ID).FirstOrDefaultAsync();
-                    repairDT.IsDeleted = true;
-                    foreach(var repairSuppliesDetail in repairDetail.RepairSuppliesDetails)
-                    {
-                        var repairSPDT = await context.RepairSuppliesDetails.Where(b => b.RepairDetailID == repairSuppliesDetail.RepairDetailID).FirstOrDefaultAsync();
-                        repairSuppliesDetail.IsDeleted = true;
-                    }
+                    return (false, "Something went wrong");
                 }
+                
+                repair.IsDeleted = true;
                 await context.SaveChangesAsync();
                 return (true, "Delete repair successfully!");
             }

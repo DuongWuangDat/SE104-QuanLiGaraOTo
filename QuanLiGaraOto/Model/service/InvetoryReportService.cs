@@ -38,7 +38,6 @@ namespace QuanLiGaraOto.Model.service
                                                Month = s.Month,
                                                Year = s.Year,
                                                InventoryReportDetails = (from d in s.InventoryReportDetails
-                                                                         where d.IsDeleted == false
                                                                          select new InventoryReportDetailDTO
                                                                          {
                                                                              TonDau = d.TonDau,
@@ -167,7 +166,26 @@ namespace QuanLiGaraOto.Model.service
             {
                 var inventoryReport = await GetCurrentInventoryReport();
                 var detail = await context.InventoryReportDetails.Where(b => b.SuppliesID == supplyId && b.InventoryReportID == inventoryReport.ID).FirstOrDefaultAsync();
-                detail.IsDeleted = true;
+                context.InventoryReportDetails.Remove(detail);
+                await context.SaveChangesAsync();
+                return true;
+            }
+        }
+
+        public async Task<bool> RecoveryInventory(Repair repair)
+        {
+            using(var context = new QuanLiGaraOtoEntities())
+            {
+                var inventoryReport = await GetCurrentInventoryReport();
+                foreach(var repairDT in repair.RepairDetails)
+                {
+                    foreach(var rpSDT in repairDT.RepairSuppliesDetails)
+                    {
+                        var detail = await context.InventoryReportDetails.Where(b => b.SuppliesID == rpSDT.SuppliesID && b.InventoryReportID == inventoryReport.ID).FirstOrDefaultAsync();
+                        detail.TonCuoi += rpSDT.Count;
+                    }
+                }
+                
                 await context.SaveChangesAsync();
                 return true;
             }
