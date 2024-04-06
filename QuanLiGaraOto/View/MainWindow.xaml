@@ -15,7 +15,8 @@
     Closed="AdminWD_Closed"
     ResizeMode="NoResize"
     WindowState="Maximized"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+        Loaded="MainWD_Loaded">
     <Window.Resources>
         <Storyboard x:Key="MenuOpen">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MenuBar" Storyboard.TargetProperty="Width">

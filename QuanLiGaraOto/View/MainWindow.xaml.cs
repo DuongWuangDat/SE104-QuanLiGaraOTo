@@ -1,4 +1,7 @@
-﻿using System;
+﻿using QuanLiGaraOto.Model;
+using QuanLiGaraOto.Model.service;
+using QuanLiGaraOto.View.MessageBox;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,6 +36,16 @@ namespace QuanLiGaraOto.View
         private void AdminWD_Closed(object sender, System.EventArgs e)
         {
            // this.Owner.Visibility = Visibility.Visible;
+        }
+
+        private async void MainWD_Loaded(object sender, RoutedEventArgs e)
+        {
+            var (isSuccessInvenLoaded, message) = await InvetoryReportService.Ins.InitInventoryReport();
+            var isSuccessRevenueLoaded= await RevenueService.Ins.InitRevenue();
+            if(!isSuccessInvenLoaded || !isSuccessRevenueLoaded)
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Không thể khởi tạo dữ liệu");
+            }
         }
     }
 }
