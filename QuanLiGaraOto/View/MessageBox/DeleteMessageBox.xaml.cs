@@ -10,7 +10,7 @@ namespace QuanLiGaraOto.View.MessageBox
 	/// <summary>
 	/// Interaction logic for DeleteMessage.xaml
 	/// </summary>
-	public partial class DeleteMessageBox : UserControl
+	public partial class DeleteMessageBox : Window
 	{
 
 		public DeleteMessageBox(string s = "Bạn có chắc chắn muốn xóa không")
@@ -19,24 +19,24 @@ namespace QuanLiGaraOto.View.MessageBox
 			TextboxShow.Text = s;
 		}
 
-		//private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-		//{
-		//	if (e.LeftButton == MouseButtonState.Pressed)
-		//	{
-		//		DragMove();
-		//	}
-		//}
+		private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			if (e.LeftButton == MouseButtonState.Pressed)
+			{
+				DragMove();
+			}
+		}
 
 		private void No_btn_Click(object sender, RoutedEventArgs e)
 		{
-			//this.DialogResult = false;
-			//Window.GetWindow(this).Close();
+			this.DialogResult = false;
+			Window.GetWindow(this).Close();
 		}
 
 		private void Yes_btn_Click(object sender, RoutedEventArgs e)
 		{
-			//this.DialogResult = true;
-			//this.Close();
+			this.DialogResult = true;
+			this.Close();
 		}
 	}
 }

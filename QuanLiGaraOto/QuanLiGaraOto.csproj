@@ -88,6 +88,7 @@
     <Compile Include="DTOs\InventoryReportDTO.cs" />
     <Compile Include="DTOs\InventoryReportDetailDTO.cs" />
     <Compile Include="DTOs\ParameterDTO.cs" />
+    <Compile Include="Domain\NotEmptyValidationRule.cs" />
     <Compile Include="DTOs\placeholder.cs" />
     <Compile Include="DTOs\ReceptionDTO.cs" />
     <Compile Include="DTOs\RepairDTO.cs" />
@@ -132,7 +133,6 @@
     <Compile Include="Model\Parameter.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\placeholder.cs" />
     <Compile Include="Model\Reception.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -173,11 +173,12 @@
     <Compile Include="Model\Wage.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Resources\Icon\placeholder.cs" />
     <Compile Include="Resources\Img\placeholder.cs" />
     <Compile Include="Utils\placeholder.cs" />
     <Compile Include="ViewModel\BaoTriXeVM\BaoTriXeViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\PhieuThuTienVM\PhieuThuTienViewModel.cs" />
+    <Compile Include="ViewModel\PhieuThuTienVM\ThemPhieuThuTienViewModel.cs" />
     <Compile Include="View\BaoTriXePage\BaoTriXePage.xaml.cs">
       <DependentUpon>BaoTriXePage.xaml</DependentUpon>
     </Compile>
@@ -198,6 +199,12 @@
     <Compile Include="View\MessageBox\MessageBoxCustom.cs" />
     <Compile Include="View\MessageBox\Success.xaml.cs">
       <DependentUpon>Success.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PhieuThuTien\PhieuThuTien.xaml.cs">
+      <DependentUpon>PhieuThuTien.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PhieuThuTien\ThemPhieuThuTien.xaml.cs">
+      <DependentUpon>ThemPhieuThuTien.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\placeholder.cs" />
     <Compile Include="View\TraCuuXe\TraCuuXe.xaml.cs">
@@ -242,6 +249,14 @@
     <Page Include="View\MessageBox\Success.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\PhieuThuTien\PhieuThuTien.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PhieuThuTien\ThemPhieuThuTien.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TraCuuXe\TraCuuXe.xaml">
       <SubType>Designer</SubType>
@@ -338,6 +353,8 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Icon\Trash.png" />
+    <Resource Include="Resources\Icon\Edit.png" />
     <Resource Include="Resources\Img\delete_button.png" />
     <Resource Include="Resources\Icon\sophieu.png" />
     <Resource Include="Resources\Icon\add_button_brand.png" />
@@ -356,6 +373,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Icon\Search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icon\Add.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets')" />

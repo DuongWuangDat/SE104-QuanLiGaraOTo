@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QuanLiGaraOto.View.TraCuuXe
+namespace QuanLiGaraOto.View.PhieuThuTien
 {
 	/// <summary>
-	/// Interaction logic for TraCuuXe.xaml
+	/// Interaction logic for PhieuThuTien.xaml
 	/// </summary>
-	public partial class TraCuuXe : Page
+	public partial class PhieuThuTien : Page
 	{
-		public TraCuuXe()
+		public PhieuThuTien()
 		{
 			InitializeComponent();
 		}
@@ -28,11 +28,11 @@ namespace QuanLiGaraOto.View.TraCuuXe
 		private void Edit_Click(object sender, RoutedEventArgs e)
 		{
 
-		}
+        }
 
 		private void Delete_Click(object sender, RoutedEventArgs e)
 		{
 
-		}
+        }
     }
 }

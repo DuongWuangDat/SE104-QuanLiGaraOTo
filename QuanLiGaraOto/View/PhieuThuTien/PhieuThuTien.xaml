@@ -1,10 +1,10 @@
 ﻿<Page
-    x:Class="QuanLiGaraOto.View.TraCuuXe.TraCuuXe"
+    x:Class="QuanLiGaraOto.View.PhieuThuTien.PhieuThuTien"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:local="clr-namespace:QuanLiGaraOto.View.TraCuuXe"
+    xmlns:local="clr-namespace:QuanLiGaraOto.View.PhieuThuTien"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="TraCuuXe"
@@ -69,6 +69,42 @@
                     </Grid>
                 </Border>
 
+                <!--  Button Thêm  -->
+                <Grid Grid.Column="1">
+
+                    <Button
+                        MinWidth="120"
+                        MinHeight="50"
+                        MaxWidth="151"
+                        MaxHeight="57"
+                        Margin="20,0"
+                        HorizontalAlignment="Left"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        materialDesign:ButtonAssist.CornerRadius="20"
+                        materialDesign:ElevationAssist.Elevation="Dp3"
+                        Background="White"
+                        BorderThickness="0"
+                        Command="{Binding OpenAddWindowCommand}"
+                        CommandParameter="{Binding ElementName=staffPage}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                MaxWidth="30"
+                                MaxHeight="30"
+                                Source="/QuanLiGaraOto;component/Resources/Icon/Add.png" />
+
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontFamily="Roboto Condensed"
+                                FontWeight="Bold"
+                                Foreground="#3093A0">
+                                Thêm
+                            </TextBlock>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+
                 <Grid
                     Grid.Column="3"
                     HorizontalAlignment="Right"
@@ -79,7 +115,7 @@
                         FontWeight="Bold"
                         Foreground="White">
                         <TextBlock.Text>
-                            <MultiBinding StringFormat="Số xe: ({0})">
+                            <MultiBinding StringFormat="Số phiếu: ({0})">
                                 <Binding Path="Count" />
                             </MultiBinding>
                         </TextBlock.Text>
@@ -111,7 +147,7 @@
                         ItemsSource="{Binding StaffObservation, Mode=TwoWay}"
                         SelectedItem="{Binding SelectedItem}"
                         SelectionMode="Single"
-                        SelectionUnit="FullRow" >
+                        SelectionUnit="FullRow">
                         <DataGrid.CellStyle>
                             <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                                 <Setter Property="BorderThickness" Value="0" />
@@ -137,36 +173,6 @@
 
                             <DataGridTemplateColumn
                                 Width="auto"
-                                Header="Biển số"
-                                SortMemberPath="LicensePlate">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Center"
-                                            FontSize="15"
-                                            Text="{Binding LicensePlate}" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-
-                            <DataGridTemplateColumn
-                                Width="auto"
-                                Header="Hiệu xe"
-                                SortMemberPath="Brandcard">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Center"
-                                            FontSize="15"
-                                            Text="{Binding Brandcard}" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-
-                            <DataGridTemplateColumn
-                                Width="auto"
                                 Header="Chủ xe"
                                 SortMemberPath="Customer">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -182,15 +188,76 @@
 
                             <DataGridTemplateColumn
                                 Width="auto"
-                                Header="Tiền nợ"
-                                SortMemberPath="Debt">
+                                Header="Điện thoại"
+                                SortMemberPath="PhoneNumber">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
                                             FontSize="15"
-                                            Text="{Binding Debt}" />
+                                            Text="{Binding PhoneNumber}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn
+                                Width="auto"
+                                Header="Ngày thu tiền"
+                                SortMemberPath="CreateAt">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontSize="15"
+                                            Text="{Binding CreateAt}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+                            <DataGridTemplateColumn
+                                Width="auto"
+                                Header="Biển số"
+                                SortMemberPath="LicensePlate">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontSize="15"
+                                            Text="{Binding LicensePlate}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn
+                                Width="auto"
+                                Header="Email"
+                                SortMemberPath="Email">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontSize="15"
+                                            Text="{Binding Email}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn
+                                Width="auto"
+                                Header="Số tiền thu"
+                                SortMemberPath="Proceeds">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontSize="15"
+                                            Text="{Binding Proceeds, StringFormat={}{0:N0} VNĐ}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -199,7 +266,7 @@
                             <DataGridTemplateColumn Width="auto" Header="">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        
+
                                         <StackPanel Orientation="Horizontal">
                                             <Button
                                                 Width="24.8"

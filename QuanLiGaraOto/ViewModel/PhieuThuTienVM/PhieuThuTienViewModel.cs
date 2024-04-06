@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QuanLiGaraOto.Resources.Icon
+namespace QuanLiGaraOto.ViewModel.PhieuThuTienVM
 {
-    internal class placeholder
-    {
-    }
+	internal class PhieuThuTienViewModel : BaseViewModel
+	{
+	}
 }
