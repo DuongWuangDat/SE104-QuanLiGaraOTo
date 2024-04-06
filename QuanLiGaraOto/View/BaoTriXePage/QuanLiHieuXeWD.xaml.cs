@@ -19,14 +19,18 @@ namespace QuanLiGaraOto.View.BaoTriXePage
     /// </summary>
     public partial class QuanLiHieuXeWD : Window
     {
+
         public QuanLiHieuXeWD()
         {
             InitializeComponent();
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
         }
+
+        
     }
-}
+
+       
+ }
+

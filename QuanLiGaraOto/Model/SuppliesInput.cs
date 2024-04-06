@@ -23,6 +23,7 @@ namespace QuanLiGaraOto.Model
         public int ID { get; set; }
         public Nullable<System.DateTime> DateInput { get; set; }
         public Nullable<decimal> TotalMoney { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SuppliesInputDetail> SuppliesInputDetails { get; set; }

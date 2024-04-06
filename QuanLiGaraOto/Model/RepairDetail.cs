@@ -23,8 +23,10 @@ namespace QuanLiGaraOto.Model
         public int ID { get; set; }
         public Nullable<int> RepairID { get; set; }
         public Nullable<int> WageID { get; set; }
+        public Nullable<decimal> WagePrice { get; set; }
         public Nullable<int> Content { get; set; }
         public Nullable<decimal> Price { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
     
         public virtual Repair Repair { get; set; }
         public virtual Wage Wage { get; set; }

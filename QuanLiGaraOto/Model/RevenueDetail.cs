@@ -19,6 +19,7 @@ namespace QuanLiGaraOto.Model
         public Nullable<int> RepairCount { get; set; }
         public Nullable<double> Ratio { get; set; }
         public Nullable<decimal> Price { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
     
         public virtual BrandCar BrandCar { get; set; }
         public virtual Revenue Revenue { get; set; }
