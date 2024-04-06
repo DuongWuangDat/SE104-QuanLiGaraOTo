@@ -1,26 +1,16 @@
 ﻿using QuanLiGaraOto.View.MessageBox;
 using QuanLiGaraOto.ViewModel.PhieuThuTienVM;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace QuanLiGaraOto.View.PhieuThuTien
 {
 	/// <summary>
 	/// Interaction logic for ThemPhieuThuTien.xaml
 	/// </summary>
-	public partial class ThemPhieuThuTien : UserControl
+	public partial class ThemPhieuThuTien : Window
 	{
 		public ThemPhieuThuTien()
 		{
@@ -51,6 +41,7 @@ namespace QuanLiGaraOto.View.PhieuThuTien
 		}
 
 
+
 		private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
 		{
 			if (!((e.Key >= Key.D0 && e.Key <= Key.D9) ||  // Số từ 0 đến 9
@@ -61,6 +52,24 @@ namespace QuanLiGaraOto.View.PhieuThuTien
 			{
 				e.Handled = true; // Ngăn chặn ký tự nếu không phải số từ bàn phím
 			}
+		}
+
+		private void Huy_Click(object sender, RoutedEventArgs e)
+		{
+			Window.GetWindow(this)?.Close();
+		}
+
+		private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			if (e.LeftButton == MouseButtonState.Pressed)
+			{
+				DragMove();
+			}
+		}
+
+		private void Window_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
+		{
+			this.DragMove();
 		}
 	}
 }

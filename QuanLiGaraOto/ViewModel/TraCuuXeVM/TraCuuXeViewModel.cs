@@ -9,6 +9,8 @@ namespace QuanLiGaraOto.ViewModel.TraCuuXeVM
 	public class TraCuuXeViewModel : BaseViewModel
 	{
 		public string Name { get; set; }
-		public TraCuuXeViewModel() { }
+		public TraCuuXeViewModel() {
+
+		}
 	}
 }

@@ -61,7 +61,7 @@
                                 Foreground="#353535">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="TextChanged">
-                                        <i:InvokeCommandAction Command="{Binding SearchStaff}" CommandParameter="{Binding ElementName=searchBox}" />
+                                        <i:InvokeCommandAction Command="{Binding TimKiemPhieuThuTien}" CommandParameter="{Binding ElementName=searchBox}" />
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </TextBox>
@@ -258,38 +258,6 @@
                                             VerticalAlignment="Center"
                                             FontSize="15"
                                             Text="{Binding Proceeds, StringFormat={}{0:N0} VNĐ}" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-
-                            <!--  Button chỉnh sửa, xóa cho mỗi staff  -->
-                            <DataGridTemplateColumn Width="auto" Header="">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-
-                                        <StackPanel Orientation="Horizontal">
-                                            <Button
-                                                Width="24.8"
-                                                Height="24.8"
-                                                BorderBrush="Transparent"
-                                                Click="Edit_Click">
-                                                <Button.Background>
-                                                    <ImageBrush ImageSource="/QuanLiGaraOto;component/Resources/Icon/Edit.png" />
-                                                </Button.Background>
-                                            </Button>
-
-                                            <Button
-                                                Width="24.8"
-                                                Height="24.8"
-                                                Margin="12,0,0,0"
-                                                BorderBrush="Transparent"
-                                                Click="Delete_Click">
-                                                <Button.Background>
-                                                    <ImageBrush ImageSource="/QuanLiGaraOto;component/Resources/Icon/Trash.png" />
-                                                </Button.Background>
-                                            </Button>
-                                        </StackPanel>
-
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
