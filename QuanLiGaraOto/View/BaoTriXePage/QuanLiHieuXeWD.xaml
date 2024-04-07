@@ -17,9 +17,16 @@
         DataContext="{StaticResource BaoTriXeVM}"
         Height="524"
         Width="499"
+        x:Name="manageBrandWD"
         Background="Transparent"
         AllowsTransparency="True"
-        WindowStyle="None">
+        WindowStyle="None"
+        MouseLeftButtonDown="manageBrandWD_MouseLeftButtonDown">
+    <!--<i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FirstLoadBrandCar}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>-->
     <Window.Resources>
         <converter:IndexConverter x:Key="IndexConverter" />
     </Window.Resources>
@@ -45,7 +52,8 @@
                            FontSize="25"
                            FontWeight="Light"
                            Margin="46,22,0,0" />
-                <TextBox Width="201"
+                <TextBox x:Name="addBrandField"
+                    Width="201"
                          Margin="19,20,0,10"
                          FontSize="20">
                     <TextBox.Template>
@@ -70,7 +78,9 @@
                         </ControlTemplate>
                     </TextBox.Template>
                 </TextBox>
-                <Button Background="#3093A0"
+                <Button Command="{Binding AddBrandCar}" 
+                        CommandParameter="{Binding ElementName=addBrandField}"
+                    Background="#3093A0"
                         materialDesign:ButtonAssist.CornerRadius="20"
                         Width="106"
                         Height="57"
@@ -85,8 +95,10 @@
                     Width="419"
                     Height="257"
                     CornerRadius="20">
-                <ListView Margin="22,12,22,12"
-                          ItemsSource="{Binding BrandCarS}"
+                <ListView x:Name="BrandList" 
+                    Margin="22,12,22,12"
+                          ItemsSource="{Binding BrandCarList}"
+                          SelectedItem="{Binding SelectedBrand}"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 
                     <ListView.ItemContainerStyle>
@@ -236,6 +248,11 @@
                                                 BorderThickness="0"
                                                 HorizontalAlignment="Left"
                                                 Cursor="Hand">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                    <i:InvokeCommandAction Command="{Binding ElementName=BrandList, Path=DataContext.DeleteBrandCar}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
                                             <Image Source="/QuanLiGaraOto;component/Resources/Img/delete_button.png" />
                                         </Border>
                                     </DataTemplate>
@@ -245,7 +262,9 @@
                     </ListView.View>
                 </ListView>
             </Border>
-            <Button Grid.Row="3"
+            <Button Command="{Binding CancelBrandCar}"
+                    CommandParameter="{Binding ElementName=manageBrandWD}"
+                Grid.Row="3"
                     Content="Hủy bỏ"
                     FontSize="20"
                     FontWeight="Bold"

@@ -28,7 +28,13 @@ namespace QuanLiGaraOto.View.BaoTriXePage
         {
         }
 
-        
+        private void manageBrandWD_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
     }
 
        
