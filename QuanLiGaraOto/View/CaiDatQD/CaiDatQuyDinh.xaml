@@ -1,0 +1,146 @@
+﻿<Page x:Class="QuanLiGaraOto.View.CaiDatQD.CaiDatQuyDinh"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:local="clr-namespace:QuanLiGaraOto.View.BaoCao"
+  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+  xmlns:materialDesignControls="http://materialdesigninxaml.net/winfx/xaml/themes"
+  mc:Ignorable="d" 
+  d:DesignHeight="800" d:DesignWidth="1536"
+  Title="PageBaoCao"
+  >
+
+    <Grid Background="#3F7B88">
+        <Grid Margin="30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="6*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel
+             Grid.Column="0"
+             Width="auto"
+             Orientation="Horizontal">
+                    <!--  Search Box  -->
+
+                    <Grid>
+                        <Image
+                         Width="45"
+                         Height="45"
+                         Margin="0,0,0,0"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Center"
+                         Source="/QuanLiGaraOto;component/Resources/Icon/bao_cao_thang_ico_white.png" />
+
+                        <TextBlock Text="Cài đặt quy định" FontSize="30" FontWeight="Bold" 
+                               Margin="60,0,0,0" Foreground="White" VerticalAlignment="Center" />
+                    </Grid>
+
+                </StackPanel>
+            </Grid>
+            <Line X1="0" Y1="0" X2="1500" Y2="0" MaxWidth="1500" Stroke="White" VerticalAlignment="Bottom" 
+            Margin="0,0,0,0" StrokeThickness="5"/>
+
+            
+            <Grid Grid.Row="1">
+                <Border
+                Margin="0,0,0,0"
+                Background="White"
+                Width="1190"
+                Height="530"
+                CornerRadius="20">
+                    <StackPanel>
+                        <Grid Margin="0,100,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition MinWidth="150" Width="7*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                            </Grid.RowDefinitions>
+                            <!-- hàng 0 -->
+                            <Label Grid.Row="0" Content="Số lượng hiệu xe:" FontSize="25" FontWeight="Bold"
+                                       Margin="50,0,0,0" VerticalAlignment="Center" />
+                            <ComboBox
+                                Grid.Row="0"
+                                x:Name="SoLuongHieuXeBox"
+                                Width="80"
+                                Height="50"
+                                materialDesign:HintAssist.Hint="0"
+                                Background="#D0D2D3"
+                                IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
+                                ItemsSource="{Binding ShortStringList}"
+                                Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                            <!-- hàng 1 -->
+                            <Label Grid.Row="1" Content="Số xe sửa trong ngày" FontSize="25" FontWeight="Bold"
+                                   Margin="50,0,0,0" VerticalAlignment="Center" />
+                            <ComboBox
+                                Grid.Row="1"
+                                x:Name="SoXeSuaTrongNgayBox"
+                                Width="80"
+                                Height="50"
+                                materialDesign:HintAssist.Hint="0"
+                                Background="#D0D2D3"
+                                IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
+                                ItemsSource="{Binding ShortStringList}"
+                                Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                            <!-- hàng 2 -->
+                            <Label Grid.Row="2" Content="Số loại vật tư phụ tùng" FontSize="25" FontWeight="Bold"
+                                   Margin="50,0,0,0" VerticalAlignment="Center" />
+                            <ComboBox
+                                Grid.Row="2"
+                                x:Name="SoLoaiVatTuPhuTung"
+                                Width="80"
+                                Height="50"
+                                materialDesign:HintAssist.Hint="0"
+                                Background="#D0D2D3"
+                                IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
+                                ItemsSource="{Binding ShortStringList}"
+                                Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                            <!-- hàng 3 -->
+                            <Label Grid.Row="3" Content="Số loại tiền công" FontSize="25" FontWeight="Bold"
+                                   Margin="50,0,0,0" VerticalAlignment="Center" />
+                            <ComboBox
+                                Grid.Row="3"
+                                x:Name="SoLoaiTienCong"
+                                Width="80"
+                                Height="50"
+                                materialDesign:HintAssist.Hint="0"
+                                Background="#D0D2D3"
+                                IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
+                                ItemsSource="{Binding ShortStringList}"
+                                Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                            <!-- hàng 6 -->
+                            <Button
+                                Grid.Row="6"
+                                Height="40"
+                                Width="150"
+                                HorizontalAlignment="Right"
+                                Margin="0,0,60,0"
+                                Background="#3F7B88"
+                                materialDesign:ButtonAssist.CornerRadius="10"
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                ToolTip="MaterialDesignRaisedButton with Round Corners">
+                                <TextBlock
+                                        Text="Apply" />
+                            </Button>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid >
+
+    </Grid>
+</Page>
