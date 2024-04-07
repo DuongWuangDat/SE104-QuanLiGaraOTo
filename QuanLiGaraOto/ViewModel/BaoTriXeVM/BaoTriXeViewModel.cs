@@ -2,6 +2,7 @@
 using QuanLiGaraOto.DTOs;
 using QuanLiGaraOto.Model;
 using QuanLiGaraOto.Model.service;
+using QuanLiGaraOto.Utils;
 using QuanLiGaraOto.View.BaoTriXePage;
 using QuanLiGaraOto.View.MessageBox;
 using System;
@@ -165,6 +166,11 @@ namespace QuanLiGaraOto.ViewModel.BaoTriXeVM
 
             AddReceptionCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
+                if(Helper.IsPhoneNumber(PhoneNumber) == false)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Số điện thoại không hợp lệ");
+                    return;
+                }
                 ReceptionDTO recpt = new ReceptionDTO
                 {
                     LicensePlate = LicensePlate,
