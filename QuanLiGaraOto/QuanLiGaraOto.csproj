@@ -186,6 +186,9 @@
     </Compile>
     <Compile Include="ViewModel\MessageBoxVM\MessageBoxViewModel.cs" />
     <Compile Include="ViewModel\TraCuuXeVM\TraCuuXeViewModel.cs" />
+    <Compile Include="View\CaiDatQD\CaiDatQuyDinh.xaml.cs">
+      <DependentUpon>CaiDatQuyDinh.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CaiDatQuyDinh\CaiDatQuyDinh.xaml.cs">
       <DependentUpon>CaiDatQuyDinh.xaml</DependentUpon>
     </Compile>
@@ -245,6 +248,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\BaoTriXePage\QuanLiHieuXeWD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CaiDatQD\CaiDatQuyDinh.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
