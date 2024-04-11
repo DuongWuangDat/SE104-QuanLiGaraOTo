@@ -189,9 +189,6 @@
     <Compile Include="View\CaiDatQD\CaiDatQuyDinh.xaml.cs">
       <DependentUpon>CaiDatQuyDinh.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CaiDatQuyDinh\CaiDatQuyDinh.xaml.cs">
-      <DependentUpon>CaiDatQuyDinh.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -252,10 +249,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CaiDatQD\CaiDatQuyDinh.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\CaiDatQuyDinh\CaiDatQuyDinh.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
