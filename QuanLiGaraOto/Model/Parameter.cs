@@ -14,7 +14,6 @@ namespace QuanLiGaraOto.Model
     
     public partial class Parameter
     {
-        public int ID { get; set; }
         public string Name { get; set; }
         public Nullable<double> Value { get; set; }
     }

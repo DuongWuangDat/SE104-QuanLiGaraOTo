@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QuanLiGaraOtoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="QuanLiGaraOtoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Bill">
           <Key>
             <PropertyRef Name="ID" />
@@ -12,7 +12,8 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ReceptionID" Type="int" />
           <Property Name="CreateAt" Type="smalldatetime" />
-          <Property Name="TotalPrice" Type="money" />
+          <Property Name="Proceeds" Type="money" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="BrandCar">
           <Key>
@@ -20,6 +21,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -30,6 +32,8 @@
           <Property Name="Address" Type="nvarchar(max)" />
           <Property Name="PhoneNumber" Type="varchar" MaxLength="20" />
           <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="TotalDebt" Type="money" />
         </EntityType>
         <EntityType Name="InventoryReport">
           <Key>
@@ -38,6 +42,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Month" Type="int" />
           <Property Name="Year" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="InventoryReportDetail">
           <Key>
@@ -49,13 +54,13 @@
           <Property Name="TonDau" Type="int" />
           <Property Name="PhatSinh" Type="int" />
           <Property Name="TonCuoi" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="Parameter">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="Name" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Name" Type="char" MaxLength="100" Nullable="false" />
           <Property Name="Value" Type="float" />
         </EntityType>
         <EntityType Name="Reception">
@@ -68,6 +73,7 @@
           <Property Name="BrandID" Type="int" />
           <Property Name="Debt" Type="money" />
           <Property Name="CreatedAt" Type="smalldatetime" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="Repair">
           <Key>
@@ -77,6 +83,7 @@
           <Property Name="ReceptionID" Type="int" />
           <Property Name="TotalPrice" Type="money" />
           <Property Name="RepairDate" Type="smalldatetime" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="RepairDetail">
           <Key>
@@ -85,8 +92,10 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RepairID" Type="int" />
           <Property Name="WageID" Type="int" />
+          <Property Name="WagePrice" Type="money" />
           <Property Name="Content" Type="int" />
           <Property Name="Price" Type="money" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="RepairSuppliesDetail">
           <Key>
@@ -96,7 +105,8 @@
           <Property Name="RepairDetailID" Type="int" Nullable="false" />
           <Property Name="SuppliesID" Type="int" Nullable="false" />
           <Property Name="Count" Type="int" />
-          <Property Name="Price" Type="money" />
+          <Property Name="PriceItem" Type="money" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="Revenue">
           <Key>
@@ -106,6 +116,7 @@
           <Property Name="Month" Type="int" />
           <Property Name="Year" Type="int" />
           <Property Name="TotalPrice" Type="money" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="RevenueDetail">
           <Key>
@@ -117,6 +128,7 @@
           <Property Name="RepairCount" Type="int" />
           <Property Name="Ratio" Type="float" />
           <Property Name="Price" Type="money" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="Supplies">
           <Key>
@@ -125,7 +137,9 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" />
           <Property Name="CountInStock" Type="int" />
-          <Property Name="Price" Type="money" />
+          <Property Name="InputPrices" Type="money" />
+          <Property Name="OutputPrices" Type="money" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="SuppliesInput">
           <Key>
@@ -134,6 +148,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DateInput" Type="smalldatetime" />
           <Property Name="TotalMoney" Type="money" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="SuppliesInputDetail">
           <Key>
@@ -144,16 +159,7 @@
           <Property Name="SuppliesID" Type="int" Nullable="false" />
           <Property Name="Count" Type="int" />
           <Property Name="PriceItem" Type="money" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="Wage">
           <Key>
@@ -162,6 +168,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" />
           <Property Name="Price" Type="money" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <Association Name="FK_Bill_Recept">
           <End Role="Reception" Type="Self.Reception" Multiplicity="0..1" />
@@ -347,7 +354,6 @@
           <EntitySet Name="Supplies" EntityType="Self.Supplies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SuppliesInput" EntityType="Self.SuppliesInput" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SuppliesInputDetail" EntityType="Self.SuppliesInputDetail" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Wage" EntityType="Self.Wage" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Bill_Recept" Association="Self.FK_Bill_Recept">
             <End Role="Reception" EntitySet="Reception" />
@@ -406,11 +412,84 @@
             <End Role="SuppliesInputDetail" EntitySet="SuppliesInputDetail" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QuanLiGaraOtoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="QuanLiGaraOtoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bills" EntityType="QuanLiGaraOtoModel.Bill" />
+          <EntitySet Name="BrandCars" EntityType="QuanLiGaraOtoModel.BrandCar" />
+          <EntitySet Name="Customers" EntityType="QuanLiGaraOtoModel.Customer" />
+          <EntitySet Name="InventoryReports" EntityType="QuanLiGaraOtoModel.InventoryReport" />
+          <EntitySet Name="InventoryReportDetails" EntityType="QuanLiGaraOtoModel.InventoryReportDetail" />
+          <EntitySet Name="Parameters" EntityType="QuanLiGaraOtoModel.Parameter" />
+          <EntitySet Name="Receptions" EntityType="QuanLiGaraOtoModel.Reception" />
+          <EntitySet Name="Repairs" EntityType="QuanLiGaraOtoModel.Repair" />
+          <EntitySet Name="RepairDetails" EntityType="QuanLiGaraOtoModel.RepairDetail" />
+          <EntitySet Name="RepairSuppliesDetails" EntityType="QuanLiGaraOtoModel.RepairSuppliesDetail" />
+          <EntitySet Name="Revenues" EntityType="QuanLiGaraOtoModel.Revenue" />
+          <EntitySet Name="RevenueDetails" EntityType="QuanLiGaraOtoModel.RevenueDetail" />
+          <EntitySet Name="Supplies" EntityType="QuanLiGaraOtoModel.Supply" />
+          <EntitySet Name="SuppliesInputs" EntityType="QuanLiGaraOtoModel.SuppliesInput" />
+          <EntitySet Name="SuppliesInputDetails" EntityType="QuanLiGaraOtoModel.SuppliesInputDetail" />
+          <EntitySet Name="Wages" EntityType="QuanLiGaraOtoModel.Wage" />
+          <AssociationSet Name="FK_Bill_Recept" Association="QuanLiGaraOtoModel.FK_Bill_Recept">
+            <End Role="Reception" EntitySet="Receptions" />
+            <End Role="Bill" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recept_Brand" Association="QuanLiGaraOtoModel.FK_Recept_Brand">
+            <End Role="BrandCar" EntitySet="BrandCars" />
+            <End Role="Reception" EntitySet="Receptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RevenueDT_Brand" Association="QuanLiGaraOtoModel.FK_RevenueDT_Brand">
+            <End Role="BrandCar" EntitySet="BrandCars" />
+            <End Role="RevenueDetail" EntitySet="RevenueDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recept_Cus" Association="QuanLiGaraOtoModel.FK_Recept_Cus">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Reception" EntitySet="Receptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InventoryDT_Inventory" Association="QuanLiGaraOtoModel.FK_InventoryDT_Inventory">
+            <End Role="InventoryReport" EntitySet="InventoryReports" />
+            <End Role="InventoryReportDetail" EntitySet="InventoryReportDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InventoryDT_Supplies" Association="QuanLiGaraOtoModel.FK_InventoryDT_Supplies">
+            <End Role="Supply" EntitySet="Supplies" />
+            <End Role="InventoryReportDetail" EntitySet="InventoryReportDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Repair_Recept" Association="QuanLiGaraOtoModel.FK_Repair_Recept">
+            <End Role="Reception" EntitySet="Receptions" />
+            <End Role="Repair" EntitySet="Repairs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairDT_Repair" Association="QuanLiGaraOtoModel.FK_RepairDT_Repair">
+            <End Role="Repair" EntitySet="Repairs" />
+            <End Role="RepairDetail" EntitySet="RepairDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairDT_Wage" Association="QuanLiGaraOtoModel.FK_RepairDT_Wage">
+            <End Role="Wage" EntitySet="Wages" />
+            <End Role="RepairDetail" EntitySet="RepairDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairSupDT_RepairDT" Association="QuanLiGaraOtoModel.FK_RepairSupDT_RepairDT">
+            <End Role="RepairDetail" EntitySet="RepairDetails" />
+            <End Role="RepairSuppliesDetail" EntitySet="RepairSuppliesDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairSupDT_Sup" Association="QuanLiGaraOtoModel.FK_RepairSupDT_Sup">
+            <End Role="Supply" EntitySet="Supplies" />
+            <End Role="RepairSuppliesDetail" EntitySet="RepairSuppliesDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RevenueDT_Revenue" Association="QuanLiGaraOtoModel.FK_RevenueDT_Revenue">
+            <End Role="Revenue" EntitySet="Revenues" />
+            <End Role="RevenueDetail" EntitySet="RevenueDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SuppliesInputDetail_Supply" Association="QuanLiGaraOtoModel.FK_SuppliesInputDetail_Supply">
+            <End Role="Supply" EntitySet="Supplies" />
+            <End Role="SuppliesInputDetail" EntitySet="SuppliesInputDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SuppliesInputDetail_Input" Association="QuanLiGaraOtoModel.FK_SuppliesInputDetail_Input">
+            <End Role="SuppliesInput" EntitySet="SuppliesInputs" />
+            <End Role="SuppliesInputDetail" EntitySet="SuppliesInputDetails" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Bill">
           <Key>
             <PropertyRef Name="ID" />
@@ -418,8 +497,9 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ReceptionID" Type="Int32" />
           <Property Name="CreateAt" Type="DateTime" Precision="0" />
-          <Property Name="TotalPrice" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="Reception" Relationship="Self.FK_Bill_Recept" FromRole="Bill" ToRole="Reception" />
+          <Property Name="Proceeds" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="Reception" Relationship="QuanLiGaraOtoModel.FK_Bill_Recept" FromRole="Bill" ToRole="Reception" />
         </EntityType>
         <EntityType Name="BrandCar">
           <Key>
@@ -427,8 +507,9 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Receptions" Relationship="Self.FK_Recept_Brand" FromRole="BrandCar" ToRole="Reception" />
-          <NavigationProperty Name="RevenueDetails" Relationship="Self.FK_RevenueDT_Brand" FromRole="BrandCar" ToRole="RevenueDetail" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="Receptions" Relationship="QuanLiGaraOtoModel.FK_Recept_Brand" FromRole="BrandCar" ToRole="Reception" />
+          <NavigationProperty Name="RevenueDetails" Relationship="QuanLiGaraOtoModel.FK_RevenueDT_Brand" FromRole="BrandCar" ToRole="RevenueDetail" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -439,7 +520,9 @@
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Receptions" Relationship="Self.FK_Recept_Cus" FromRole="Customer" ToRole="Reception" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="TotalDebt" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Receptions" Relationship="QuanLiGaraOtoModel.FK_Recept_Cus" FromRole="Customer" ToRole="Reception" />
         </EntityType>
         <EntityType Name="InventoryReport">
           <Key>
@@ -448,7 +531,8 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Month" Type="Int32" />
           <Property Name="Year" Type="Int32" />
-          <NavigationProperty Name="InventoryReportDetails" Relationship="Self.FK_InventoryDT_Inventory" FromRole="InventoryReport" ToRole="InventoryReportDetail" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="InventoryReportDetails" Relationship="QuanLiGaraOtoModel.FK_InventoryDT_Inventory" FromRole="InventoryReport" ToRole="InventoryReportDetail" />
         </EntityType>
         <EntityType Name="InventoryReportDetail">
           <Key>
@@ -460,15 +544,15 @@
           <Property Name="TonDau" Type="Int32" />
           <Property Name="PhatSinh" Type="Int32" />
           <Property Name="TonCuoi" Type="Int32" />
-          <NavigationProperty Name="InventoryReport" Relationship="Self.FK_InventoryDT_Inventory" FromRole="InventoryReportDetail" ToRole="InventoryReport" />
-          <NavigationProperty Name="Supply" Relationship="Self.FK_InventoryDT_Supplies" FromRole="InventoryReportDetail" ToRole="Supplies" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="InventoryReport" Relationship="QuanLiGaraOtoModel.FK_InventoryDT_Inventory" FromRole="InventoryReportDetail" ToRole="InventoryReport" />
+          <NavigationProperty Name="Supply" Relationship="QuanLiGaraOtoModel.FK_InventoryDT_Supplies" FromRole="InventoryReportDetail" ToRole="Supply" />
         </EntityType>
         <EntityType Name="Parameter">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="Name" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="false" />
           <Property Name="Value" Type="Double" />
         </EntityType>
         <EntityType Name="Reception">
@@ -481,10 +565,11 @@
           <Property Name="BrandID" Type="Int32" />
           <Property Name="Debt" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="CreatedAt" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Bills" Relationship="Self.FK_Bill_Recept" FromRole="Reception" ToRole="Bill" />
-          <NavigationProperty Name="BrandCar" Relationship="Self.FK_Recept_Brand" FromRole="Reception" ToRole="BrandCar" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_Recept_Cus" FromRole="Reception" ToRole="Customer" />
-          <NavigationProperty Name="Repairs" Relationship="Self.FK_Repair_Recept" FromRole="Reception" ToRole="Repair" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="Bills" Relationship="QuanLiGaraOtoModel.FK_Bill_Recept" FromRole="Reception" ToRole="Bill" />
+          <NavigationProperty Name="BrandCar" Relationship="QuanLiGaraOtoModel.FK_Recept_Brand" FromRole="Reception" ToRole="BrandCar" />
+          <NavigationProperty Name="Customer" Relationship="QuanLiGaraOtoModel.FK_Recept_Cus" FromRole="Reception" ToRole="Customer" />
+          <NavigationProperty Name="Repairs" Relationship="QuanLiGaraOtoModel.FK_Repair_Recept" FromRole="Reception" ToRole="Repair" />
         </EntityType>
         <EntityType Name="Repair">
           <Key>
@@ -494,8 +579,9 @@
           <Property Name="ReceptionID" Type="Int32" />
           <Property Name="TotalPrice" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="RepairDate" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Reception" Relationship="Self.FK_Repair_Recept" FromRole="Repair" ToRole="Reception" />
-          <NavigationProperty Name="RepairDetails" Relationship="Self.FK_RepairDT_Repair" FromRole="Repair" ToRole="RepairDetail" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="Reception" Relationship="QuanLiGaraOtoModel.FK_Repair_Recept" FromRole="Repair" ToRole="Reception" />
+          <NavigationProperty Name="RepairDetails" Relationship="QuanLiGaraOtoModel.FK_RepairDT_Repair" FromRole="Repair" ToRole="RepairDetail" />
         </EntityType>
         <EntityType Name="RepairDetail">
           <Key>
@@ -504,11 +590,13 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RepairID" Type="Int32" />
           <Property Name="WageID" Type="Int32" />
+          <Property Name="WagePrice" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Content" Type="Int32" />
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="Repair" Relationship="Self.FK_RepairDT_Repair" FromRole="RepairDetail" ToRole="Repair" />
-          <NavigationProperty Name="Wage" Relationship="Self.FK_RepairDT_Wage" FromRole="RepairDetail" ToRole="Wage" />
-          <NavigationProperty Name="RepairSuppliesDetails" Relationship="Self.FK_RepairSupDT_RepairDT" FromRole="RepairDetail" ToRole="RepairSuppliesDetail" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="Repair" Relationship="QuanLiGaraOtoModel.FK_RepairDT_Repair" FromRole="RepairDetail" ToRole="Repair" />
+          <NavigationProperty Name="Wage" Relationship="QuanLiGaraOtoModel.FK_RepairDT_Wage" FromRole="RepairDetail" ToRole="Wage" />
+          <NavigationProperty Name="RepairSuppliesDetails" Relationship="QuanLiGaraOtoModel.FK_RepairSupDT_RepairDT" FromRole="RepairDetail" ToRole="RepairSuppliesDetail" />
         </EntityType>
         <EntityType Name="RepairSuppliesDetail">
           <Key>
@@ -518,9 +606,10 @@
           <Property Name="RepairDetailID" Type="Int32" Nullable="false" />
           <Property Name="SuppliesID" Type="Int32" Nullable="false" />
           <Property Name="Count" Type="Int32" />
-          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="RepairDetail" Relationship="Self.FK_RepairSupDT_RepairDT" FromRole="RepairSuppliesDetail" ToRole="RepairDetail" />
-          <NavigationProperty Name="Supply" Relationship="Self.FK_RepairSupDT_Sup" FromRole="RepairSuppliesDetail" ToRole="Supplies" />
+          <Property Name="PriceItem" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="RepairDetail" Relationship="QuanLiGaraOtoModel.FK_RepairSupDT_RepairDT" FromRole="RepairSuppliesDetail" ToRole="RepairDetail" />
+          <NavigationProperty Name="Supply" Relationship="QuanLiGaraOtoModel.FK_RepairSupDT_Sup" FromRole="RepairSuppliesDetail" ToRole="Supply" />
         </EntityType>
         <EntityType Name="Revenue">
           <Key>
@@ -530,7 +619,8 @@
           <Property Name="Month" Type="Int32" />
           <Property Name="Year" Type="Int32" />
           <Property Name="TotalPrice" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="RevenueDetails" Relationship="Self.FK_RevenueDT_Revenue" FromRole="Revenue" ToRole="RevenueDetail" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="RevenueDetails" Relationship="QuanLiGaraOtoModel.FK_RevenueDT_Revenue" FromRole="Revenue" ToRole="RevenueDetail" />
         </EntityType>
         <EntityType Name="RevenueDetail">
           <Key>
@@ -542,8 +632,9 @@
           <Property Name="RepairCount" Type="Int32" />
           <Property Name="Ratio" Type="Double" />
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="BrandCar" Relationship="Self.FK_RevenueDT_Brand" FromRole="RevenueDetail" ToRole="BrandCar" />
-          <NavigationProperty Name="Revenue" Relationship="Self.FK_RevenueDT_Revenue" FromRole="RevenueDetail" ToRole="Revenue" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="BrandCar" Relationship="QuanLiGaraOtoModel.FK_RevenueDT_Brand" FromRole="RevenueDetail" ToRole="BrandCar" />
+          <NavigationProperty Name="Revenue" Relationship="QuanLiGaraOtoModel.FK_RevenueDT_Revenue" FromRole="RevenueDetail" ToRole="Revenue" />
         </EntityType>
         <EntityType Name="Supply">
           <Key>
@@ -552,10 +643,12 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CountInStock" Type="Int32" />
-          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="InventoryReportDetails" Relationship="Self.FK_InventoryDT_Supplies" FromRole="Supplies" ToRole="InventoryReportDetail" />
-          <NavigationProperty Name="RepairSuppliesDetails" Relationship="Self.FK_RepairSupDT_Sup" FromRole="Supplies" ToRole="RepairSuppliesDetail" />
-          <NavigationProperty Name="SuppliesInputDetails" Relationship="Self.FK_SuppliesInputDetail_Supply" FromRole="Supplies" ToRole="SuppliesInputDetail" />
+          <Property Name="InputPrices" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="OutputPrices" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="InventoryReportDetails" Relationship="QuanLiGaraOtoModel.FK_InventoryDT_Supplies" FromRole="Supply" ToRole="InventoryReportDetail" />
+          <NavigationProperty Name="RepairSuppliesDetails" Relationship="QuanLiGaraOtoModel.FK_RepairSupDT_Sup" FromRole="Supply" ToRole="RepairSuppliesDetail" />
+          <NavigationProperty Name="SuppliesInputDetails" Relationship="QuanLiGaraOtoModel.FK_SuppliesInputDetail_Supply" FromRole="Supply" ToRole="SuppliesInputDetail" />
         </EntityType>
         <EntityType Name="SuppliesInput">
           <Key>
@@ -564,7 +657,8 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DateInput" Type="DateTime" Precision="0" />
           <Property Name="TotalMoney" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="SuppliesInputDetails" Relationship="Self.FK_SuppliesInputDetail_Input" FromRole="SuppliesInput" ToRole="SuppliesInputDetail" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="SuppliesInputDetails" Relationship="QuanLiGaraOtoModel.FK_SuppliesInputDetail_Input" FromRole="SuppliesInput" ToRole="SuppliesInputDetail" />
         </EntityType>
         <EntityType Name="SuppliesInputDetail">
           <Key>
@@ -575,18 +669,9 @@
           <Property Name="SuppliesID" Type="Int32" Nullable="false" />
           <Property Name="Count" Type="Int32" />
           <Property Name="PriceItem" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="Supply" Relationship="Self.FK_SuppliesInputDetail_Supply" FromRole="SuppliesInputDetail" ToRole="Supplies" />
-          <NavigationProperty Name="SuppliesInput" Relationship="Self.FK_SuppliesInputDetail_Input" FromRole="SuppliesInputDetail" ToRole="SuppliesInput" />
-        </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="Supply" Relationship="QuanLiGaraOtoModel.FK_SuppliesInputDetail_Supply" FromRole="SuppliesInputDetail" ToRole="Supply" />
+          <NavigationProperty Name="SuppliesInput" Relationship="QuanLiGaraOtoModel.FK_SuppliesInputDetail_Input" FromRole="SuppliesInputDetail" ToRole="SuppliesInput" />
         </EntityType>
         <EntityType Name="Wage">
           <Key>
@@ -595,11 +680,12 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="RepairDetails" Relationship="Self.FK_RepairDT_Wage" FromRole="Wage" ToRole="RepairDetail" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="RepairDetails" Relationship="QuanLiGaraOtoModel.FK_RepairDT_Wage" FromRole="Wage" ToRole="RepairDetail" />
         </EntityType>
         <Association Name="FK_Bill_Recept">
-          <End Role="Reception" Type="Self.Reception" Multiplicity="0..1" />
-          <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+          <End Type="QuanLiGaraOtoModel.Reception" Role="Reception" Multiplicity="0..1" />
+          <End Type="QuanLiGaraOtoModel.Bill" Role="Bill" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Reception">
               <PropertyRef Name="ID" />
@@ -610,8 +696,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Recept_Brand">
-          <End Role="BrandCar" Type="Self.BrandCar" Multiplicity="0..1" />
-          <End Role="Reception" Type="Self.Reception" Multiplicity="*" />
+          <End Type="QuanLiGaraOtoModel.BrandCar" Role="BrandCar" Multiplicity="0..1" />
+          <End Type="QuanLiGaraOtoModel.Reception" Role="Reception" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BrandCar">
               <PropertyRef Name="ID" />
@@ -622,8 +708,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RevenueDT_Brand">
-          <End Role="BrandCar" Type="Self.BrandCar" Multiplicity="1" />
-          <End Role="RevenueDetail" Type="Self.RevenueDetail" Multiplicity="*" />
+          <End Type="QuanLiGaraOtoModel.BrandCar" Role="BrandCar" Multiplicity="1" />
+          <End Type="QuanLiGaraOtoModel.RevenueDetail" Role="RevenueDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BrandCar">
               <PropertyRef Name="ID" />
@@ -634,8 +720,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Recept_Cus">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
-          <End Role="Reception" Type="Self.Reception" Multiplicity="*" />
+          <End Type="QuanLiGaraOtoModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="QuanLiGaraOtoModel.Reception" Role="Reception" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Customer">
               <PropertyRef Name="ID" />
@@ -646,8 +732,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_InventoryDT_Inventory">
-          <End Role="InventoryReport" Type="Self.InventoryReport" Multiplicity="1" />
-          <End Role="InventoryReportDetail" Type="Self.InventoryReportDetail" Multiplicity="*" />
+          <End Type="QuanLiGaraOtoModel.InventoryReport" Role="InventoryReport" Multiplicity="1" />
+          <End Type="QuanLiGaraOtoModel.InventoryReportDetail" Role="InventoryReportDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="InventoryReport">
               <PropertyRef Name="ID" />
@@ -658,10 +744,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_InventoryDT_Supplies">
-          <End Role="Supplies" Type="Self.Supply" Multiplicity="1" />
-          <End Role="InventoryReportDetail" Type="Self.InventoryReportDetail" Multiplicity="*" />
+          <End Type="QuanLiGaraOtoModel.Supply" Role="Supply" Multiplicity="1" />
+          <End Type="QuanLiGaraOtoModel.InventoryReportDetail" Role="InventoryReportDetail" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Supplies">
+            <Principal Role="Supply">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="InventoryReportDetail">
@@ -670,8 +756,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Repair_Recept">
-          <End Role="Reception" Type="Self.Reception" Multiplicity="0..1" />
-          <End Role="Repair" Type="Self.Repair" Multiplicity="*" />
+          <End Type="QuanLiGaraOtoModel.Reception" Role="Reception" Multiplicity="0..1" />
+          <End Type="QuanLiGaraOtoModel.Repair" Role="Repair" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Reception">
               <PropertyRef Name="ID" />
@@ -682,8 +768,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RepairDT_Repair">
-          <End Role="Repair" Type="Self.Repair" Multiplicity="0..1" />
-          <End Role="RepairDetail" Type="Self.RepairDetail" Multiplicity="*" />
+          <End Type="QuanLiGaraOtoModel.Repair" Role="Repair" Multiplicity="0..1" />
+          <End Type="QuanLiGaraOtoModel.RepairDetail" Role="RepairDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Repair">
               <PropertyRef Name="ID" />
@@ -694,8 +780,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RepairDT_Wage">
-          <End Role="Wage" Type="Self.Wage" Multiplicity="0..1" />
-          <End Role="RepairDetail" Type="Self.RepairDetail" Multiplicity="*" />
+          <End Type="QuanLiGaraOtoModel.Wage" Role="Wage" Multiplicity="0..1" />
+          <End Type="QuanLiGaraOtoModel.RepairDetail" Role="RepairDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Wage">
               <PropertyRef Name="ID" />
@@ -706,8 +792,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RepairSupDT_RepairDT">
-          <End Role="RepairDetail" Type="Self.RepairDetail" Multiplicity="1" />
-          <End Role="RepairSuppliesDetail" Type="Self.RepairSuppliesDetail" Multiplicity="*" />
+          <End Type="QuanLiGaraOtoModel.RepairDetail" Role="RepairDetail" Multiplicity="1" />
+          <End Type="QuanLiGaraOtoModel.RepairSuppliesDetail" Role="RepairSuppliesDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RepairDetail">
               <PropertyRef Name="ID" />
@@ -718,10 +804,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RepairSupDT_Sup">
-          <End Role="Supplies" Type="Self.Supply" Multiplicity="1" />
-          <End Role="RepairSuppliesDetail" Type="Self.RepairSuppliesDetail" Multiplicity="*" />
+          <End Type="QuanLiGaraOtoModel.Supply" Role="Supply" Multiplicity="1" />
+          <End Type="QuanLiGaraOtoModel.RepairSuppliesDetail" Role="RepairSuppliesDetail" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Supplies">
+            <Principal Role="Supply">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="RepairSuppliesDetail">
@@ -730,8 +816,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RevenueDT_Revenue">
-          <End Role="Revenue" Type="Self.Revenue" Multiplicity="1" />
-          <End Role="RevenueDetail" Type="Self.RevenueDetail" Multiplicity="*" />
+          <End Type="QuanLiGaraOtoModel.Revenue" Role="Revenue" Multiplicity="1" />
+          <End Type="QuanLiGaraOtoModel.RevenueDetail" Role="RevenueDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Revenue">
               <PropertyRef Name="ID" />
@@ -742,10 +828,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SuppliesInputDetail_Supply">
-          <End Role="Supplies" Type="Self.Supply" Multiplicity="1" />
-          <End Role="SuppliesInputDetail" Type="Self.SuppliesInputDetail" Multiplicity="*" />
+          <End Type="QuanLiGaraOtoModel.Supply" Role="Supply" Multiplicity="1" />
+          <End Type="QuanLiGaraOtoModel.SuppliesInputDetail" Role="SuppliesInputDetail" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Supplies">
+            <Principal Role="Supply">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="SuppliesInputDetail">
@@ -754,8 +840,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SuppliesInputDetail_Input">
-          <End Role="SuppliesInput" Type="Self.SuppliesInput" Multiplicity="1" />
-          <End Role="SuppliesInputDetail" Type="Self.SuppliesInputDetail" Multiplicity="*" />
+          <End Type="QuanLiGaraOtoModel.SuppliesInput" Role="SuppliesInput" Multiplicity="1" />
+          <End Type="QuanLiGaraOtoModel.SuppliesInputDetail" Role="SuppliesInputDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SuppliesInput">
               <PropertyRef Name="ID" />
@@ -765,82 +851,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="QuanLiGaraOtoEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Bills" EntityType="Self.Bill" />
-          <EntitySet Name="BrandCars" EntityType="Self.BrandCar" />
-          <EntitySet Name="Customers" EntityType="Self.Customer" />
-          <EntitySet Name="InventoryReports" EntityType="Self.InventoryReport" />
-          <EntitySet Name="InventoryReportDetails" EntityType="Self.InventoryReportDetail" />
-          <EntitySet Name="Parameters" EntityType="Self.Parameter" />
-          <EntitySet Name="Receptions" EntityType="Self.Reception" />
-          <EntitySet Name="Repairs" EntityType="Self.Repair" />
-          <EntitySet Name="RepairDetails" EntityType="Self.RepairDetail" />
-          <EntitySet Name="RepairSuppliesDetails" EntityType="Self.RepairSuppliesDetail" />
-          <EntitySet Name="Revenues" EntityType="Self.Revenue" />
-          <EntitySet Name="RevenueDetails" EntityType="Self.RevenueDetail" />
-          <EntitySet Name="Supplies" EntityType="Self.Supply" />
-          <EntitySet Name="SuppliesInputs" EntityType="Self.SuppliesInput" />
-          <EntitySet Name="SuppliesInputDetails" EntityType="Self.SuppliesInputDetail" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <EntitySet Name="Wages" EntityType="Self.Wage" />
-          <AssociationSet Name="FK_Bill_Recept" Association="Self.FK_Bill_Recept">
-            <End Role="Reception" EntitySet="Receptions" />
-            <End Role="Bill" EntitySet="Bills" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Recept_Brand" Association="Self.FK_Recept_Brand">
-            <End Role="BrandCar" EntitySet="BrandCars" />
-            <End Role="Reception" EntitySet="Receptions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RevenueDT_Brand" Association="Self.FK_RevenueDT_Brand">
-            <End Role="BrandCar" EntitySet="BrandCars" />
-            <End Role="RevenueDetail" EntitySet="RevenueDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Recept_Cus" Association="Self.FK_Recept_Cus">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="Reception" EntitySet="Receptions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_InventoryDT_Inventory" Association="Self.FK_InventoryDT_Inventory">
-            <End Role="InventoryReport" EntitySet="InventoryReports" />
-            <End Role="InventoryReportDetail" EntitySet="InventoryReportDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_InventoryDT_Supplies" Association="Self.FK_InventoryDT_Supplies">
-            <End Role="Supplies" EntitySet="Supplies" />
-            <End Role="InventoryReportDetail" EntitySet="InventoryReportDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Repair_Recept" Association="Self.FK_Repair_Recept">
-            <End Role="Reception" EntitySet="Receptions" />
-            <End Role="Repair" EntitySet="Repairs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RepairDT_Repair" Association="Self.FK_RepairDT_Repair">
-            <End Role="Repair" EntitySet="Repairs" />
-            <End Role="RepairDetail" EntitySet="RepairDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RepairDT_Wage" Association="Self.FK_RepairDT_Wage">
-            <End Role="Wage" EntitySet="Wages" />
-            <End Role="RepairDetail" EntitySet="RepairDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RepairSupDT_RepairDT" Association="Self.FK_RepairSupDT_RepairDT">
-            <End Role="RepairDetail" EntitySet="RepairDetails" />
-            <End Role="RepairSuppliesDetail" EntitySet="RepairSuppliesDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RepairSupDT_Sup" Association="Self.FK_RepairSupDT_Sup">
-            <End Role="Supplies" EntitySet="Supplies" />
-            <End Role="RepairSuppliesDetail" EntitySet="RepairSuppliesDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RevenueDT_Revenue" Association="Self.FK_RevenueDT_Revenue">
-            <End Role="Revenue" EntitySet="Revenues" />
-            <End Role="RevenueDetail" EntitySet="RevenueDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SuppliesInputDetail_Supply" Association="Self.FK_SuppliesInputDetail_Supply">
-            <End Role="Supplies" EntitySet="Supplies" />
-            <End Role="SuppliesInputDetail" EntitySet="SuppliesInputDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SuppliesInputDetail_Input" Association="Self.FK_SuppliesInputDetail_Input">
-            <End Role="SuppliesInput" EntitySet="SuppliesInputs" />
-            <End Role="SuppliesInputDetail" EntitySet="SuppliesInputDetails" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -849,171 +860,177 @@
           <EntitySetMapping Name="Bills">
             <EntityTypeMapping TypeName="QuanLiGaraOtoModel.Bill">
               <MappingFragment StoreEntitySet="Bill">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="ReceptionID" ColumnName="ReceptionID" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Proceeds" ColumnName="Proceeds" />
                 <ScalarProperty Name="CreateAt" ColumnName="CreateAt" />
-                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="ReceptionID" ColumnName="ReceptionID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="BrandCars">
             <EntityTypeMapping TypeName="QuanLiGaraOtoModel.BrandCar">
               <MappingFragment StoreEntitySet="BrandCar">
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="QuanLiGaraOtoModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="TotalDebt" ColumnName="TotalDebt" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="InventoryReports">
             <EntityTypeMapping TypeName="QuanLiGaraOtoModel.InventoryReport">
               <MappingFragment StoreEntitySet="InventoryReport">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="InventoryReportDetails">
             <EntityTypeMapping TypeName="QuanLiGaraOtoModel.InventoryReportDetail">
               <MappingFragment StoreEntitySet="InventoryReportDetail">
-                <ScalarProperty Name="InventoryReportID" ColumnName="InventoryReportID" />
-                <ScalarProperty Name="SuppliesID" ColumnName="SuppliesID" />
-                <ScalarProperty Name="TonDau" ColumnName="TonDau" />
-                <ScalarProperty Name="PhatSinh" ColumnName="PhatSinh" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="TonCuoi" ColumnName="TonCuoi" />
+                <ScalarProperty Name="PhatSinh" ColumnName="PhatSinh" />
+                <ScalarProperty Name="TonDau" ColumnName="TonDau" />
+                <ScalarProperty Name="SuppliesID" ColumnName="SuppliesID" />
+                <ScalarProperty Name="InventoryReportID" ColumnName="InventoryReportID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Parameters">
             <EntityTypeMapping TypeName="QuanLiGaraOtoModel.Parameter">
               <MappingFragment StoreEntitySet="Parameter">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Receptions">
             <EntityTypeMapping TypeName="QuanLiGaraOtoModel.Reception">
               <MappingFragment StoreEntitySet="Reception">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="LicensePlate" ColumnName="LicensePlate" />
-                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
-                <ScalarProperty Name="Debt" ColumnName="Debt" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="Debt" ColumnName="Debt" />
+                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
+                <ScalarProperty Name="LicensePlate" ColumnName="LicensePlate" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Repairs">
             <EntityTypeMapping TypeName="QuanLiGaraOtoModel.Repair">
               <MappingFragment StoreEntitySet="Repair">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="ReceptionID" ColumnName="ReceptionID" />
-                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="RepairDate" ColumnName="RepairDate" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="ReceptionID" ColumnName="ReceptionID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RepairDetails">
             <EntityTypeMapping TypeName="QuanLiGaraOtoModel.RepairDetail">
               <MappingFragment StoreEntitySet="RepairDetail">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="RepairID" ColumnName="RepairID" />
-                <ScalarProperty Name="WageID" ColumnName="WageID" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="WagePrice" ColumnName="WagePrice" />
+                <ScalarProperty Name="WageID" ColumnName="WageID" />
+                <ScalarProperty Name="RepairID" ColumnName="RepairID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RepairSuppliesDetails">
             <EntityTypeMapping TypeName="QuanLiGaraOtoModel.RepairSuppliesDetail">
               <MappingFragment StoreEntitySet="RepairSuppliesDetail">
-                <ScalarProperty Name="RepairDetailID" ColumnName="RepairDetailID" />
-                <ScalarProperty Name="SuppliesID" ColumnName="SuppliesID" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="PriceItem" ColumnName="PriceItem" />
                 <ScalarProperty Name="Count" ColumnName="Count" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="SuppliesID" ColumnName="SuppliesID" />
+                <ScalarProperty Name="RepairDetailID" ColumnName="RepairDetailID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Revenues">
             <EntityTypeMapping TypeName="QuanLiGaraOtoModel.Revenue">
               <MappingFragment StoreEntitySet="Revenue">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Month" ColumnName="Month" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RevenueDetails">
             <EntityTypeMapping TypeName="QuanLiGaraOtoModel.RevenueDetail">
               <MappingFragment StoreEntitySet="RevenueDetail">
-                <ScalarProperty Name="RevenueId" ColumnName="RevenueId" />
-                <ScalarProperty Name="BrandCarId" ColumnName="BrandCarId" />
-                <ScalarProperty Name="RepairCount" ColumnName="RepairCount" />
-                <ScalarProperty Name="Ratio" ColumnName="Ratio" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Ratio" ColumnName="Ratio" />
+                <ScalarProperty Name="RepairCount" ColumnName="RepairCount" />
+                <ScalarProperty Name="BrandCarId" ColumnName="BrandCarId" />
+                <ScalarProperty Name="RevenueId" ColumnName="RevenueId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Supplies">
             <EntityTypeMapping TypeName="QuanLiGaraOtoModel.Supply">
               <MappingFragment StoreEntitySet="Supplies">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="OutputPrices" ColumnName="OutputPrices" />
+                <ScalarProperty Name="InputPrices" ColumnName="InputPrices" />
                 <ScalarProperty Name="CountInStock" ColumnName="CountInStock" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SuppliesInputs">
             <EntityTypeMapping TypeName="QuanLiGaraOtoModel.SuppliesInput">
               <MappingFragment StoreEntitySet="SuppliesInput">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="DateInput" ColumnName="DateInput" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="TotalMoney" ColumnName="TotalMoney" />
+                <ScalarProperty Name="DateInput" ColumnName="DateInput" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SuppliesInputDetails">
             <EntityTypeMapping TypeName="QuanLiGaraOtoModel.SuppliesInputDetail">
               <MappingFragment StoreEntitySet="SuppliesInputDetail">
-                <ScalarProperty Name="InputID" ColumnName="InputID" />
-                <ScalarProperty Name="SuppliesID" ColumnName="SuppliesID" />
-                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="PriceItem" ColumnName="PriceItem" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="QuanLiGaraOtoModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="SuppliesID" ColumnName="SuppliesID" />
+                <ScalarProperty Name="InputID" ColumnName="InputID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Wages">
             <EntityTypeMapping TypeName="QuanLiGaraOtoModel.Wage">
               <MappingFragment StoreEntitySet="Wage">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

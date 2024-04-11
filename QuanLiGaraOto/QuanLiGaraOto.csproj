@@ -97,8 +97,24 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\IndexConverter.cs" />
+    <Compile Include="DTOs\BillDTO.cs" />
+    <Compile Include="DTOs\BrandCarDTO.cs" />
+    <Compile Include="DTOs\CustomerDTO.cs" />
+    <Compile Include="DTOs\InventoryReportDTO.cs" />
+    <Compile Include="DTOs\InventoryReportDetailDTO.cs" />
+    <Compile Include="DTOs\ParameterDTO.cs" />
     <Compile Include="Domain\NotEmptyValidationRule.cs" />
     <Compile Include="DTOs\placeholder.cs" />
+    <Compile Include="DTOs\ReceptionDTO.cs" />
+    <Compile Include="DTOs\RepairDTO.cs" />
+    <Compile Include="DTOs\RepairDetailDTO.cs" />
+    <Compile Include="DTOs\RepairSuppliesDetailDTO.cs" />
+    <Compile Include="DTOs\RevenueDTO.cs" />
+    <Compile Include="DTOs\RevenueDetailDTO.cs" />
+    <Compile Include="DTOs\SuppliesInputDTO.cs" />
+    <Compile Include="DTOs\SuppliesInputDetailDTO.cs" />
+    <Compile Include="DTOs\SupplyDTO.cs" />
+    <Compile Include="DTOs\WageDTO.cs" />
     <Compile Include="Model\Bill.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -150,7 +166,16 @@
     <Compile Include="Model\RevenueDetail.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\service\placeholder.cs" />
+    <Compile Include="Model\service\BillService.cs" />
+    <Compile Include="Model\service\BrandCarService.cs" />
+    <Compile Include="Model\service\CustomerService.cs" />
+    <Compile Include="Model\service\InvetoryReportService.cs" />
+    <Compile Include="Model\service\ParameterService.cs" />
+    <Compile Include="Model\service\ReceptionService.cs" />
+    <Compile Include="Model\service\RepairService.cs" />
+    <Compile Include="Model\service\RevenueService.cs" />
+    <Compile Include="Model\service\SuppliesService.cs" />
+    <Compile Include="Model\service\WageService.cs" />
     <Compile Include="Model\SuppliesInput.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -160,13 +185,11 @@
     <Compile Include="Model\Supply.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\sysdiagram.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Model\Wage.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Resources\Img\placeholder.cs" />
+    <Compile Include="Utils\Helper.cs" />
     <Compile Include="Utils\placeholder.cs" />
     <Compile Include="ViewModel\BaoTriXeVM\BaoTriXeViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />

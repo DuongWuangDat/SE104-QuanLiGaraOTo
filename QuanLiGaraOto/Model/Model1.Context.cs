@@ -40,7 +40,6 @@ namespace QuanLiGaraOto.Model
         public virtual DbSet<Supply> Supplies { get; set; }
         public virtual DbSet<SuppliesInput> SuppliesInputs { get; set; }
         public virtual DbSet<SuppliesInputDetail> SuppliesInputDetails { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Wage> Wages { get; set; }
     }
 }
