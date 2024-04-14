@@ -1,4 +1,10 @@
-﻿using System.Timers;
+﻿using QuanLiGaraOto.DTOs;
+using QuanLiGaraOto.Model.service;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Timers;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace QuanLiGaraOto.ViewModel.PhieuThuTienVM
@@ -8,31 +14,58 @@ namespace QuanLiGaraOto.ViewModel.PhieuThuTienVM
 		private Timer debounceTimer;
 		private string searchText;
 
-		public ICommand ThemPhieuThuTien { get; set; }
+		private ObservableCollection<BillDTO> phieuThuTienCollection;
+
+		public ObservableCollection<BillDTO> PhieuThuTienCollection
+		{
+			get => phieuThuTienCollection;
+			set
+			{
+				if (phieuThuTienCollection != value)
+				{
+					phieuThuTienCollection = value;
+					OnPropertyChanged(nameof(PhieuThuTienCollection));
+					OnPropertyChanged(nameof(Count));
+				}
+			}
+		}
+
+		public int Count => PhieuThuTienCollection?.Count ?? 0;
+
+		public ICommand FirstLoad { get; }
+		public ICommand ThemPhieuThuTien { get; }
+		public ICommand TimKiemPhieuThuTien { get; }
 
 		public PhieuThuTienViewModel()
 		{
-			ThemPhieuThuTien = new RelayCommand<object>((p) => { return true; }, (p) =>
+			FirstLoad = new RelayCommand<object>(_ => true, async _ =>
+			{
+				PhieuThuTienCollection = new ObservableCollection<BillDTO>(await BillService.Ins.GetAllBill());
+			});
+
+			TimKiemPhieuThuTien = new RelayCommand<object>(_ => true, p =>
 			{
 				// Debounce search
-				searchText = p as string;
-				if (debounceTimer != null)
-				{
-					debounceTimer.Dispose();
-				}
+				searchText = ((TextBox)p).Text;
+				debounceTimer?.Dispose();
 
-				//debounceTimer = new Timer(PerformSearch, null, 500, System.Threading.Timeout.Infinite);
 				debounceTimer = new Timer
 				{
-
+					Interval = 500,
+					AutoReset = false
 				};
+				debounceTimer.Elapsed += PerformSearch;
+			});
+
+			ThemPhieuThuTien = new RelayCommand<object>(_ => true, _ =>
+			{
+				// Add new bill
 			});
 		}
 
-		private void PerformSearch(object state)
+		private void PerformSearch(object sender, ElapsedEventArgs e)
 		{
-			// Perform search logic here
-			// using the searchText variable
+			// Search here
 		}
 	}
 }

@@ -13,6 +13,12 @@
     DataContext="{StaticResource TraCuuXeVM}"
     mc:Ignorable="d">
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FirstLoad}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Grid Background="#3F7B88">
         <Grid Margin="30">
             <Grid.RowDefinitions>
@@ -144,8 +150,7 @@
                         CanUserSortColumns="True"
                         ColumnWidth="SizeToCells"
                         IsReadOnly="True"
-                        ItemsSource="{Binding StaffObservation, Mode=TwoWay}"
-                        SelectedItem="{Binding SelectedItem}"
+                        ItemsSource="{Binding PhieuThuTienList, Mode=TwoWay}"
                         SelectionMode="Single"
                         SelectionUnit="FullRow">
                         <DataGrid.CellStyle>
@@ -158,7 +163,7 @@
                         <DataGrid.Columns>
                             <DataGridTemplateColumn
                                 Width="auto"
-                                Header="STT"
+                                Header="ID"
                                 SortMemberPath="ID">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>

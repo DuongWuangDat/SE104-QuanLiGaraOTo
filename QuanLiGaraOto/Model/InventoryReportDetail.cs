@@ -19,6 +19,7 @@ namespace QuanLiGaraOto.Model
         public Nullable<int> TonDau { get; set; }
         public Nullable<int> PhatSinh { get; set; }
         public Nullable<int> TonCuoi { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
     
         public virtual InventoryReport InventoryReport { get; set; }
         public virtual Supply Supply { get; set; }

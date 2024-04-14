@@ -23,6 +23,7 @@ namespace QuanLiGaraOto.Model
         public int ID { get; set; }
         public Nullable<int> Month { get; set; }
         public Nullable<int> Year { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InventoryReportDetail> InventoryReportDetails { get; set; }

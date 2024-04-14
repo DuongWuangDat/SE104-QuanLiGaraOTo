@@ -24,6 +24,7 @@ namespace QuanLiGaraOto.Model
         public Nullable<int> ReceptionID { get; set; }
         public Nullable<decimal> TotalPrice { get; set; }
         public Nullable<System.DateTime> RepairDate { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
     
         public virtual Reception Reception { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

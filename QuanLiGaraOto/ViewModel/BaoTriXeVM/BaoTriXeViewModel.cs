@@ -1,4 +1,6 @@
-﻿using QuanLiGaraOto.Model;
+﻿using MaterialDesignThemes.Wpf;
+using QuanLiGaraOto.Model;
+using QuanLiGaraOto.View.BaoTriXePage;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -50,10 +52,14 @@ namespace QuanLiGaraOto.ViewModel.BaoTriXeVM
 		}
 
 		public ICommand FirstLoadBrandCar { get; set;}
-
+		public ICommand OpenManageBrandWD { get; set;}
 		public BaoTriXeViewModel()
 		{
-			
+			OpenManageBrandWD =	new RelayCommand<object>((p) => { return true; }, (p) =>
+			{
+				QuanLiHieuXeWD quanLiHieuXeWD = new QuanLiHieuXeWD();
+				quanLiHieuXeWD.ShowDialog();
+			});
 			
            
         }

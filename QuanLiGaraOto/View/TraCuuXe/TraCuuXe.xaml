@@ -122,7 +122,7 @@
                         <DataGrid.Columns>
                             <DataGridTemplateColumn
                                 Width="auto"
-                                Header="STT"
+                                Header="ID"
                                 SortMemberPath="ID">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
