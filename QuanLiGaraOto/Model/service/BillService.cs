@@ -39,8 +39,18 @@ namespace QuanLiGaraOto.Model.service
                                         LicensePlate = s.Reception.LicensePlate,
                                         Debt = s.Reception.Debt,
                                         CreatedAt = s.Reception.CreatedAt,
-                                        BrandCar = s.Reception.BrandCar,
-                                        Customer = s.Reception.Customer
+                                        BrandCar = new BrandCarDTO { 
+                                            ID = s.Reception.BrandCar.ID, 
+                                            Name = s.Reception.BrandCar.Name 
+                                        },
+                                        Customer = new CustomerDTO { 
+                                            ID = s.Reception.Customer.ID, 
+                                            Name = s.Reception.Customer.Name, 
+                                            PhoneNumber = s.Reception.Customer.PhoneNumber, 
+                                            Email = s.Reception.Customer.Email, 
+                                            TotalDebt = s.Reception.Customer.TotalDebt, 
+                                            Address = s.Reception.Customer.Address 
+                                        }
                                     },
                                     CreateAt = s.CreateAt,
                                     Proceeds = s.Proceeds

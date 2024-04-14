@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:QuanLiGaraOto.View.BaoTriXePage"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
       TextElement.FontWeight="Regular"
@@ -18,6 +19,11 @@
       Title="BaoTriXePage"
       Background="#3F7B88"
       DataContext="{StaticResource BaoTriXeVM}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FirstLoadBrandCar}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Page.Resources>
         <ControlTemplate x:Key="TextFieldInput"
                          TargetType="TextBox">
@@ -132,7 +138,8 @@
                                        FontSize="25"
                                        FontWeight="Regular"
                                        Foreground="#444242" />
-                            <TextBox Margin="42,0,0,0"
+                            <TextBox Text="{Binding CusName}" 
+                                Margin="42,0,0,0"
                                      Width="300"
                                      Foreground="#616161"
                                      FontSize="20"
@@ -146,7 +153,8 @@
                                        FontSize="25"
                                        FontWeight="Regular"
                                        Foreground="#444242" />
-                            <TextBox Margin="46,0,0,0"
+                            <TextBox Text="{Binding LicensePlate}"
+                                Margin="46,0,0,0"
                                      Width="300"
                                      Foreground="#616161"
                                      FontSize="20"
@@ -164,7 +172,9 @@
                                       Foreground="#616161"
                                       Width="195"
                                       Margin="80,0,0,0"
-                                      ItemsSource="{Binding BrandCarList}">
+                                      DisplayMemberPath="Name"
+                                      ItemsSource="{Binding BrandCarList}"
+                                      SelectedItem="{Binding SelectedBrandItem}">
 
 
                             </ComboBox>
@@ -178,7 +188,8 @@
                                        FontSize="25"
                                        FontWeight="Regular"
                                        Foreground="#444242" />
-                            <TextBox Margin="42,0,0,0"
+                            <TextBox Text="{Binding PhoneNumber}" 
+                                Margin="42,0,0,0"
                                      Width="300"
                                      Foreground="#616161"
                                      FontSize="20"
@@ -192,7 +203,8 @@
                                        FontSize="25"
                                        FontWeight="Regular"
                                        Foreground="#444242" />
-                            <TextBox Margin="75,0,0,0"
+                            <TextBox Text="{Binding Address}"
+                                Margin="75,0,0,0"
                                      Width="300"
                                      Foreground="#616161"
                                      FontSize="20"
@@ -201,8 +213,8 @@
 
                         </StackPanel>
                         <StackPanel Orientation="Horizontal"
-                                    Margin="40,64,0,0">
-                            <TextBlock Text="Ngày tiếp cận"
+                                    Margin="25,64,0,0">
+                            <TextBlock Text="Ngày tiếp nhận"
                                        FontSize="25"
                                        FontWeight="Regular"
                                        Foreground="#444242" />
@@ -218,7 +230,8 @@
                     </StackPanel>
 
                 </Grid>
-                <Button Content="Thêm phiếu bảo trì"
+                <Button Command="{Binding AddReceptionCM}" 
+                    Content="Thêm phiếu bảo trì"
                         VerticalAlignment="Top"
                         FontSize="26"
                         FontWeight="Bold"

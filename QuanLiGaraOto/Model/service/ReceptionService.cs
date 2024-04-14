@@ -35,8 +35,19 @@ namespace QuanLiGaraOto.Model.service
                                          LicensePlate = s.LicensePlate,
                                          Debt = s.Debt,
                                          CreatedAt = s.CreatedAt,
-                                         BrandCar = s.BrandCar,
-                                         Customer = s.Customer
+                                         BrandCar = new BrandCarDTO
+                                         {
+                                             ID = s.BrandCar.ID,
+                                             Name = s.BrandCar.Name
+                                         },
+                                         Customer = new CustomerDTO { 
+                                             ID = s.Customer.ID,
+                                            Name = s.Customer.Name,
+                                            PhoneNumber = s.Customer.PhoneNumber,
+                                            Email = s.Customer.Email,
+                                            TotalDebt = s.Customer.TotalDebt,
+                                            Address = s.Customer.Address
+                                         }
                                      }).ToListAsync();
                 return await receptionList;
             }
@@ -77,7 +88,14 @@ namespace QuanLiGaraOto.Model.service
                     Debt = 0,
                     CreatedAt = DateTime.Now,
                     BrandID = newReception.BrandCar.ID,
-                    Customer = newReception.Customer,
+                    Customer = new Customer
+                    {
+                        Name = newReception.Customer.Name,
+                        Address = newReception.Customer.Address,
+                        PhoneNumber = newReception.Customer.PhoneNumber,
+                        Email = "",
+                        TotalDebt = 0
+                    },
                     IsDeleted= false
                 };
                 context.Receptions.Add(receptionCus);

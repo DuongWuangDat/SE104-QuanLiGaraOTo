@@ -173,6 +173,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Resources\Img\placeholder.cs" />
+    <Compile Include="Utils\Helper.cs" />
     <Compile Include="Utils\placeholder.cs" />
     <Compile Include="ViewModel\BaoTriXeVM\BaoTriXeViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
