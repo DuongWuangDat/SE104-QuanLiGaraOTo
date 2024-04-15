@@ -93,7 +93,7 @@
           <Property Name="RepairID" Type="int" />
           <Property Name="WageID" Type="int" />
           <Property Name="WagePrice" Type="money" />
-          <Property Name="Content" Type="int" />
+          <Property Name="Content" Type="nvarchar(max)" />
           <Property Name="Price" Type="money" />
           <Property Name="IsDeleted" Type="bit" />
         </EntityType>
@@ -591,7 +591,7 @@
           <Property Name="RepairID" Type="Int32" />
           <Property Name="WageID" Type="Int32" />
           <Property Name="WagePrice" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Content" Type="Int32" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="IsDeleted" Type="Boolean" />
           <NavigationProperty Name="Repair" Relationship="QuanLiGaraOtoModel.FK_RepairDT_Repair" FromRole="RepairDetail" ToRole="Repair" />
