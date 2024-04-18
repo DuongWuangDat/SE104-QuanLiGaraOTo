@@ -48,7 +48,6 @@ namespace QuanLiGaraOto.Model.service
                                             Name = s.Reception.Customer.Name, 
                                             PhoneNumber = s.Reception.Customer.PhoneNumber, 
                                             Email = s.Reception.Customer.Email, 
-                                            TotalDebt = s.Reception.Customer.TotalDebt, 
                                             Address = s.Reception.Customer.Address 
                                         }
                                     },
@@ -61,11 +60,15 @@ namespace QuanLiGaraOto.Model.service
 
         public async Task<(bool, string)> AddNewBill(BillDTO newBill)
         {
-            var cusDebt = await CustomerService.Ins.GetTotalDebt(newBill.Reception.Customer.ID);
-            if(newBill.Proceeds > cusDebt)
+            if (newBill.Proceeds <= 0)
             {
-                return (false, "Không thể tạo hóa đơn với số tiền lớn hơn số tiền nợ của khách hàng");
+                return (false, "Số tiền thu phải lớn hơn 0");
             }
+            if (newBill.Proceeds > newBill.Reception.Debt)
+            {
+                return (false, "Số tiền thu không được lớn hơn số tiền nợ");
+            }
+            
             using (var context = new QuanLiGaraOtoEntities())
             {
                 var bill = new Bill
@@ -75,6 +78,8 @@ namespace QuanLiGaraOto.Model.service
                     Proceeds = newBill.Proceeds,
                     IsDeleted = false
                 };
+                var reception = await context.Receptions.Where(r => r.ID == newBill.Reception.ID).FirstOrDefaultAsync();
+                reception.Debt -= bill.Proceeds;
                 context.Bills.Add(bill);
                 await context.SaveChangesAsync();
                 return (true, "Thêm hóa đơn thành công");
@@ -88,6 +93,8 @@ namespace QuanLiGaraOto.Model.service
                 var bill = await context.Bills.Where(b => b.ID == id).FirstOrDefaultAsync();
                 if (bill == null)
                     return (false, "Không tìm thấy hóa đơn");
+                var recept = await context.Receptions.Where(c => c.ID == bill.ReceptionID).FirstOrDefaultAsync();
+                recept.Debt += bill.Proceeds;
                 bill.IsDeleted = true;
                 await context.SaveChangesAsync();
                 return (true, "Xóa hóa đơn thành công");
@@ -101,9 +108,12 @@ namespace QuanLiGaraOto.Model.service
                 var billUpdate = await context.Bills.Where(b => b.ID == id && b.IsDeleted== false).FirstOrDefaultAsync();
                 if (billUpdate == null)
                     return (false, "Không tìm thấy hóa đơn");
+                var recept = await context.Receptions.Where(c => c.ID == billUpdate.ReceptionID).FirstOrDefaultAsync();
+                recept.Debt += bill.Proceeds;
                 billUpdate.ReceptionID = bill.Reception.ID;
                 billUpdate.CreateAt = bill.CreateAt;
                 billUpdate.Proceeds = bill.Proceeds;
+                recept.Debt -= bill.Proceeds;
                 await context.SaveChangesAsync();
                 return (true, "Cập nhật hóa đơn thành công");
 

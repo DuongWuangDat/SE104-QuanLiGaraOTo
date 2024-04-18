@@ -45,7 +45,6 @@ namespace QuanLiGaraOto.Model.service
                                             Name = s.Customer.Name,
                                             PhoneNumber = s.Customer.PhoneNumber,
                                             Email = s.Customer.Email,
-                                            TotalDebt = s.Customer.TotalDebt,
                                             Address = s.Customer.Address
                                          }
                                      }).ToListAsync();
@@ -93,8 +92,7 @@ namespace QuanLiGaraOto.Model.service
                         Name = newReception.Customer.Name,
                         Address = newReception.Customer.Address,
                         PhoneNumber = newReception.Customer.PhoneNumber,
-                        Email = "",
-                        TotalDebt = 0
+                        Email = ""
                     },
                     IsDeleted= false
                 };
@@ -114,6 +112,13 @@ namespace QuanLiGaraOto.Model.service
             }
         }
 
-
+        public async Task<decimal> GetDebt (int id)
+        {
+            using(var context = new QuanLiGaraOtoEntities())
+            {
+                var reception = await context.Receptions.Where(r => r.ID == id).FirstOrDefaultAsync();
+                return (decimal)reception.Debt;
+            }
+        } 
     }
 }

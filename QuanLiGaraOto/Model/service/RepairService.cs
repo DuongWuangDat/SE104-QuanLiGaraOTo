@@ -52,7 +52,6 @@ namespace QuanLiGaraOto.Model.service
                                               Name = s.Reception.Customer.Name,
                                               PhoneNumber = s.Reception.Customer.PhoneNumber,
                                               Email = s.Reception.Customer.Email,
-                                              TotalDebt = s.Reception.Customer.TotalDebt,
                                               Address = s.Reception.Customer.Address
                                           }
                                       },
@@ -179,7 +178,6 @@ namespace QuanLiGaraOto.Model.service
                     curRepairDetailID++;
                 }
                 recept.Debt = totalPrice;
-                customer.TotalDebt += totalPrice;
                 repair.TotalPrice = totalPrice;
                 context.RepairSuppliesDetails.AddRange(RepairSuppliesDetailsList);
                 context.RepairDetails.AddRange(RepairDetailsList);
