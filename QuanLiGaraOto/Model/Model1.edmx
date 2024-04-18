@@ -33,7 +33,6 @@
           <Property Name="PhoneNumber" Type="varchar" MaxLength="20" />
           <Property Name="Email" Type="varchar" MaxLength="100" />
           <Property Name="IsDeleted" Type="bit" />
-          <Property Name="TotalDebt" Type="money" />
         </EntityType>
         <EntityType Name="InventoryReport">
           <Key>
@@ -93,7 +92,7 @@
           <Property Name="RepairID" Type="int" />
           <Property Name="WageID" Type="int" />
           <Property Name="WagePrice" Type="money" />
-          <Property Name="Content" Type="int" />
+          <Property Name="Content" Type="nvarchar(max)" />
           <Property Name="Price" Type="money" />
           <Property Name="IsDeleted" Type="bit" />
         </EntityType>
@@ -521,7 +520,6 @@
           <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="IsDeleted" Type="Boolean" />
-          <Property Name="TotalDebt" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="Receptions" Relationship="QuanLiGaraOtoModel.FK_Recept_Cus" FromRole="Customer" ToRole="Reception" />
         </EntityType>
         <EntityType Name="InventoryReport">
@@ -591,7 +589,7 @@
           <Property Name="RepairID" Type="Int32" />
           <Property Name="WageID" Type="Int32" />
           <Property Name="WagePrice" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Content" Type="Int32" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="IsDeleted" Type="Boolean" />
           <NavigationProperty Name="Repair" Relationship="QuanLiGaraOtoModel.FK_RepairDT_Repair" FromRole="RepairDetail" ToRole="Repair" />
@@ -880,7 +878,6 @@
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="QuanLiGaraOtoModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
-                <ScalarProperty Name="TotalDebt" ColumnName="TotalDebt" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />

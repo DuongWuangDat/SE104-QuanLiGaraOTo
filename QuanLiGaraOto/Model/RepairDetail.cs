@@ -24,7 +24,7 @@ namespace QuanLiGaraOto.Model
         public Nullable<int> RepairID { get; set; }
         public Nullable<int> WageID { get; set; }
         public Nullable<decimal> WagePrice { get; set; }
-        public Nullable<int> Content { get; set; }
+        public string Content { get; set; }
         public Nullable<decimal> Price { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
     
