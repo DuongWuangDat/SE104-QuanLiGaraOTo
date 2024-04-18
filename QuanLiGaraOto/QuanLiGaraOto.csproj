@@ -353,6 +353,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Icon\cancel.png" />
     <Resource Include="Resources\Icon\Trash.png" />
     <Resource Include="Resources\Icon\Edit.png" />
     <Resource Include="Resources\Img\delete_button.png" />

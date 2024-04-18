@@ -1,9 +1,12 @@
 ﻿using QuanLiGaraOto.DTOs;
+using QuanLiGaraOto.Model;
 using QuanLiGaraOto.Model.service;
-using System;
+using QuanLiGaraOto.View.PhieuThuTien;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Timers;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -11,9 +14,6 @@ namespace QuanLiGaraOto.ViewModel.PhieuThuTienVM
 {
 	internal class PhieuThuTienViewModel : BaseViewModel
 	{
-		private Timer debounceTimer;
-		private string searchText;
-
 		private ObservableCollection<BillDTO> phieuThuTienCollection;
 
 		public ObservableCollection<BillDTO> PhieuThuTienCollection
@@ -30,42 +30,49 @@ namespace QuanLiGaraOto.ViewModel.PhieuThuTienVM
 			}
 		}
 
+		private List<BillDTO> bills;
+
 		public int Count => PhieuThuTienCollection?.Count ?? 0;
 
 		public ICommand FirstLoad { get; }
-		public ICommand ThemPhieuThuTien { get; }
+		public ICommand ThemPhieuThuTienOpen { get; }
 		public ICommand TimKiemPhieuThuTien { get; }
 
 		public PhieuThuTienViewModel()
 		{
 			FirstLoad = new RelayCommand<object>(_ => true, async _ =>
 			{
-				PhieuThuTienCollection = new ObservableCollection<BillDTO>(await BillService.Ins.GetAllBill());
+				bills = await BillService.Ins.GetAllBill();
+				PhieuThuTienCollection = new ObservableCollection<BillDTO>(bills);
 			});
 
 			TimKiemPhieuThuTien = new RelayCommand<object>(_ => true, p =>
 			{
-				// Debounce search
-				searchText = ((TextBox)p).Text;
-				debounceTimer?.Dispose();
-
-				debounceTimer = new Timer
+				string searchText = ((TextBox)p).Text.ToLower();
+				if (string.IsNullOrEmpty(searchText))
 				{
-					Interval = 500,
-					AutoReset = false
-				};
-				debounceTimer.Elapsed += PerformSearch;
+					PhieuThuTienCollection = new ObservableCollection<BillDTO>(bills);
+				}
+				else
+				{
+					PhieuThuTienCollection = new ObservableCollection<BillDTO>(bills.FindAll(x => x.Reception.Customer.Name.ToLower().Contains(searchText)
+					|| x.Reception.LicensePlate.ToLower().Contains(searchText)));
+				}
 			});
 
-			ThemPhieuThuTien = new RelayCommand<object>(_ => true, _ =>
+			ThemPhieuThuTienOpen = new RelayCommand<object>(_ => true, async _ =>
 			{
-				// Add new bill
-			});
-		}
+				Window mainWindow = Application.Current.MainWindow; // Lấy cửa sổ chính
+				mainWindow.Opacity = 0.5; // Làm mờ cửa sổ chính
 
-		private void PerformSearch(object sender, ElapsedEventArgs e)
-		{
-			// Search here
+				Window dialogWindow = new ThemPhieuThuTien();
+				dialogWindow.ShowDialog(); // Hiển thị cửa sổ dialog
+
+				bills = await BillService.Ins.GetAllBill();
+
+				PhieuThuTienCollection = new ObservableCollection<BillDTO>(bills);
+				mainWindow.Opacity = 1.0;
+			});
 		}
 	}
 }

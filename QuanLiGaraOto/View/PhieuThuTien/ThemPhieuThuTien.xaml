@@ -8,296 +8,328 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:phieuthutienvm="clr-namespace:QuanLiGaraOto.ViewModel.PhieuThuTienVM"
-    Width="830"
+    x:Name="themPhieuThuTienWindow"
+    Width="808"
     Height="435"
-    d:DataContext="{d:DesignInstance Type=phieuthutienvm:ThemPhieuThuTienViewModel}"
+    DataContext="{StaticResource ThemPhieuThuTienVM}"
     AllowsTransparency="True"
+    Background="Transparent"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
-    <ScrollViewer
-        Background="Transparent"
-        HorizontalScrollBarVisibility="Auto"
-        VerticalScrollBarVisibility="Auto">
-        <Border
-            materialDesign:ElevationAssist.Elevation="Dp4"
-            Background="White"
-            BorderThickness="0"
-            CornerRadius="15">
-            <Grid
-                Width="768"
-                Margin="20,0,20,0"
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FirstLoad}" CommandParameter="{Binding ElementName=themPhieuThuTienWindow}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Border
+        materialDesign:ElevationAssist.Elevation="Dp4"
+        Background="White"
+        BorderThickness="0"
+        CornerRadius="20">
+        <Grid
+            Width="768"
+            Margin="20,0,20,0"
+            HorizontalAlignment="Left"
+            Background="Transparent"
+            MouseLeftButtonDown="Window_MouseLeftButtonDown_1">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="2.7*" />
+                <RowDefinition Height="1.5*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock
                 HorizontalAlignment="Left"
-                Background="Transparent"
-                MouseLeftButtonDown="Window_MouseLeftButtonDown_1">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition Height="2.7*" />
-                    <RowDefinition Height="1.5*" />
-                </Grid.RowDefinitions>
+                VerticalAlignment="Center"
+                FontFamily="Roboto Condensed"
+                FontSize="25"
+                FontWeight="Bold">
+                Thêm phiếu thu tiền
+            </TextBlock>
 
-                <TextBlock
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    FontFamily="Roboto Condensed"
-                    FontSize="25"
-                    FontWeight="Bold">
-                    Thêm phiếu thu tiền
-                </TextBlock>
-
-                <Grid Grid.Row="1" Margin="0,10,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
+            <Grid Grid.Row="1" Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
 
 
-                    <StackPanel Margin="0,0,10,0">
-                        <StackPanel.Resources>
-                            <Style TargetType="StackPanel">
-                                <Setter Property="Margin" Value="0,0,0,10" />
-                            </Style>
-                        </StackPanel.Resources>
+                <StackPanel Margin="0,0,10,0">
+                    <StackPanel.Resources>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Margin" Value="0,0,0,10" />
+                        </Style>
+                    </StackPanel.Resources>
 
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                FontFamily="Roboto Condensed"
-                                FontSize="17"
-                                FontWeight="Regular">
-                                Họ tên chủ xe:
-                            </TextBlock>
-                            <TextBox
-                                x:Name="NameTextBox"
-                                Width="500"
-                                Margin="10,0"
-                                VerticalAlignment="Center"
-                                materialDesign:TextFieldAssist.TextBoxViewMargin="0"
-                                FontFamily="Roboto Condensed"
-                                FontSize="17"
-                                FontWeight="Regular"
-                                Text="{Binding CustomerName}" />
-                        </StackPanel>
-
-
-
-                        <StackPanel Orientation="Horizontal">
-
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                FontFamily="Roboto Condensed"
-                                FontSize="17"
-                                FontWeight="Regular">
-                                Điện thoại:
-                            </TextBlock>
-                            <TextBox
-                                Width="500"
-                                Margin="10,0"
-                                VerticalAlignment="Center"
-                                materialDesign:TextFieldAssist.TextBoxViewMargin="0"
-                                FontFamily="Roboto Condensed"
-                                FontSize="17"
-                                FontWeight="Regular"
-                                Text="{Binding CustomerName}" />
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal">
-
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                FontFamily="Roboto Condensed"
-                                FontSize="17"
-                                FontWeight="Regular">
-                                Email:
-                            </TextBlock>
-                            <TextBox
-                                Width="500"
-                                Margin="10,0"
-                                VerticalAlignment="Center"
-                                materialDesign:TextFieldAssist.TextBoxViewMargin="0"
-                                FontFamily="Roboto Condensed"
-                                FontSize="17"
-                                FontWeight="Regular"
-                                Text="{Binding CustomerName}" />
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal">
-
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                FontFamily="Roboto Condensed"
-                                FontSize="17"
-                                FontWeight="Regular">
-                                Biển số xe:
-                            </TextBlock>
-                            <TextBox
-                                Width="500"
-                                Margin="10,0"
-                                VerticalAlignment="Center"
-                                materialDesign:TextFieldAssist.TextBoxViewMargin="0"
-                                FontFamily="Roboto Condensed"
-                                FontSize="17"
-                                FontWeight="Regular"
-                                Text="{Binding CustomerName}" />
-                        </StackPanel>
-
-                    </StackPanel>
-
-                    <StackPanel Grid.Column="1" HorizontalAlignment="Right">
-                        <StackPanel.Resources>
-                            <Style TargetType="StackPanel">
-                                <Setter Property="Margin" Value="0,0,0,10" />
-                            </Style>
-                        </StackPanel.Resources>
-
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                FontFamily="Roboto Condensed"
-                                FontSize="17"
-                                FontWeight="Regular">
-                                Ngày thu tiền:
-                            </TextBlock>
-                            <DatePicker
-                                Width="268"
-                                Margin="10,0"
-                                materialDesign:TextFieldAssist.TextBoxViewMargin="0"
-                                FontSize="17">
-
-                                <DatePicker.Resources />
-                            </DatePicker>
-                        </StackPanel>
-
-
-
-                        <StackPanel Orientation="Horizontal">
-
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                FontFamily="Roboto Condensed"
-                                FontSize="17"
-                                FontWeight="Regular">
-                                Tiền nợ:
-                            </TextBlock>
-                            <TextBox
-                                x:Name="tienNo"
-                                Width="320"
-                                Margin="10,0"
-                                VerticalAlignment="Center"
-                                FontFamily="Roboto Condensed"
-                                FontSize="17"
-                                FontWeight="Regular"
-                                PreviewKeyDown="TextBox_PreviewKeyDown"
-                                Text="{Binding CustomerName}"
-                                TextChanged="TextBox_TextChanged" />
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal">
-
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                FontFamily="Roboto Condensed"
-                                FontSize="17"
-                                FontWeight="Regular">
-                                Tiền thu:
-                            </TextBlock>
-                            <TextBox
-                                Width="350"
-                                Margin="10,0"
-                                VerticalAlignment="Center"
-                                FontFamily="Roboto Condensed"
-                                FontSize="17"
-                                FontWeight="Regular"
-                                PreviewKeyDown="TextBox_PreviewKeyDown"
-                                Text="{Binding CustomerName}"
-                                TextChanged="TextBox_TextChanged" />
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal">
-
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                FontFamily="Roboto Condensed"
-                                FontSize="17"
-                                FontWeight="Regular">
-                                Nợ còn lại
-                            </TextBlock>
-                            <TextBox
-                                Width="500"
-                                Margin="10,0"
-                                VerticalAlignment="Center"
-                                FontFamily="Roboto Condensed"
-                                FontSize="17"
-                                FontWeight="Regular"
-                                PreviewKeyDown="TextBox_PreviewKeyDown"
-                                Text="{Binding CustomerName}"
-                                TextChanged="TextBox_TextChanged" />
-                        </StackPanel>
-
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            FontWeight="Regular">
+                            Họ tên chủ xe:
+                        </TextBlock>
+                        <TextBox
+                            Name="hoTenChuXeTextBox"
+                            Width="285"
+                            Margin="10,0"
+                            VerticalAlignment="Center"
+                            materialDesign:TextFieldAssist.TextBoxViewMargin="0"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            FontWeight="Regular"
+                            Text="{Binding HoTenChuXe}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="LostFocus">
+                                    <i:InvokeCommandAction Command="{Binding LostFocusHoTenChuXe}" CommandParameter="{Binding ElementName=hoTenChuXeTextBox}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
                     </StackPanel>
 
 
-                </Grid>
-                <StackPanel
-                    Grid.Row="2"
-                    HorizontalAlignment="Right"
-                    Orientation="Horizontal">
-                    <Button
-                        MinWidth="120"
-                        MinHeight="50"
-                        MaxWidth="151"
-                        MaxHeight="57"
-                        Margin="20,0"
-                        HorizontalAlignment="Left"
-                        HorizontalContentAlignment="Center"
-                        VerticalContentAlignment="Center"
-                        materialDesign:ButtonAssist.CornerRadius="10"
-                        materialDesign:ElevationAssist.Elevation="Dp3"
-                        Background="#3093A0"
-                        BorderThickness="0"
-                        Command="{Binding ThemPhieuThuTien}">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                FontFamily="Roboto Condensed"
-                                FontSize="16"
-                                FontWeight="Bold"
-                                Foreground="White">
-                                Thêm
-                            </TextBlock>
-                        </StackPanel>
-                    </Button>
 
-                    <Button
-                        MinWidth="120"
-                        MinHeight="50"
-                        MaxWidth="151"
-                        MaxHeight="57"
-                        Margin="10,0,0,0"
-                        HorizontalAlignment="Left"
-                        HorizontalContentAlignment="Center"
-                        VerticalContentAlignment="Center"
-                        materialDesign:ButtonAssist.CornerRadius="10"
-                        materialDesign:ElevationAssist.Elevation="Dp3"
-                        Background="#3093A0"
-                        BorderThickness="0"
-                        Click="Huy_Click"
-                        Opacity="0.4">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                FontFamily="Roboto Condensed"
-                                FontSize="16"
-                                FontWeight="Bold"
-                                Foreground="White">
-                                Hủy
-                            </TextBlock>
-                        </StackPanel>
-                    </Button>
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            FontWeight="Regular">
+                            Điện thoại:
+                        </TextBlock>
+                        <ComboBox
+                            Name="soDienThoaiComboBox"
+                            Width="285"
+                            Margin="10,0"
+                            VerticalAlignment="Center"
+                            materialDesign:TextFieldAssist.TextBoxViewMargin="0"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            IsEditable="False"
+                            FontWeight="Regular"
+                            ItemsSource="{Binding SoDienThoaiList}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding SelectionChangedSoDienThoai}" CommandParameter="{Binding ElementName=soDienThoaiComboBox}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            FontWeight="Regular">
+                            Email:
+                        </TextBlock>
+                        <TextBox
+                            Width="500"
+                            Margin="10,0"
+                            VerticalAlignment="Center"
+                            materialDesign:TextFieldAssist.TextBoxViewMargin="0"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            FontWeight="Regular"
+                            IsEnabled="False"
+                            Text="{Binding Email, Mode=TwoWay}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            FontWeight="Regular">
+                            Biển số xe:
+                        </TextBlock>
+                        <ComboBox
+                            Name="bienSoXeComboBox"
+                            Width="285"
+                            Margin="10,0"
+                            VerticalAlignment="Center"
+                            materialDesign:TextFieldAssist.TextBoxViewMargin="0"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            FontWeight="Regular"
+                            IsEditable="False"
+                            ItemsSource="{Binding BienSoXeList}"
+                            Style="{StaticResource MaterialDesignComboBox}">
+
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding SelectionChangedBienSoXe}" CommandParameter="{Binding ElementName=bienSoXeComboBox}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
+                    </StackPanel>
+
                 </StackPanel>
+
+                <StackPanel Grid.Column="1" HorizontalAlignment="Right">
+                    <StackPanel.Resources>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Margin" Value="0,0,0,10" />
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            FontWeight="Regular">
+                            Ngày thu tiền:
+                        </TextBlock>
+                        <DatePicker
+                            Width="268"
+                            Margin="10,0"
+                            materialDesign:TextFieldAssist.TextBoxViewMargin="0"
+                            FontSize="17"
+                            SelectedDate="{Binding NgayThuTien, Mode=TwoWay}" />
+                    </StackPanel>
+
+
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            FontWeight="Regular">
+                            Tiền nợ:
+                        </TextBlock>
+                        <TextBox
+                            x:Name="tienNo"
+                            Width="320"
+                            Margin="10,0"
+                            VerticalAlignment="Center"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            FontWeight="Regular"
+                            IsEnabled="False"
+                            Text="{Binding TienNo}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            FontWeight="Regular">
+                            Tiền thu:
+                        </TextBlock>
+                        <TextBox
+                            Width="350"
+                            Name="tienThuTextBox"
+                            Margin="10,0"
+                            VerticalAlignment="Center"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            FontWeight="Regular"
+                            TextChanged="PaymentTextBox_TextChanged"
+                            PreviewKeyDown="TextBox_PreviewKeyDown"
+                            Text="{Binding TienThu, Mode=TwoWay}" >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="KeyUp">
+                                    <i:InvokeCommandAction Command="{Binding KeyUpTienThu}" CommandParameter="{Binding ElementName=tienThuTextBox}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            FontWeight="Regular">
+                            Nợ còn lại
+                        </TextBlock>
+                        <TextBox
+                            Width="500"
+                            Margin="10,0"
+                            VerticalAlignment="Center"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            FontWeight="Regular"
+                            IsEnabled="False"
+                            Text="{Binding NoConLai, Mode=TwoWay}" />
+                    </StackPanel>
+
+                </StackPanel>
+
+
             </Grid>
-        </Border>
-    </ScrollViewer>
+            <StackPanel
+                Grid.Row="2"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <Button
+                    MinWidth="120"
+                    MinHeight="50"
+                    MaxWidth="151"
+                    MaxHeight="57"
+                    Margin="20,0"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    materialDesign:ButtonAssist.CornerRadius="10"
+                    materialDesign:ElevationAssist.Elevation="Dp3"
+                    Background="#3093A0"
+                    BorderThickness="0"
+                    Command="{Binding ThemPhieuThuTien}"
+                    CommandParameter="{Binding ElementName=themPhieuThuTienWindow}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="Roboto Condensed"
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Foreground="White">
+                            Thêm
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
+
+                <Button
+                    MinWidth="120"
+                    MinHeight="50"
+                    MaxWidth="151"
+                    MaxHeight="57"
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    materialDesign:ButtonAssist.CornerRadius="10"
+                    materialDesign:ElevationAssist.Elevation="Dp3"
+                    Background="#ff3f38"
+                    BorderThickness="0"
+                    Click="Huy_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="Roboto Condensed"
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Foreground="White">
+                            Hủy
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Border>
 </Window>

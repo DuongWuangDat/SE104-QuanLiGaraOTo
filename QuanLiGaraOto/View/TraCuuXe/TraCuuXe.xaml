@@ -13,6 +13,12 @@
     DataContext="{StaticResource TraCuuXeVM}"
     mc:Ignorable="d">
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FirstLoad}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Grid Background="#3F7B88">
         <Grid Margin="30">
             <Grid.RowDefinitions>
@@ -61,7 +67,7 @@
                                 Foreground="#353535">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="TextChanged">
-                                        <i:InvokeCommandAction Command="{Binding SearchStaff}" CommandParameter="{Binding ElementName=searchBox}" />
+                                        <i:InvokeCommandAction Command="{Binding TimKiemXe}" CommandParameter="{Binding ElementName=searchBox}" />
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </TextBox>
@@ -90,117 +96,110 @@
             <!--  Tra cứu xe  -->
             <Border
                 Grid.Row="1"
-                Margin="30,0,30,30"
-                Background="Transparent"
+                Margin="0,10,0,0"
+                Padding="10"
+                HorizontalAlignment="Center"
+                Background="White"
                 CornerRadius="35">
-                <Border
-                    Margin="18"
+                <DataGrid
+                    x:Name="dataGrid"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    AutoGenerateColumns="False"
                     Background="White"
-                    CornerRadius="20">
-                    <DataGrid
-                        x:Name="dataGrid"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Top"
-                        AutoGenerateColumns="False"
-                        Background="White"
-                        CanUserReorderColumns="False"
-                        CanUserResizeColumns="False"
-                        CanUserSortColumns="True"
-                        ColumnWidth="SizeToCells"
-                        IsReadOnly="True"
-                        ItemsSource="{Binding StaffObservation, Mode=TwoWay}"
-                        SelectedItem="{Binding SelectedItem}"
-                        SelectionMode="Single"
-                        SelectionUnit="FullRow" >
-                        <DataGrid.CellStyle>
-                            <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
-                                <Setter Property="BorderThickness" Value="0" />
-                                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                            </Style>
-                        </DataGrid.CellStyle>
+                    CanUserReorderColumns="False"
+                    CanUserResizeColumns="False"
+                    CanUserSortColumns="True"
+                    ColumnWidth="SizeToCells"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding XeCollection, Mode=TwoWay}"
+                    SelectionMode="Single"
+                    SelectionUnit="FullRow">
+                    <DataGrid.CellStyle>
+                        <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
+                            <Setter Property="BorderThickness" Value="0" />
+                            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                        </Style>
+                    </DataGrid.CellStyle>
 
-                        <DataGrid.Columns>
-                            <DataGridTemplateColumn
-                                Width="auto"
-                                Header="ID"
-                                SortMemberPath="ID">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Center"
-                                            FontSize="15"
-                                            Text="{Binding ID}" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn
+                            Width="auto"
+                            Header="ID"
+                            SortMemberPath="ID">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        FontSize="15"
+                                        Text="{Binding ID}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn
-                                Width="auto"
-                                Header="Biển số"
-                                SortMemberPath="LicensePlate">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Center"
-                                            FontSize="15"
-                                            Text="{Binding LicensePlate}" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
+                        <DataGridTemplateColumn
+                            Width="auto"
+                            Header="Biển số"
+                            SortMemberPath="LicensePlate">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        FontSize="15"
+                                        Text="{Binding LicensePlate}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn
-                                Width="auto"
-                                Header="Hiệu xe"
-                                SortMemberPath="Brandcard">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Center"
-                                            FontSize="15"
-                                            Text="{Binding Brandcard}" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
+                        <DataGridTemplateColumn
+                            Width="auto"
+                            Header="Hiệu xe"
+                            SortMemberPath="BrandCar.Name">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        FontSize="15"
+                                        Text="{Binding BrandCar.Name}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn
-                                Width="auto"
-                                Header="Chủ xe"
-                                SortMemberPath="Customer">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Center"
-                                            FontSize="15"
-                                            Text="{Binding Customer}" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
+                        <DataGridTemplateColumn
+                            Width="auto"
+                            Header="Chủ xe"
+                            SortMemberPath="Customer.Name">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        FontSize="15"
+                                        Text="{Binding Customer.Name}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn
-                                Width="auto"
-                                Header="Tiền nợ"
-                                SortMemberPath="Debt">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Center"
-                                            FontSize="15"
-                                            Text="{Binding Debt}" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Border>
-
+                        <DataGridTemplateColumn
+                            Width="auto"
+                            Header="Tiền nợ"
+                            SortMemberPath="Debt">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        FontSize="15"
+                                        Text="{Binding Debt,  StringFormat={}{0:N0} VNĐ}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
             </Border>
-
         </Grid>
-
     </Grid>
 </Page>
