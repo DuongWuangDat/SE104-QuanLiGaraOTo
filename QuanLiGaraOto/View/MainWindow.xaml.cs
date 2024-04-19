@@ -51,5 +51,11 @@ namespace QuanLiGaraOto.View
             //    MessageBoxCustom.Show(MessageBoxCustom.Error, "Không thể khởi tạo dữ liệu");
             //}
         }
+
+		private void closeButton_Click(object sender, RoutedEventArgs e)
+		{
+            Window window = Window.GetWindow(this);
+            window.Close();
+        }
     }
 }

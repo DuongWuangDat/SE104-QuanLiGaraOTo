@@ -13,6 +13,7 @@
     d:DesignWidth="1536"
     Background="#3F7B88"
     Closed="AdminWD_Closed"
+    DataContext="{StaticResource MainWindowVM}"
     Loaded="MainWD_Loaded"
     ResizeMode="NoResize"
     WindowStyle="None"
@@ -141,7 +142,7 @@
                             </TextBlock>
 
                             <StackPanel HorizontalAlignment="Right">
-                                <Button x:Name="closeButton" Height="53" Width="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" >
+                                <Button Click="closeButton_Click" x:Name="closeButton" Height="53" Width="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" >
                                     <Button.Style>
                                         <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="Button">
                                             
@@ -220,10 +221,10 @@
                             </StackPanel>
                         </Grid>
 
-                        <!--  SanPham-Menu_btn  -->
+                        <!--  BaoTriXe-Menu_btn  -->
                         <RadioButton
                             x:Name="SPbtn"
-                            Command="{Binding LoadSanPhamPage}"
+                            Command="{Binding LoadBaoTriXePage}"
                             CommandParameter="{Binding ElementName=MainFrame}"
                             Cursor="Hand"
                             IsChecked="True">
@@ -274,10 +275,10 @@
 
                         </RadioButton>
 
-                        <!--  NhanVien-Menu_btn  -->
+                        <!--  SuaChuaXe-Menu_btn  -->
                         <RadioButton
                             x:Name="NVbtn"
-                            Command="{Binding LoadNhanVienPage}"
+                            Command="{Binding LoadSuaChuaXePage}"
                             CommandParameter="{Binding ElementName=MainFrame}"
                             Cursor="Hand">
                             <RadioButton.Style>
@@ -326,10 +327,10 @@
 
                         </RadioButton>
 
-                        <!--  Ban-Menu_btn  -->
+                        <!--  TraCuuXe-Menu_btn  -->
                         <RadioButton
                             Name="Banbtn"
-                            Command="{Binding LoadTablePage}"
+                            Command="{Binding LoadTraCuuXePage}"
                             CommandParameter="{Binding ElementName=MainFrame}"
                             Cursor="Hand">
                             <RadioButton.Style>
@@ -379,10 +380,10 @@
 
                         </RadioButton>
 
-                        <!--  KhachHang-Menu_btn  -->
+                        <!--  PhieuThuTien-Menu_btn  -->
                         <RadioButton
                             x:Name="KHbtn"
-                            Command="{Binding LoadKhachHangPage}"
+                            Command="{Binding LoadPhieuThuTienPage}"
                             CommandParameter="{Binding ElementName=MainFrame}"
                             Cursor="Hand">
                             <RadioButton.Style>
@@ -432,10 +433,10 @@
 
                         </RadioButton>
 
-                        <!--  ThongKe-Menu_btn  -->
+                        <!--  BaoCaoThang-Menu_btn  -->
                         <RadioButton
                             x:Name="ThongKebtn"
-                            Command="{Binding LoadThongKePage}"
+                            Command="{Binding LoadBaoCaoThangPage}"
                             CommandParameter="{Binding ElementName=MainFrame}"
                             Cursor="Hand">
                             <RadioButton.Style>
@@ -484,10 +485,10 @@
 
                         </RadioButton>
 
-                        <!--  SuCo-Menu_btn  -->
+                        <!--  CaiDat-Menu_btn  -->
                         <RadioButton
                             x:Name="Errbtn"
-                            Command="{Binding LoadErrorPage}"
+                            Command="{Binding LoadCaiDatPage}"
                             CommandParameter="{Binding ElementName=MainFrame}"
                             Cursor="Hand">
                             <RadioButton.Style>

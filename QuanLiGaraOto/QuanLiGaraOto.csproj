@@ -177,6 +177,7 @@
     <Compile Include="Utils\placeholder.cs" />
     <Compile Include="ViewModel\BaoTriXeVM\BaoTriXeViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\PhieuThuTienVM\PhieuThuTienViewModel.cs" />
     <Compile Include="ViewModel\PhieuThuTienVM\ThemPhieuThuTienViewModel.cs" />
     <Compile Include="View\BaoTriXePage\BaoTriXePage.xaml.cs">

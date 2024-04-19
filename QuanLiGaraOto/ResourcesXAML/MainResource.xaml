@@ -4,8 +4,10 @@
     xmlns:tracuuxeviewmodel="clr-namespace:QuanLiGaraOto.ViewModel.TraCuuXeVM"
     xmlns:viewmodel="clr-namespace:QuanLiGaraOto.ViewModel"
     xmlns:phieuthutienviewmodel="clr-namespace:QuanLiGaraOto.ViewModel.PhieuThuTienVM"
+    xmlns:mainwindowviewmodel="clr-namespace:QuanLiGaraOto.ViewModel"
     xmlns:viewmodel1="clr-namespace:QuanLiGaraOto.ViewModel.BaoTriXeVM">
     <phieuthutienviewmodel:PhieuThuTienViewModel x:Key="PhieuThuTienVM" />
+    <mainwindowviewmodel:MainWindowViewModel x:Key="MainWindowVM" />
     <phieuthutienviewmodel:ThemPhieuThuTienViewModel x:Key="ThemPhieuThuTienVM" />
     <viewmodel1:BaoTriXeViewModel x:Key="BaoTriXeVM" />
     <tracuuxeviewmodel:TraCuuXeViewModel x:Key="TraCuuXeVM" />
