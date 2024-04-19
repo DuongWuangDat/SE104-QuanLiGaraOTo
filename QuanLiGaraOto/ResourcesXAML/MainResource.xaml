@@ -5,10 +5,12 @@
     xmlns:viewmodel="clr-namespace:QuanLiGaraOto.ViewModel"
     xmlns:phieuthutienviewmodel="clr-namespace:QuanLiGaraOto.ViewModel.PhieuThuTienVM"
     xmlns:mainwindowviewmodel="clr-namespace:QuanLiGaraOto.ViewModel"
-    xmlns:viewmodel1="clr-namespace:QuanLiGaraOto.ViewModel.BaoTriXeVM">
+    xmlns:viewmodel1="clr-namespace:QuanLiGaraOto.ViewModel.BaoTriXeVM"
+    xmlns:baocaotonkhoviewmodel ="clr-namespace:QuanLiGaraOto.ViewModel.BaoCaoVM" >
     <phieuthutienviewmodel:PhieuThuTienViewModel x:Key="PhieuThuTienVM" />
     <mainwindowviewmodel:MainWindowViewModel x:Key="MainWindowVM" />
     <phieuthutienviewmodel:ThemPhieuThuTienViewModel x:Key="ThemPhieuThuTienVM" />
     <viewmodel1:BaoTriXeViewModel x:Key="BaoTriXeVM" />
     <tracuuxeviewmodel:TraCuuXeViewModel x:Key="TraCuuXeVM" />
+    <baocaotonkhoviewmodel:BaoCaoTonKhoViewModel x:Key="BaoCaoVM" />
 </ResourceDictionary>
