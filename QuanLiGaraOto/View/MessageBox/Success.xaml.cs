@@ -17,7 +17,7 @@ namespace QuanLiGaraOto.View.MessageBox
 			DataContext = new MessageBoxViewModel(text);
 		}
 
-		private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
 			if (e.LeftButton == MouseButtonState.Pressed)
 			{
