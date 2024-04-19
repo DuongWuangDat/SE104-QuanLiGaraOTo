@@ -48,14 +48,14 @@
                             <DataGridTemplateColumn
                                 Width="auto"
                                 Header="STT"
-                                SortMemberPath="ID">
+                                SortMemberPath="STT">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
                                         FontSize="15"
-                                        Text="{Binding ID}" />
+                                        Text="{Binding STT}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -63,14 +63,14 @@
                             <DataGridTemplateColumn
                                 Width="auto"
                                 Header="Hiệu xe"
-                                SortMemberPath="Customer">
+                                SortMemberPath="BrandCar">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
                                             FontSize="15"
-                                            Text="{Binding Customer}" />
+                                            Text="{Binding BrandCar}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -78,14 +78,14 @@
                             <DataGridTemplateColumn
                                 Width="auto"
                                 Header="Số lượt sửa chữa"
-                                SortMemberPath="PhoneNumber">
+                                SortMemberPath="RepairCount">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
                                             FontSize="15"
-                                            Text="{Binding PhoneNumber}" />
+                                            Text="{Binding RepairCount}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -93,14 +93,14 @@
                             <DataGridTemplateColumn
                                 Width="auto"
                                 Header="Thành tiền"
-                                SortMemberPath="CreateAt">
+                                SortMemberPath="Price">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
                                             FontSize="15"
-                                            Text="{Binding CreateAt}" />
+                                            Text="{Binding Price}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -109,14 +109,14 @@
                             <DataGridTemplateColumn
                                 Width="auto"
                                 Header="Tỉ lệ"
-                                SortMemberPath="LicensePlate">
+                                SortMemberPath="Ratio">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
                                         FontSize="15"
-                                        Text="{Binding LicensePlate}" />
+                                        Text="{Binding Ratio}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

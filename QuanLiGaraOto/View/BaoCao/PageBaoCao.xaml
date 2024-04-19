@@ -61,42 +61,52 @@
                         <Label Margin="20,30,0,0" Content="Tháng:" FontSize="20" Foreground="White"/>
 
                         <ComboBox
-                          MaxWidth="50"
+                          Width="50"
+                          Height="30"
                           Margin="90,30,0,0"
-                          MaxHeight="30"
-                          Background="White"
                           VerticalAlignment="Top"
                           HorizontalAlignment="Left"
-                          ToggleButton.Checked=""
-                          materialDesign:HintAssist.Hint="Month" 
-        
-                          Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                            <ComboBoxItem
-                            Content="Item 1" />
-                            <ComboBoxItem
-                            Content="Item 2" />
-                            <ComboBoxItem
-                            Content="Item 3" />
+                          Background="White"
+                          materialDesign:HintAssist.Hint="Validation test (editable)"
+                          materialDesign:TextFieldAssist.HasClearButton="True"
+                          IsEditable="True"
+                          ItemsSource="{Binding ShortStringList}"
+                          Style="{StaticResource MaterialDesignFilledComboBox}">
+                            <ComboBox.SelectedItem>
+                                <Binding
+                                  Mode="TwoWay"
+                                  Path="SelectedValidationFilled"
+                                  UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                       
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </ComboBox.SelectedItem>
                         </ComboBox>
 
                         <Label Margin="140,30,0,0" Content="Năm:" FontSize="20" Foreground="White"/>
                         <ComboBox
-                              MaxWidth="60"
-                              Margin="200,30,0,0"
-                              MaxHeight="30"
-                              Background="White"
-                              VerticalAlignment="Top"
-                              HorizontalAlignment="Left"
-                              ToggleButton.Checked=""
-                              materialDesign:HintAssist.Hint="Month" 
-        
-                              Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                            <ComboBoxItem
-                                    Content="Item 1" />
-                            <ComboBoxItem
-                                    Content="Item 2" />
-                            <ComboBoxItem
-                                    Content="Item 3" />
+                           Width="50"
+                           Height="30"
+                           Margin="200,30,0,0"
+                           VerticalAlignment="Top"
+                           HorizontalAlignment="Left"
+                           Background="White"
+                           materialDesign:HintAssist.Hint="Validation test (editable)"
+                           materialDesign:TextFieldAssist.HasClearButton="True"
+                           IsEditable="True"
+                           ItemsSource="{Binding ShortStringList}"
+                           Style="{StaticResource MaterialDesignFilledComboBox}">
+                            <ComboBox.SelectedItem>
+                                <Binding
+                                   Mode="TwoWay"
+                                   Path="SelectedValidationFilled"
+                                   UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </ComboBox.SelectedItem>
                         </ComboBox>
 
                     </Grid>

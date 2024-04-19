@@ -8,9 +8,9 @@
              d:DesignHeight="500" d:DesignWidth="1300">
     <Grid>
         <Border
-         Margin="0,100,0,0"
+         Margin="0,0,0,0"
          Background="White"
-         Width="1400"
+         Width="1300"
          Height="500"
          CornerRadius="20">
             <Border
@@ -48,14 +48,14 @@
                             <DataGridTemplateColumn
                                 Width="auto"
                                 Header="Vật tư phụ tùng"
-                                SortMemberPath="ID">
+                                SortMemberPath="SupplyName">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
                                         FontSize="15"
-                                        Text="{Binding ID}" />
+                                        Text="{Binding SupplyName}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -63,14 +63,14 @@
                             <DataGridTemplateColumn
                                 Width="auto"
                                 Header="Tồn đầu"
-                                SortMemberPath="Customer">
+                                SortMemberPath="TonDau">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
                                         FontSize="15"
-                                        Text="{Binding Customer}" />
+                                        Text="{Binding TonDau}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -78,14 +78,14 @@
                             <DataGridTemplateColumn
                                 Width="auto"
                                 Header="Phát sinh"
-                                SortMemberPath="PhoneNumber">
+                                SortMemberPath="PhatSinh">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
                                     FontSize="15"
-                                    Text="{Binding PhoneNumber}" />
+                                    Text="{Binding PhatSinh}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -93,14 +93,14 @@
                             <DataGridTemplateColumn
                                 Width="auto"
                                 Header="Tồn cuối"
-                                SortMemberPath="CreateAt">
+                                SortMemberPath="TonCuoi">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
                                         FontSize="15"
-                                        Text="{Binding CreateAt}" />
+                                        Text="{Binding TonCuoi}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

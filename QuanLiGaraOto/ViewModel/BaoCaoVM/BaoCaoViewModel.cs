@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace QuanLiGaraOto.ViewModel.BaoCaoVM
 {
@@ -20,14 +21,22 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
         private int _id;
         private int _month;
         private int _year;
-        private decimal _totalPrice;
+
 
         public int ID { get { return _id; } set {  _id = value; } }
 
         public int Month { get { return _month; } set { _month = value; } }
         public int Year { get { return _year; } set { _year = value; } }
-        public decimal TotalPrice { get { return _totalPrice; } set { _totalPrice = value; } }
-
+        
+        //---------------------------------------------------
+        ICommand GetMonthAvailable {  get; set; }
+        ICommand GetYearAvailable { get; set; }
+        
+        
+        public BaoCaoViewModel() { 
+            
+        
+        }
         
 
     }
