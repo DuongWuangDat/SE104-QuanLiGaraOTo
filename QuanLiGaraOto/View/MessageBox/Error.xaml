@@ -8,15 +8,19 @@
     x:Name="messageBoxWindow"
     Width="auto"
     Height="180"
-    WindowStyle="None"
+    AllowsTransparency="True"
     Background="Transparent"
     FontFamily="{DynamicResource MaterialDesignFont}"
-    MouseLeftButtonDown="UserControl_MouseLeftButtonDown"
+    MouseLeftButtonDown="Window_MouseLeftButtonDown"
+    ResizeMode="NoResize"
+    SizeToContent="Width"
     TextElement.FontSize="8.32"
     TextElement.FontWeight="Regular"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
     mc:Ignorable="d">
     <Grid>
         <Border
