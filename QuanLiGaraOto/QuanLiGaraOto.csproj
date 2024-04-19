@@ -104,7 +104,6 @@
     <Compile Include="DTOs\InventoryReportDetailDTO.cs" />
     <Compile Include="DTOs\ParameterDTO.cs" />
     <Compile Include="Domain\NotEmptyValidationRule.cs" />
-    <Compile Include="DTOs\placeholder.cs" />
     <Compile Include="DTOs\ReceptionDTO.cs" />
     <Compile Include="DTOs\RepairDTO.cs" />
     <Compile Include="DTOs\RepairDetailDTO.cs" />
@@ -195,6 +194,7 @@
     <Compile Include="ViewModel\BaoCaoVM\BaoCaoViewModel.cs" />
     <Compile Include="ViewModel\BaoTriXeVM\BaoTriXeViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\PhieuThuTienVM\PhieuThuTienViewModel.cs" />
     <Compile Include="ViewModel\PhieuThuTienVM\ThemPhieuThuTienViewModel.cs" />
     <Compile Include="View\BaoCao\DoanhThu.xaml.cs">
@@ -396,6 +396,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Icon\cancel.png" />
     <Resource Include="Resources\Icon\Trash.png" />
     <Resource Include="Resources\Icon\Edit.png" />
     <Resource Include="Resources\Img\delete_button.png" />

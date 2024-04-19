@@ -166,6 +166,11 @@ namespace QuanLiGaraOto.ViewModel.BaoTriXeVM
 
             AddReceptionCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
+                if (LicensePlate == null || CusName == null || PhoneNumber == null || Address == null || LicensePlate == ""|| CusName == ""|| PhoneNumber == "" || Address == "" || SelectedBrandItem == null)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Vui lòng nhập đầy đủ thông tin");
+                    return;
+                }
                 if(Helper.IsPhoneNumber(PhoneNumber) == false)
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Số điện thoại không hợp lệ");

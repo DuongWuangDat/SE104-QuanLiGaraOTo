@@ -53,7 +53,7 @@ namespace QuanLiGaraOto.Model.service
             }
         }   
 
-        public async Task<bool> InitRevenue()
+        public async Task<(bool, string)> InitRevenue()
         {
             using(var context = new QuanLiGaraOtoEntities())
             {
@@ -61,7 +61,7 @@ namespace QuanLiGaraOto.Model.service
                 var isExist = await context.Revenues.AnyAsync(r => r.Month == curDate.Month && r.Year == curDate.Year);
                 if(isExist)
                 {
-                    return false;
+                    return (false,"Bao cao doanh thu ton tai");
                 }
                 var revenue = new Revenue
                 {
@@ -72,7 +72,7 @@ namespace QuanLiGaraOto.Model.service
                 };
                 context.Revenues.Add(revenue);
                 await context.SaveChangesAsync();
-                return true;
+                return (true,"");
             }
         }
 

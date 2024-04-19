@@ -20,21 +20,21 @@ namespace QuanLiGaraOto.View.MessageBox
     /// </summary>
     public partial class Error : Window
     {
-        public Error(string message)
+        public Error(string message = "Hello 123")
         {
             InitializeComponent();
             DataContext = new MessageBoxViewModel(message);
         }
 
-        private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                DragMove();
-            }
-        }
+		private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			if (e.LeftButton == MouseButtonState.Pressed)
+			{
+				DragMove();
+			}
+		}
 
-        private void Ok_btn_Click(object sender, RoutedEventArgs e)
+		private void Ok_btn_Click(object sender, RoutedEventArgs e)
         {
             Window.GetWindow(this).Close();
         }

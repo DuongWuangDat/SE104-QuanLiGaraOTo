@@ -13,10 +13,10 @@
     d:DesignWidth="1536"
     Background="#3F7B88"
     Closed="AdminWD_Closed"
-    ResizeMode="NoResize"
-    WindowState="Maximized"
-    mc:Ignorable="d"
-        Loaded="MainWD_Loaded">
+    DataContext="{StaticResource MainWindowVM}"
+        ResizeMode="NoResize"
+    WindowStyle="None"
+    mc:Ignorable="d">
     <Window.Resources>
         <Storyboard x:Key="MenuOpen">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MenuBar" Storyboard.TargetProperty="Width">
@@ -41,12 +41,12 @@
         </Storyboard>
 
     </Window.Resources>
-    <!--<i:Interaction.Triggers>
+    <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding FirstLoadCM}"
                                    CommandParameter="{Binding ElementName=MainFrame}" />
         </i:EventTrigger>
-    </i:Interaction.Triggers>-->
+    </i:Interaction.Triggers>
     <Window.Triggers>
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="OpenMenu_btn">
             <BeginStoryboard Storyboard="{StaticResource MenuOpen}" />
@@ -54,7 +54,7 @@
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="CloseMenu_btn">
             <BeginStoryboard Storyboard="{StaticResource MenuClose}" />
         </EventTrigger>
-        <!--<EventTrigger RoutedEvent="ButtonBase.Click"
+        <EventTrigger RoutedEvent="ButtonBase.Click"
                       SourceName="SPbtn">
             <BeginStoryboard Storyboard="{StaticResource MenuClose}" />
         </EventTrigger>
@@ -77,7 +77,7 @@
         <EventTrigger RoutedEvent="ButtonBase.Click"
                       SourceName="Banbtn">
             <BeginStoryboard Storyboard="{StaticResource MenuClose}" />
-        </EventTrigger>-->
+        </EventTrigger>
     </Window.Triggers>
     <Grid>
         <!--  Frame  -->
@@ -99,11 +99,10 @@
 
                 <materialDesign:ColorZone
                     Grid.Row="0"
-                    Padding="13"
                     VerticalAlignment="Stretch"
                     Background="#3F7B88"
                     Mode="PrimaryLight">
-                    <StackPanel Orientation="Vertical">
+                    <StackPanel VerticalAlignment="Center" Orientation="Vertical">
                         <DockPanel>
                             <!--  OpenMenu_btn  -->
                             <Button
@@ -141,10 +140,20 @@
                                 Garage management
                             </TextBlock>
 
+                            <StackPanel HorizontalAlignment="Right">
+                                <Button Click="closeButton_Click" x:Name="closeButton" Height="53" Width="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" >
+                                    <Button.Style>
+                                        <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="Button">
+                                            
+                                        </Style>
+                                    </Button.Style>
+                                    <Image Source="/QuanLiGaraOto;component/Resources/Icon/cancel.png" Width="30" Height="30" />
+                                </Button>
+                            </StackPanel>
 
                         </DockPanel>
                         <Separator
-                            Margin="0,10,0,10"
+                            Margin="0,10,0,0"
                             BorderBrush="White"
                             BorderThickness="2" />
                     </StackPanel>
@@ -211,10 +220,10 @@
                             </StackPanel>
                         </Grid>
 
-                        <!--  SanPham-Menu_btn  -->
+                        <!--  BaoTriXe-Menu_btn  -->
                         <RadioButton
                             x:Name="SPbtn"
-                            Command="{Binding LoadSanPhamPage}"
+                            Command="{Binding LoadBaoTriXePage}"
                             CommandParameter="{Binding ElementName=MainFrame}"
                             Cursor="Hand"
                             IsChecked="True">
@@ -265,10 +274,10 @@
 
                         </RadioButton>
 
-                        <!--  NhanVien-Menu_btn  -->
+                        <!--  SuaChuaXe-Menu_btn  -->
                         <RadioButton
                             x:Name="NVbtn"
-                            Command="{Binding LoadNhanVienPage}"
+                            Command="{Binding LoadSuaChuaXePage}"
                             CommandParameter="{Binding ElementName=MainFrame}"
                             Cursor="Hand">
                             <RadioButton.Style>
@@ -317,10 +326,10 @@
 
                         </RadioButton>
 
-                        <!--  Ban-Menu_btn  -->
+                        <!--  TraCuuXe-Menu_btn  -->
                         <RadioButton
                             Name="Banbtn"
-                            Command="{Binding LoadTablePage}"
+                            Command="{Binding LoadTraCuuXePage}"
                             CommandParameter="{Binding ElementName=MainFrame}"
                             Cursor="Hand">
                             <RadioButton.Style>
@@ -370,10 +379,10 @@
 
                         </RadioButton>
 
-                        <!--  KhachHang-Menu_btn  -->
+                        <!--  PhieuThuTien-Menu_btn  -->
                         <RadioButton
                             x:Name="KHbtn"
-                            Command="{Binding LoadKhachHangPage}"
+                            Command="{Binding LoadPhieuThuTienPage}"
                             CommandParameter="{Binding ElementName=MainFrame}"
                             Cursor="Hand">
                             <RadioButton.Style>
@@ -423,10 +432,10 @@
 
                         </RadioButton>
 
-                        <!--  ThongKe-Menu_btn  -->
+                        <!--  BaoCaoThang-Menu_btn  -->
                         <RadioButton
                             x:Name="ThongKebtn"
-                            Command="{Binding LoadThongKePage}"
+                            Command="{Binding LoadBaoCaoThangPage}"
                             CommandParameter="{Binding ElementName=MainFrame}"
                             Cursor="Hand">
                             <RadioButton.Style>
@@ -475,10 +484,10 @@
 
                         </RadioButton>
 
-                        <!--  SuCo-Menu_btn  -->
+                        <!--  CaiDat-Menu_btn  -->
                         <RadioButton
                             x:Name="Errbtn"
-                            Command="{Binding LoadErrorPage}"
+                            Command="{Binding LoadCaiDatPage}"
                             CommandParameter="{Binding ElementName=MainFrame}"
                             Cursor="Hand">
                             <RadioButton.Style>
@@ -536,6 +545,7 @@
                 <Border
                     x:Name="Overlay"
                     Width="1536"
+                    Height="1000"
                     HorizontalAlignment="Right"
                     Panel.ZIndex="2"
                     Background="#99CCCCCC"
