@@ -14,8 +14,7 @@
     Background="#3F7B88"
     Closed="AdminWD_Closed"
     DataContext="{StaticResource MainWindowVM}"
-    Loaded="MainWD_Loaded"
-    ResizeMode="NoResize"
+        ResizeMode="NoResize"
     WindowStyle="None"
     mc:Ignorable="d">
     <Window.Resources>
@@ -42,12 +41,12 @@
         </Storyboard>
 
     </Window.Resources>
-    <!--<i:Interaction.Triggers>
+    <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding FirstLoadCM}"
                                    CommandParameter="{Binding ElementName=MainFrame}" />
         </i:EventTrigger>
-    </i:Interaction.Triggers>-->
+    </i:Interaction.Triggers>
     <Window.Triggers>
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="OpenMenu_btn">
             <BeginStoryboard Storyboard="{StaticResource MenuOpen}" />
