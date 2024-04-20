@@ -54,8 +54,15 @@ namespace QuanLiGaraOto.Model.service
 
         public async Task<(bool, string)> AddNewReception(ReceptionDTO newReception)
         {
+            var maxNumberOfCar = await ParameterService.Ins.SoXeSuaChuaTrongNgay();
+            var curNumberOfCar = await CountByDate(DateTime.Now);
+            if(curNumberOfCar >= maxNumberOfCar)
+            {
+                return (false, "Number of car in a day is over the limit!");
+            }
             using (var context = new QuanLiGaraOtoEntities())
             {
+                
                 var existCustomer = await context.Customers.Where(c => c.PhoneNumber == newReception.Customer.PhoneNumber).FirstOrDefaultAsync();
                 if(existCustomer!=null)
                 {
