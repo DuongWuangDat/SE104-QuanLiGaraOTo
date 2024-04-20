@@ -25,7 +25,7 @@ namespace QuanLiGaraOto.ViewModel.BaoTriXeVM
         public int ReceptionCount
         {
             get { return _receptionCount; }
-            set { _receptionCount = value; }
+            set { _receptionCount = value; OnPropertyChanged(); }
         }
 
         private ObservableCollection<BrandCarDTO> _brandCarList;
@@ -121,11 +121,17 @@ namespace QuanLiGaraOto.ViewModel.BaoTriXeVM
             FirstLoadBrandCar = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
                 ReceptionCount = await ReceptionService.Ins.CountByDate(DateTime.Now);
+                Console.WriteLine(ReceptionCount);
                 BrandCarList = new ObservableCollection<BrandCarDTO>(await BrandCarService.Ins.GetListBrandCar());
             });
 
             AddBrandCar = new RelayCommand<TextBox>((p) => { return true; }, async (p) =>
             {
+                if(p.Text == null || p.Text == "")
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Vui lòng nhập tên hãng xe");
+                    return;
+                }
                 BrandCarDTO newBrand = new BrandCarDTO
                 {
                     Name = p.Text

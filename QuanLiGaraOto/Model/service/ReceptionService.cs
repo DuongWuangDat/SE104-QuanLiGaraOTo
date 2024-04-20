@@ -81,7 +81,7 @@ namespace QuanLiGaraOto.Model.service
                         Debt = 0,
                         CreatedAt = DateTime.Now,
                         BrandID = newReception.BrandCar.ID,
-                        CustomerID = newReception.Customer.ID,
+                        CustomerID = existCustomer.ID,
                         IsDeleted = false
                     };
                     context.Receptions.Add(reception);
@@ -99,7 +99,8 @@ namespace QuanLiGaraOto.Model.service
                         Name = newReception.Customer.Name,
                         Address = newReception.Customer.Address,
                         PhoneNumber = newReception.Customer.PhoneNumber,
-                        Email = ""
+                        Email = "",
+                        IsDeleted = false
                     },
                     IsDeleted= false
                 };
@@ -114,7 +115,9 @@ namespace QuanLiGaraOto.Model.service
         {
             using(var context = new QuanLiGaraOtoEntities())
             {
-                var count = await context.Receptions.Where(r => r.CreatedAt == date).CountAsync();
+                var count = await context.Receptions.Where(r => DbFunctions.TruncateTime(r.CreatedAt) == date.Date).CountAsync();
+
+                Console.WriteLine(date.Date);
                 return count;
             }
         }

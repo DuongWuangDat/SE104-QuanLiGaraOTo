@@ -11,7 +11,7 @@ namespace QuanLiGaraOto.Utils
     {
         public static bool IsPhoneNumber(string phoneNumber)
         {
-            string regex = @"^0\d{9-10}$";
+            string regex = @"^0\d{9,10}$";
             return Regex.Match(phoneNumber,regex).Success;
         }
 
