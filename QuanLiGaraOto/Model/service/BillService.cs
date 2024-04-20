@@ -60,11 +60,12 @@ namespace QuanLiGaraOto.Model.service
 
         public async Task<(bool, string)> AddNewBill(BillDTO newBill)
         {
+            var apdungPhat = await ParameterService.Ins.ApDungPhat();
             if (newBill.Proceeds <= 0)
             {
                 return (false, "Số tiền thu phải lớn hơn 0");
             }
-            if (newBill.Proceeds > newBill.Reception.Debt)
+            if ((newBill.Proceeds > newBill.Reception.Debt) && apdungPhat)
             {
                 return (false, "Số tiền thu không được lớn hơn số tiền nợ");
             }
