@@ -120,6 +120,7 @@ namespace QuanLiGaraOto.ViewModel.BaoTriXeVM
 
             FirstLoadBrandCar = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
+                ReceptionCount = await ReceptionService.Ins.CountByDate(DateTime.Now);
                 BrandCarList = new ObservableCollection<BrandCarDTO>(await BrandCarService.Ins.GetListBrandCar());
             });
 
@@ -193,11 +194,20 @@ namespace QuanLiGaraOto.ViewModel.BaoTriXeVM
                 var (isSuccess, message) = await ReceptionService.Ins.AddNewReception(recpt);
                 if (isSuccess)
                 {
+                    ReceptionCount = await ReceptionService.Ins.CountByDate(DateTime.Now);
                     MessageBoxCustom.Show(MessageBoxCustom.Success, "Thêm dữ liệu thành công");
                 }
                 else
                 {
-                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Khong the them du lieu");
+                    if(message == "Number of car in a day is over the limit!")
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, "Số lượng xe sửa chữa trong ngày đã vượt quá giới hạn");
+                    }
+                    else
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, "Khong the them du lieu");
+                    }
+                    
                 }
             });
         }

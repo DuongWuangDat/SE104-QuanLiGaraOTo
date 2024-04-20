@@ -92,7 +92,7 @@ namespace QuanLiGaraOto.Model.service
         {
             using(var context = new QuanLiGaraOtoEntities())
             {
-                var parameter = await context.Parameters.FirstOrDefaultAsync(x => x.Name == "ApDungQÐKiemTraSoTienThu")                                                                          ");
+                var parameter = await context.Parameters.FirstOrDefaultAsync(x => x.Name == "ApDungQÐKiemTraSoTienThu");
                 if(parameter.Value == 1)
                 {
                     return true;
@@ -108,7 +108,7 @@ namespace QuanLiGaraOto.Model.service
         {
             using(var context = new QuanLiGaraOtoEntities())
             {
-                var parameter = await context.Parameters.FirstOrDefaultAsync(x => x.Name == "SoXeSuaChuaToiDa")                                                                                    ");
+                var parameter = await context.Parameters.FirstOrDefaultAsync(x => x.Name == "SoXeSuaChuaToiDa");
                 return (int)parameter.Value;
             }
         }
