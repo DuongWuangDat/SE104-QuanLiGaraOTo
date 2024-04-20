@@ -145,7 +145,7 @@ namespace QuanLiGaraOto.Model.service
                     var supply = await context.Supplies.Where(s => s.ID == suppliesInputDT.Supply.ID).FirstOrDefaultAsync();
                     supply.CountInStock += suppliesInputDT.Count;
                     supply.InputPrices = suppliesInputDT.PriceItem;
-                    double valuePara = await ParameterService.Ins.GetValueByName("TiLeDonGia");
+                    double valuePara = await ParameterService.Ins.GetRatio();
                     supply.OutputPrices = (decimal)(supply.InputPrices * (decimal)valuePara);
                     await context.SaveChangesAsync();
                     suppliesInputDetails.Add(supplyInputDetail);
@@ -183,6 +183,19 @@ namespace QuanLiGaraOto.Model.service
                     return -1;
                 }
                 return (int)supply.CountInStock;
+            }
+        }
+
+        public async Task UpdateTiLe(double ratio)
+        {
+            using(var context = new QuanLiGaraOtoEntities())
+            {
+                var supplyList = await context.Supplies.ToListAsync();
+                foreach(var supply in supplyList)
+                {
+                    supply.OutputPrices = (decimal)(supply.InputPrices * (decimal)ratio);
+                }
+                await context.SaveChangesAsync();
             }
         }
     }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -43,9 +44,17 @@ namespace QuanLiGaraOto.Model.service
             using (var context = new QuanLiGaraOtoEntities())
             {
                 var parameter = await context.Parameters.FirstOrDefaultAsync(x => x.Name == name);
-                if (parameter == null)
+                if(name == "TiLeTinhDonGiaBan")
                 {
-                    return (false,"Không tìm thấy tham số nào");
+                   await SuppliesService.Ins.UpdateTiLe((double)value);
+                }
+                if(name == "SoXeSuaChuaToiDa")
+                {
+                   var numberOfCar = await ReceptionService.Ins.CountByDate(DateTime.Now);
+                    if(numberOfCar > value)
+                    {
+                          return (false, "Số xe sửa chữa trong ngày đã vượt quá số xe tối đa");
+                     }
                 }
                 parameter.Value = value;
                 await context.SaveChangesAsync();
@@ -63,6 +72,44 @@ namespace QuanLiGaraOto.Model.service
                     return -1;
                 }
                 return (double)parameter.Value;
+            }
+        }
+
+        public async Task<double> GetRatio()
+        {
+            using (var context = new QuanLiGaraOtoEntities())
+            {
+                var parameter = await context.Parameters.FirstOrDefaultAsync(x => x.Name == "TiLeTinhDonGiaBan");                                                                                   
+                if (parameter == null)
+                {
+                    return -1;
+                }
+                return (double)parameter.Value;
+            }
+        }
+
+        public async Task<bool> ApDungPhat()
+        {
+            using(var context = new QuanLiGaraOtoEntities())
+            {
+                var parameter = await context.Parameters.FirstOrDefaultAsync(x => x.Name == "ApDungQÐKiemTraSoTienThu")                                                                          ");
+                if(parameter.Value == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public async Task<int> SoXeSuaChuaTrongNgay()
+        {
+            using(var context = new QuanLiGaraOtoEntities())
+            {
+                var parameter = await context.Parameters.FirstOrDefaultAsync(x => x.Name == "SoXeSuaChuaToiDa")                                                                                    ");
+                return (int)parameter.Value;
             }
         }
     }
