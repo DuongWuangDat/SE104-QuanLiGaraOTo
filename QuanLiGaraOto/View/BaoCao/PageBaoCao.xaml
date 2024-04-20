@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:QuanLiGaraOto.View.BaoCao"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:materialDesignControls="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:myUserControl="clr-namespace:QuanLiGaraOto.ViewModel.BaoCaoVM"
+      xmlns:myUserControl="clr-namespace:QuanLiGaraOto.ViewModel.BaoCaoVM" 
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
       TextElement.FontWeight="Regular"
       TextElement.FontSize="13"
@@ -18,7 +19,14 @@
       d:DesignHeight="800" d:DesignWidth="1536"
       Title="PageBaoCao"
       >
-
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="LoadedYear">
+            <i:InvokeCommandAction Command="{Binding GetYearAvailable}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="LoadedMonth">
+            <i:InvokeCommandAction Command="{Binding GetMonthAvailable}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid Background="#3F7B88">
         <Grid Margin="30">
             <Grid.RowDefinitions>
@@ -68,7 +76,7 @@
                     <Grid Width="280">
                         <Label Margin="20,30,0,0" Content="Tháng:" FontSize="20" Foreground="White"/>
 
-                        <ComboBox
+                        <ComboBox Name="monthbox"
                           Width="50"
                           Height="30"
                           Margin="90,30,0,0"
@@ -78,22 +86,15 @@
                           materialDesign:HintAssist.Hint="Validation test (editable)"
                           materialDesign:TextFieldAssist.HasClearButton="True"
                           IsEditable="True"
-                          ItemsSource="{Binding ShortStringList}"
+                          CommandManager.Executed="{Binding GetMonthAvailable}"
+                          ItemsSource="{Binding MonthList}"
+                          SelectedItem="{Binding Month}"
                           Style="{StaticResource MaterialDesignFilledComboBox}">
-                            <ComboBox.SelectedItem>
-                                <Binding
-                                  Mode="TwoWay"
-                                  Path="SelectedValidationFilled"
-                                  UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
-                                       
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </ComboBox.SelectedItem>
+                            
                         </ComboBox>
 
                         <Label Margin="140,30,0,0" Content="Năm:" FontSize="20" Foreground="White"/>
-                        <ComboBox
+                        <ComboBox Name="yearbox"
                            Width="50"
                            Height="30"
                            Margin="200,30,0,0"
@@ -103,18 +104,10 @@
                            materialDesign:HintAssist.Hint="Validation test (editable)"
                            materialDesign:TextFieldAssist.HasClearButton="True"
                            IsEditable="True"
-                           ItemsSource="{Binding ShortStringList}"
+                           ItemsSource="{Binding YearList}"
+                           SelectedItem="{Binding Year}"
                            Style="{StaticResource MaterialDesignFilledComboBox}">
-                            <ComboBox.SelectedItem>
-                                <Binding
-                                   Mode="TwoWay"
-                                   Path="SelectedValidationFilled"
-                                   UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
-
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </ComboBox.SelectedItem>
+                            
                         </ComboBox>
 
                     </Grid>
@@ -131,7 +124,7 @@
                         <ColumnDefinition Width="328*" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.ColumnSpan="6">
-                        <Button x:Name="DTButton"
+                        <Button Name="DTButton"
                                 Command="{Binding OpenBaoCaoDoanhThu}"
                                 MaxWidth="150"
                                 Width="150"
@@ -147,7 +140,7 @@
                                    FontWeight="Bold" HorizontalAlignment="Center" Margin="40,0,0,0"/>
                             </Grid>
                         </Button>
-                        <Button x:Name="TKButton"
+                        <Button Name="TKButton"
                                 Command="{Binding OpenBaoCaoTonKho}"
                              MaxWidth="150"
                              Width="150"
@@ -176,7 +169,7 @@
                  CornerRadius="20">
                     <ContentControl Content="{Binding CurrentUserControl}"
                         Grid.Row="2"
-                        Margin="0,100,0,0"
+                        Margin="0,0,0,0"
                         Background="White"
                         Width="1400"
                         Height="500">

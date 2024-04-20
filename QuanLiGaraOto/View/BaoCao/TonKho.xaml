@@ -41,8 +41,7 @@
                         CanUserSortColumns="True"
                         ColumnWidth="SizeToCells"
                         IsReadOnly="True"
-                        ItemsSource="{Binding StaffObservation, Mode=TwoWay}"
-                        SelectedItem="{Binding SelectedItem}"
+                        ItemsSource="{Binding InventoryDetails, Mode=TwoWay}"
                         SelectionMode="Single"
                         SelectionUnit="FullRow">
                         <DataGrid.CellStyle>

@@ -35,21 +35,36 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
             set => SetProperty(ref _inventoryDetails, value);
         }
 
-        private Supply _selectedSupply;
-        public Supply SelectedSupply
+        //private Supply _selectedSupply;
+        //public Supply SelectedSupply
+        //{
+        //    get => _selectedSupply;
+        //    set => SetProperty(ref _selectedSupply, value);
+        //}
+
+        private int _month;
+        public int Month
         {
-            get => _selectedSupply;
-            set => SetProperty(ref _selectedSupply, value);
+            get { return _month; }
+            set { SetProperty(ref _month, value); OnPropertyChanged(); }
+        }
+
+        private int _year;
+        public int Year
+        {
+            get { return _year; }
+            set { SetProperty(ref _year, value); OnPropertyChanged(); }
         }
 
         // Khai báo các lệnh (Commands)
         public ICommand InitInventoryReport { get; }
-        public ICommand AddNewSupplyCommand { get; }
-        public ICommand UpdatePhatSinhCommand { get; }
-        public ICommand UpdateTonCuoiCommand { get; }
-        public ICommand DeleteDetailCommand { get; }
-        public ICommand RecoveryInventoryCommand { get; }
+        //public ICommand AddNewSupplyCommand { get; }
+        //public ICommand UpdatePhatSinhCommand { get; }
+        //public ICommand UpdateTonCuoiCommand { get; }
+        //public ICommand DeleteDetailCommand { get; }
+        //public ICommand RecoveryInventoryCommand { get; }
         public ICommand GetCurrentInventoryReport {  get; }
+        public ICommand GetInventoryReport {  get; }
 
         // Khởi tạo ViewModel
         public BaoCaoTonKhoViewModel()
@@ -74,98 +89,115 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                 CurrentInventoryReport = await InvetoryReportService.Ins.GetCurrentInventoryReport();
             });
 
-
-            AddNewSupplyCommand = new RelayCommand<object>(_=> true,async (param) =>
+            GetInventoryReport = new RelayCommand<object>(_ => true, async (param) =>
             {
-                var newSupply = param as Supply;
-                if (newSupply == null)
-                    return;
+                var curDate = DateTime.Now;
+                var curMonth = curDate.Month;
+                var curYear = curDate.Year;
+                while (Month > curMonth && Year > curYear)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Tháng và năm lớn hơn hiện tại, vui lòng nhập lại.");
+                }
+                while(Month < curMonth && Year == curYear)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Tháng lớn hơn hiện tại, vui lòng nhập lại.");
+                } 
 
-                var success = await InvetoryReportService.Ins.AddNewSupply(newSupply);
-                if (success)
-                {
-                    await LoadCurrentInventoryReport();
-                    MessageBoxCustom.Show(MessageBoxCustom.Success, "Thêm thành công!");
-                }
-                else
-                {
-                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Thêm không thành công!");
-                }
+                CurrentInventoryReport = await InvetoryReportService.Ins.GetInventoryReport(Month, Year);
+                await LoadCurrentInventoryReport();
             });
 
-            UpdatePhatSinhCommand = new RelayCommand<object>(_=>true,async (param) =>
-            {
-                var args = param as Tuple<int, int>;
-                if (args == null)
-                    return;
+            //AddNewSupplyCommand = new RelayCommand<object>(_=> true,async (param) =>
+            //{
+            //    var newSupply = param as Supply;
+            //    if (newSupply == null)
+            //        return;
 
-                var (delta, supplyId) = args;
-                var success = await InvetoryReportService.Ins.UpdatePhatSinh(delta, supplyId);
-                if (success)
-                {
-                    await LoadCurrentInventoryReport();
-                    MessageBoxCustom.Show(MessageBoxCustom.Success, "Cập nhật thành công!");
-                }
-                else
-                {
-                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Cập nhật không thành công!");
-                }
-            });
+            //    var success = await InvetoryReportService.Ins.AddNewSupply(newSupply);
+            //    if (success)
+            //    {
+            //        await LoadCurrentInventoryReport();
+            //        MessageBoxCustom.Show(MessageBoxCustom.Success, "Thêm thành công!");
+            //    }
+            //    else
+            //    {
+            //        MessageBoxCustom.Show(MessageBoxCustom.Error, "Thêm không thành công!");
+            //    }
+            //});
 
-            UpdateTonCuoiCommand = new RelayCommand<object>(_=>true,async (param) =>
-            {
-                var args = param as Tuple<int, int>;
-                if (args == null)
-                    return;
+            //UpdatePhatSinhCommand = new RelayCommand<object>(_=>true,async (param) =>
+            //{
+            //    var args = param as Tuple<int, int>;
+            //    if (args == null)
+            //        return;
 
-                var (tonCuoi, supplyId) = args;
-                var success = await InvetoryReportService.Ins.UpdateTonCuoi(tonCuoi, supplyId);
-                if (success)
-                {
-                    await LoadCurrentInventoryReport();
-                    MessageBoxCustom.Show(MessageBoxCustom.Success, "Cập nhật thành công!");
-                }
-                else
-                {
-                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Cập nhật không thành công!");
-                }
-            });
+            //    var (delta, supplyId) = args;
+            //    var success = await InvetoryReportService.Ins.UpdatePhatSinh(delta, supplyId);
+            //    if (success)
+            //    {
+            //        await LoadCurrentInventoryReport();
+            //        MessageBoxCustom.Show(MessageBoxCustom.Success, "Cập nhật thành công!");
+            //    }
+            //    else
+            //    {
+            //        MessageBoxCustom.Show(MessageBoxCustom.Error, "Cập nhật không thành công!");
+            //    }
+            //});
 
-            DeleteDetailCommand = new RelayCommand<object>(_=>true,async (param) =>
-            {
-                var supplyId = param as int?;
-                if (!supplyId.HasValue)
-                    return;
+            //UpdateTonCuoiCommand = new RelayCommand<object>(_=>true,async (param) =>
+            //{
+            //    var args = param as Tuple<int, int>;
+            //    if (args == null)
+            //        return;
 
-                var success = await InvetoryReportService.Ins.DeleteDetail(supplyId.Value);
-                if (success)
-                {
-                    await LoadCurrentInventoryReport();
-                    MessageBoxCustom.Show(MessageBoxCustom.Success, "Đã Xóa thành công!");
-                }
-                else
-                {
-                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Xóa không thành công!");
-                }
-            });
+            //    var (tonCuoi, supplyId) = args;
+            //    var success = await InvetoryReportService.Ins.UpdateTonCuoi(tonCuoi, supplyId);
+            //    if (success)
+            //    {
+            //        await LoadCurrentInventoryReport();
+            //        MessageBoxCustom.Show(MessageBoxCustom.Success, "Cập nhật thành công!");
+            //    }
+            //    else
+            //    {
+            //        MessageBoxCustom.Show(MessageBoxCustom.Error, "Cập nhật không thành công!");
+            //    }
+            //});
 
-            RecoveryInventoryCommand = new RelayCommand<object>(_=>true,async (param) =>
-            {
-                var repair = param as Repair;
-                if (repair == null)
-                    return;
+            //DeleteDetailCommand = new RelayCommand<object>(_=>true,async (param) =>
+            //{
+            //    var supplyId = param as int?;
+            //    if (!supplyId.HasValue)
+            //        return;
 
-                var success = await InvetoryReportService.Ins.RecoveryInventory(repair);
-                if (success)
-                {
-                    await LoadCurrentInventoryReport();
-                    MessageBoxCustom.Show(MessageBoxCustom.Success, "Phục hồi thành công!");
-                }
-                else
-                {
-                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Phục hồi không thành công!");
-                }
-            });
+            //    var success = await InvetoryReportService.Ins.DeleteDetail(supplyId.Value);
+            //    if (success)
+            //    {
+            //        await LoadCurrentInventoryReport();
+            //        MessageBoxCustom.Show(MessageBoxCustom.Success, "Đã Xóa thành công!");
+            //    }
+            //    else
+            //    {
+            //        MessageBoxCustom.Show(MessageBoxCustom.Error, "Xóa không thành công!");
+            //    }
+            //});
+
+            //RecoveryInventoryCommand = new RelayCommand<object>(_=>true,async (param) =>
+            //{
+            //    var repair = param as Repair;
+            //    if (repair == null)
+            //        return;
+
+            //    var success = await InvetoryReportService.Ins.RecoveryInventory(repair);
+            //    if (success)
+            //    {
+            //        await LoadCurrentInventoryReport();
+            //        MessageBoxCustom.Show(MessageBoxCustom.Success, "Phục hồi thành công!");
+            //    }
+            //    else
+            //    {
+            //        MessageBoxCustom.Show(MessageBoxCustom.Error, "Phục hồi không thành công!");
+            //    }
+            //});
 
             // Tải báo cáo tồn kho hiện tại khi ViewModel được khởi tạo
             LoadCurrentInventoryReport();

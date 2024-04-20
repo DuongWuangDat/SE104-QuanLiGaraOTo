@@ -26,8 +26,22 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
 
         public int ID { get { return _id; } set {  _id = value; } }
 
-        public int Month { get { return _month; } set { _month = value; } }
-        public int Year { get { return _year; } set { _year = value; } }
+        public int Month { get { return _month; } set { _month = value; OnPropertyChanged(); } }
+        public int Year { get { return _year; } set { _year = value; OnPropertyChanged(); } }
+
+        private List<int> _monthList;
+        public List<int> MonthList
+        {
+            get { return _monthList; }
+            set { _monthList = value; OnPropertyChanged(); }
+        }
+        private List<int> _yearList;
+        public List<int> YearList
+        {
+            get { return _yearList; }
+            set { _yearList = value; OnPropertyChanged(); }
+        }
+
 
         private UserControl _currentUserControl;
         public UserControl CurrentUserControl
@@ -46,6 +60,7 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
             OpenBaoCaoTonKho = new RelayCommand<object>(_ => true, (param) =>
             {
                 var tonKho = new TonKho();
+                
                 CurrentUserControl = tonKho;
 
             });
@@ -55,6 +70,31 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                 CurrentUserControl = doanhthu;
             });
 
+            GetYearAvailable = new RelayCommand<object>(_ => true, (param) =>
+            {
+                var curDate = DateTime.Now;
+                var curYear = curDate.Year;
+                var years = Enumerable.Range(2000,curYear).ToList();
+
+                YearList = years;
+            });
+
+            GetMonthAvailable = new RelayCommand<object>(_ => true, (param) =>
+            {
+                var curDate = DateTime.Now;
+                var curMonth = curDate.Month;
+                var curYear = curDate.Year;
+                if(Year == curYear)
+                {
+                    var months = Enumerable.Range(1, curMonth).ToList();
+                    MonthList = months;
+                } else
+                {
+                    var months = Enumerable.Range(1, 12).ToList();
+                    MonthList = months;
+                }
+               
+            });
 
         }
         

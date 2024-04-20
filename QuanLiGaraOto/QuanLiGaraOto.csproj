@@ -190,6 +190,7 @@
     <Compile Include="Resources\Img\placeholder.cs" />
     <Compile Include="Utils\Helper.cs" />
     <Compile Include="Utils\placeholder.cs" />
+    <Compile Include="ViewModel\BaoCaoVM\BaoCaoDoanhThuViewModel.cs" />
     <Compile Include="ViewModel\BaoCaoVM\BaoCaoTonKhoViewModel.cs" />
     <Compile Include="ViewModel\BaoCaoVM\BaoCaoViewModel.cs" />
     <Compile Include="ViewModel\BaoTriXeVM\BaoTriXeViewModel.cs" />
