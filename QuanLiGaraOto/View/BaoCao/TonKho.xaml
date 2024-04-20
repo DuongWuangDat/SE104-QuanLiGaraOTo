@@ -4,13 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QuanLiGaraOto.View.BaoCao" 
+             xmlns:myUserControl="clr-namespace:QuanLiGaraOto.ViewModel.BaoCaoVM" 
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              DataContext="{StaticResource BaoCaoVM}"
              d:DesignHeight="500" d:DesignWidth="1300">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding InitInventoryReport}" />
+            <i:InvokeCommandAction Command="{Binding GetInventoryReport}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
 

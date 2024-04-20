@@ -190,14 +190,16 @@
     <Compile Include="Resources\Img\placeholder.cs" />
     <Compile Include="Utils\Helper.cs" />
     <Compile Include="Utils\placeholder.cs" />
-    <Compile Include="ViewModel\BaoCaoVM\BaoCaoDoanhThuViewModel.cs" />
-    <Compile Include="ViewModel\BaoCaoVM\BaoCaoTonKhoViewModel.cs" />
     <Compile Include="ViewModel\BaoCaoVM\BaoCaoViewModel.cs" />
     <Compile Include="ViewModel\BaoTriXeVM\BaoTriXeViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\CaiDatQuyDinhVM\CaiDatQuyDinhViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\PhieuThuTienVM\PhieuThuTienViewModel.cs" />
     <Compile Include="ViewModel\PhieuThuTienVM\ThemPhieuThuTienViewModel.cs" />
+    <Compile Include="View\BaoCao\BaoCaoPage.xaml.cs">
+      <DependentUpon>BaoCaoPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\BaoCao\DoanhThu.xaml.cs">
       <DependentUpon>DoanhThu.xaml</DependentUpon>
     </Compile>
@@ -254,11 +256,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\BaoCao\DoanhThu.xaml">
+    <Page Include="View\BaoCao\BaoCaoPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\BaoCao\PageBaoCao.xaml">
+    <Page Include="View\BaoCao\DoanhThu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -422,6 +424,7 @@
   <ItemGroup>
     <Resource Include="Resources\Icon\Add.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

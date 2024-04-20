@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace QuanLiGaraOto.View.BaoCao
 {
     /// <summary>
-    /// Interaction logic for PageBaoCao.xaml
+    /// Interaction logic for BaoCaoPage.xaml
     /// </summary>
-    public partial class PageBaoCao : Page
+    public partial class BaoCaoPage : Page
     {
-        public PageBaoCao()
+        public BaoCaoPage()
         {
             InitializeComponent();
         }

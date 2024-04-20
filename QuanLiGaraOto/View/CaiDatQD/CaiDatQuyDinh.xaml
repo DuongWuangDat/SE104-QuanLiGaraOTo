@@ -57,67 +57,57 @@
                 Height="530"
                 CornerRadius="20">
                     <StackPanel>
-                        <Grid Margin="0,100,0,0">
+                        <Grid Margin="0,50,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition MinWidth="150" Width="7*" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="60"/>
-                                <RowDefinition Height="60"/>
-                                <RowDefinition Height="60"/>
-                                <RowDefinition Height="60"/>
-                                <RowDefinition Height="60"/>
-                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="70"/>
                             </Grid.RowDefinitions>
                             <!-- hàng 0 -->
-                            <Label Grid.Row="0" Content="Số lượng hiệu xe:" FontSize="25" FontWeight="Bold"
+                            <Label Grid.Row="0" Content="Số xe sửa chữa tối đa trong ngày:" FontSize="25" FontWeight="Bold"
                                        Margin="50,0,0,0" VerticalAlignment="Center" />
                             <ComboBox
                                 Grid.Row="0"
-                                x:Name="SoLuongHieuXeBox"
-                                Width="80"
-                                Height="50"
-                                materialDesign:HintAssist.Hint="0"
-                                Background="#D0D2D3"
-                                IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
-                                ItemsSource="{Binding ShortStringList}"
-                                Style="{StaticResource MaterialDesignOutlinedComboBox}" />
-                            <!-- hàng 1 -->
-                            <Label Grid.Row="1" Content="Số xe sửa trong ngày" FontSize="25" FontWeight="Bold"
-                                   Margin="50,0,0,0" VerticalAlignment="Center" />
-                            <ComboBox
-                                Grid.Row="1"
                                 x:Name="SoXeSuaTrongNgayBox"
                                 Width="80"
                                 Height="50"
                                 materialDesign:HintAssist.Hint="0"
-                                Background="#D0D2D3"
+                                Background="White"
                                 IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
                                 ItemsSource="{Binding ShortStringList}"
                                 Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                            <!-- hàng 1 -->
+                            
                             <!-- hàng 2 -->
-                            <Label Grid.Row="2" Content="Số loại vật tư phụ tùng" FontSize="25" FontWeight="Bold"
+                            <Label Grid.Row="2" Content="Áp Dụng kiểm tra số tiền thu" FontSize="25" FontWeight="Bold"
                                    Margin="50,0,0,0" VerticalAlignment="Center" />
                             <ComboBox
                                 Grid.Row="2"
-                                x:Name="SoLoaiVatTuPhuTung"
+                                x:Name="ApDungQDSTT"
                                 Width="80"
                                 Height="50"
                                 materialDesign:HintAssist.Hint="0"
-                                Background="#D0D2D3"
+                                Background="White"
                                 IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
                                 ItemsSource="{Binding ShortStringList}"
                                 Style="{StaticResource MaterialDesignOutlinedComboBox}" />
                             <!-- hàng 3 -->
-                            <Label Grid.Row="3" Content="Số loại tiền công" FontSize="25" FontWeight="Bold"
+                            <Label Grid.Row="4" Content="Tỉ lệ tính đơn giá" FontSize="25" FontWeight="Bold"
                                    Margin="50,0,0,0" VerticalAlignment="Center" />
                             <ComboBox
-                                Grid.Row="3"
+                                Grid.Row="4"
                                 x:Name="SoLoaiTienCong"
                                 Width="80"
                                 Height="50"
                                 materialDesign:HintAssist.Hint="0"
-                                Background="#D0D2D3"
+                                Background="White"
                                 IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
                                 ItemsSource="{Binding ShortStringList}"
                                 Style="{StaticResource MaterialDesignOutlinedComboBox}" />

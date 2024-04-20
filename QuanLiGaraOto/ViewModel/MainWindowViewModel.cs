@@ -52,7 +52,7 @@ namespace QuanLiGaraOto.ViewModel
 			LoadSuaChuaXePage = new RelayCommand<Frame>((p) => { return true; }, (p) => { });
 			LoadTraCuuXePage = new RelayCommand<Frame>((p) => { return true; }, (p) => { p.Content = new TraCuuXe(); });
 			LoadPhieuThuTienPage = new RelayCommand<Frame>((p) => { return true; }, (p) => { p.Content = new PhieuThuTien(); });
-			LoadBaoCaoThangPage = new RelayCommand<Frame>((p) => { return true; }, (p) => { p.Content = new PageBaoCao(); });
+			LoadBaoCaoThangPage = new RelayCommand<Frame>((p) => { return true; }, (p) => { p.Content = new BaoCaoPage(); });
 			LoadCaiDatPage = new RelayCommand<Frame>((p) => { return true; }, (p) => { p.Content = new CaiDatQuyDinh();  });
 		}
 	}
