@@ -111,6 +111,41 @@ namespace QuanLiGaraOto.Model.service
         }
 
 
+
+        public async Task<ReceptionDTO> GetReceptionbyPlate(String plate)
+        {
+            using(var context = new QuanLiGaraOtoEntities())
+            {
+                var reception = await context.Receptions.Where(r => r.LicensePlate == plate).FirstOrDefaultAsync();
+                if(reception == null)
+                {
+                    return null;
+                }
+                var receptionDTO = new ReceptionDTO
+                {
+                    ID = reception.ID,
+                    LicensePlate = reception.LicensePlate,
+                    Debt = reception.Debt,
+                    CreatedAt = reception.CreatedAt,
+                    BrandCar = new BrandCarDTO
+                    {
+                        ID = reception.BrandCar.ID,
+                        Name = reception.BrandCar.Name
+                    },
+                    Customer = new CustomerDTO
+                    {
+                        ID = reception.Customer.ID,
+                        Name = reception.Customer.Name,
+                        PhoneNumber = reception.Customer.PhoneNumber,
+                        Email = reception.Customer.Email,
+                        Address = reception.Customer.Address
+                    }
+                   
+                };
+                return receptionDTO;
+            }
+        }
+
         public async Task<int> CountByDate (DateTime date)
         {
             using(var context = new QuanLiGaraOtoEntities())
