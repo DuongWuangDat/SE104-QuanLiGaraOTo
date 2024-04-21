@@ -4,8 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QuanLiGaraOto.View.BaoCao" 
-              xmlns:myUserControl="clr-namespace:QuanLiGaraOto.ViewModel.BaoCaoVM" 
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+             xmlns:baocaovm="clr-namespace:QuanLiGaraOto.ViewModel.BaoCaoVM" 
+             d:DataContext="{d:DesignInstance Type=baocaovm:BaoCaoViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1400">
     <i:Interaction.Triggers>
@@ -77,7 +78,7 @@
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
                                             FontSize="15"
-                                            Text="{Binding Name}" />
+                                            Text="{Binding BrandCar.Name}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -107,7 +108,7 @@
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
                                             FontSize="15"
-                                            Text="{Binding Price}" />
+                                            Text="{Binding Price,StringFormat={}{0:N0} VNĐ}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

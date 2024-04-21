@@ -5,23 +5,22 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:QuanLiGaraOto.View.BaoCao"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:materialDesignControls="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:myUserControl="clr-namespace:QuanLiGaraOto.ViewModel.BaoCaoVM" 
+      xmlns:materialDesignControls="http://materialdesigninxaml.net/winfx/xaml/themes" 
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
-      d:DataContext="{d:DesignInstance Type=myUserControl:BaoCaoViewModel}"
+      xmlns:colorsDomain1="clr-namespace:QuanLiGaraOto.Domain" 
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
       TextElement.FontWeight="Regular"
       TextElement.FontSize="13"
       TextOptions.TextFormattingMode="Ideal"
       TextOptions.TextRenderingMode="Auto"
       FontFamily="{DynamicResource MaterialDesignFont}"
-      DataContext="{StaticResource BaoCaoVM}"
       mc:Ignorable="d" 
+      DataContext="{StaticResource BaoCaoVM}"
       d:DesignHeight="800" d:DesignWidth="1536"
       Title="BaoCaoPage"
       >
     <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Load">
+        <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding FirstLoad}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
@@ -70,6 +69,7 @@
                 <StackPanel
                  Grid.Column="0"
                  Width="auto"
+                 DataContext="{StaticResource BaoCaoVM}"
                  Orientation="Horizontal">
                     <Grid Width="400">
                         <Label Margin="10,35,0,0" Content="Tháng:" FontSize="24" Foreground="White"/>
@@ -81,17 +81,10 @@
                           VerticalAlignment="Top"
                           HorizontalAlignment="Left"
                           Background="White"
-                          materialDesign:HintAssist.Hint="0"
                           IsEnabled= "True"
                           ItemsSource="{Binding MonthList}"
-                          SelectedItem="{Binding Month}"
+                          SelectedItem="{Binding Month, Mode=TwoWay}"
                           Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="LoadMonth">
-                                    <i:InvokeCommandAction Command="{Binding GetMonthAvailable}" CommandParameter="{Binding ElementName=monthbox}"/>
-                                   
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
                         </ComboBox>
 
                         <Label Margin="200,35,0,0" Content="Năm:" FontSize="24" Foreground="White"/>
@@ -102,18 +95,10 @@
                            VerticalAlignment="Top"
                            HorizontalAlignment="Left"
                            Background="White"
-                           materialDesign:HintAssist.Hint="0"
                            IsEnabled= "True" 
                            ItemsSource="{Binding YearList}"
-                           SelectedItem="{Binding Year}"
+                           SelectedItem="{Binding Year, Mode=TwoWay}"
                            Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="LoadMonth">
-                                   <i:InvokeCommandAction Command="{Binding GetYearAvailable}" CommandParameter="{Binding ElementName=yearbox}"/>
-
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-
                         </ComboBox>
 
                     </Grid>
@@ -159,8 +144,15 @@
                     </StackPanel>
                 </Grid>
             </Grid>
-            <Grid Grid.Row="2"
-              >
+            <Grid Grid.Row="2">
+                <Label Name="TotalPrice"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Foreground="White"
+                       Content="{Binding RevenueReport.TotalPrice}" 
+                       HorizontalAlignment="Right"
+                       Margin="100,80"/>
+
                 <Border x:Name="ListBaoCao"
                     Margin="0,100,0,0"
                     Background="White"

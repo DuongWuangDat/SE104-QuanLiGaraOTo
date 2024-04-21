@@ -27,11 +27,11 @@ namespace QuanLiGaraOto.Model.service
 
         public async Task<List<ParameterDTO>> GetAllParameter()
         {
-            using(var context = new QuanLiGaraOtoEntities())
+            using (var context = new QuanLiGaraOtoEntities())
             {
                 var listParameter = (from s in context.Parameters
-                                    select new ParameterDTO
-                                    {
+                                     select new ParameterDTO
+                                     {
                                          Name = s.Name,
                                          Value = s.Value
                                      }).ToListAsync();
@@ -39,22 +39,22 @@ namespace QuanLiGaraOto.Model.service
             }
         }
 
-        public async Task<(bool,string)> UpdateParameter(string name, float value)
+        public async Task<(bool, string)> UpdateParameter(string name, float value)
         {
             using (var context = new QuanLiGaraOtoEntities())
             {
                 var parameter = await context.Parameters.FirstOrDefaultAsync(x => x.Name == name);
-                if(name == "TiLeTinhDonGiaBan")
+                if (name == "TiLeTinhDonGiaBan")
                 {
-                   await SuppliesService.Ins.UpdateTiLe((double)value);
+                    await SuppliesService.Ins.UpdateTiLe((double)value);
                 }
-                if(name == "SoXeSuaChuaToiDa")
+                if (name == "SoXeSuaChuaToiDa")
                 {
-                   var numberOfCar = await ReceptionService.Ins.CountByDate(DateTime.Now);
-                    if(numberOfCar > value)
+                    var numberOfCar = await ReceptionService.Ins.CountByDate(DateTime.Now);
+                    if (numberOfCar > value)
                     {
-                          return (false, "Số xe sửa chữa trong ngày đã vượt quá số xe tối đa");
-                     }
+                        return (false, "Số xe sửa chữa trong ngày đã vượt quá số xe tối đa");
+                    }
                 }
                 parameter.Value = value;
                 await context.SaveChangesAsync();
@@ -79,7 +79,7 @@ namespace QuanLiGaraOto.Model.service
         {
             using (var context = new QuanLiGaraOtoEntities())
             {
-                var parameter = await context.Parameters.FirstOrDefaultAsync(x => x.Name == "TiLeTinhDonGiaBan");                                                                                   
+                var parameter = await context.Parameters.FirstOrDefaultAsync(x => x.Name == "TiLeTinhDonGiaBan");
                 if (parameter == null)
                 {
                     return -1;
@@ -90,10 +90,10 @@ namespace QuanLiGaraOto.Model.service
 
         public async Task<bool> ApDungPhat()
         {
-            using(var context = new QuanLiGaraOtoEntities())
+            using (var context = new QuanLiGaraOtoEntities())
             {
                 var parameter = await context.Parameters.FirstOrDefaultAsync(x => x.Name == "ApDungQÐKiemTraSoTienThu");
-                if(parameter.Value == 1)
+                if (parameter.Value == 1)
                 {
                     return true;
                 }
@@ -106,7 +106,7 @@ namespace QuanLiGaraOto.Model.service
 
         public async Task<int> SoXeSuaChuaTrongNgay()
         {
-            using(var context = new QuanLiGaraOtoEntities())
+            using (var context = new QuanLiGaraOtoEntities())
             {
                 var parameter = await context.Parameters.FirstOrDefaultAsync(x => x.Name == "SoXeSuaChuaToiDa");
                 return (int)parameter.Value;

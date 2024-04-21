@@ -5,11 +5,18 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
   xmlns:local="clr-namespace:QuanLiGaraOto.View.BaoCao"
   xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-  xmlns:materialDesignControls="http://materialdesigninxaml.net/winfx/xaml/themes"
-  mc:Ignorable="d" 
+  xmlns:materialDesignControls="http://materialdesigninxaml.net/winfx/xaml/themes" 
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+      mc:Ignorable="d" 
   d:DesignHeight="800" d:DesignWidth="1536"
+  DataContext="{StaticResource CaiDatQuyDinhVM}"
   Title="PageCaiDatQuyDinh"
   >
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FirstLoad}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid Background="#3F7B88">
         <Grid Margin="30">
@@ -56,7 +63,7 @@
                 Width="1190"
                 Height="530"
                 CornerRadius="20">
-                    <StackPanel>
+                    <StackPanel DataContext="{StaticResource CaiDatQuyDinhVM}">
                         <Grid Margin="0,50,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition MinWidth="150" Width="7*" />
@@ -73,16 +80,19 @@
                             <!-- hàng 0 -->
                             <Label Grid.Row="0" Content="Số xe sửa chữa tối đa trong ngày:" FontSize="25" FontWeight="Bold"
                                        Margin="50,0,0,0" VerticalAlignment="Center" />
-                            <ComboBox
+                            <TextBox
                                 Grid.Row="0"
-                                x:Name="SoXeSuaTrongNgayBox"
+                                x:Name="SoXeSuaChuaToiDa"
                                 Width="80"
                                 Height="50"
-                                materialDesign:HintAssist.Hint="0"
-                                Background="White"
-                                IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
-                                ItemsSource="{Binding ShortStringList}"
-                                Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                                FontSize="20"
+                                Foreground="Black"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Bottom"
+                                Text="{Binding SoXeSuaChuaToiDa.Value, Mode=TwoWay}"
+                                Background="#D0D2D3"
+                                IsEnabled="True"
+                                 />
                             <!-- hàng 1 -->
                             
                             <!-- hàng 2 -->
@@ -90,41 +100,58 @@
                                    Margin="50,0,0,0" VerticalAlignment="Center" />
                             <ComboBox
                                 Grid.Row="2"
-                                x:Name="ApDungQDSTT"
+                                x:Name="ApDungQÐKiemTraSoTienThu"
                                 Width="80"
                                 Height="50"
-                                materialDesign:HintAssist.Hint="0"
-                                Background="White"
-                                IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
-                                ItemsSource="{Binding ShortStringList}"
-                                Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                                FontSize="20"
+                                Foreground="Black"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Bottom"
+                                IsEnabled="True"
+                                ItemsSource="{Binding CheckList}"
+                                SelectedItem="{Binding Check, Mode=TwoWay}"
+                                Background="#D0D2D3" />
+
                             <!-- hàng 3 -->
                             <Label Grid.Row="4" Content="Tỉ lệ tính đơn giá" FontSize="25" FontWeight="Bold"
                                    Margin="50,0,0,0" VerticalAlignment="Center" />
-                            <ComboBox
+                            <TextBox
                                 Grid.Row="4"
-                                x:Name="SoLoaiTienCong"
+                                x:Name="TiLeTinhDonGiaBan"
                                 Width="80"
                                 Height="50"
-                                materialDesign:HintAssist.Hint="0"
-                                Background="White"
-                                IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
-                                ItemsSource="{Binding ShortStringList}"
-                                Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                                FontSize="20"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Bottom"
+                                Foreground="Black"
+                                Background="#D0D2D3"
+                                Text="{Binding TiLeTinhDonGiaBan.Value, Mode=TwoWay}"
+                                IsEnabled="True" />
                             <!-- hàng 6 -->
                             <Button
                                 Grid.Row="6"
-                                Height="40"
-                                Width="150"
+                                Height="60"
+                                Width="180"
                                 HorizontalAlignment="Right"
                                 Margin="0,0,60,0"
                                 Background="#3F7B88"
                                 materialDesign:ButtonAssist.CornerRadius="10"
+                                Command="{Binding UpdateParameter}"
                                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 ToolTip="MaterialDesignRaisedButton with Round Corners">
-                                <TextBlock
-                                        Text="Apply" />
+                                <TextBlock Text="Apply" FontSize="24" FontWeight="Bold"/>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding UpdateParameter}" CommandParameter="{Binding ElementName=SoXeSuaChuaToiDa}"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding UpdateParameter}" CommandParameter="{Binding ElementName=TiLeTinhDonGiaBan}"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding UpdateParameter}" CommandParameter="{Binding ElementName=ApDungQÐKiemTraSoTienThu}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                             </Button>
                         </Grid>
                     </StackPanel>

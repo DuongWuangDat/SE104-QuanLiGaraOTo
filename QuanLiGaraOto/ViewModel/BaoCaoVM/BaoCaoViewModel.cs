@@ -4,7 +4,7 @@ using QuanLiGaraOto.Model;
 using QuanLiGaraOto.Model.service;
 using QuanLiGaraOto.Utils;
 using QuanLiGaraOto.View.BaoCao;
-using System.Collections.Generic;
+
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System;
@@ -14,6 +14,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Controls;
 using QuanLiGaraOto.View.MessageBox;
+using System.Windows.Media;
+using System.Collections.Generic;
 
 namespace QuanLiGaraOto.ViewModel.BaoCaoVM
 {
@@ -23,38 +25,39 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
         private int _month;
         private int _year;
 
-
+        private TonKho curTonKho;
+        private DoanhThu curDoanhThu;
         public int ID { get { return _id; } set {  _id = value; } }
 
         public int Month { get { return _month; } set { _month = value; OnPropertyChanged(); } }
         public int Year { get { return _year; } set { _year = value; OnPropertyChanged(); } }
 
-        private List<int> _monthList;
-        public List<int> MonthList
+        private ObservableCollection<int> _monthList;
+        public ObservableCollection<int> MonthList
         {
             get { return _monthList; }
-            set { _monthList = value; OnPropertyChanged(); }
+            set { _monthList = value; OnPropertyChanged(nameof(MonthList)); }
         }
-        private List<int> _yearList;
-        public List<int> YearList
+        private ObservableCollection<int> _yearList;
+        public ObservableCollection<int> YearList
         {
             get { return _yearList; }
-            set { _yearList = value; OnPropertyChanged(); }
+            set { _yearList = value; OnPropertyChanged(nameof(YearList)); }
         }
 
         // Inventory
         private InventoryReportDTO _currentInventoryReport;
         public InventoryReportDTO CurrentInventoryReport
         {
-            get => _currentInventoryReport;
-            set => SetProperty(ref _currentInventoryReport, value);
+            get { return _currentInventoryReport; }
+            set { _currentInventoryReport = value;}
         }
 
         private ObservableCollection<InventoryReportDetailDTO> _inventoryDetails;
         public ObservableCollection<InventoryReportDetailDTO> InventoryDetails
         {
-            get => _inventoryDetails;
-            set => SetProperty(ref _inventoryDetails, value);
+            get { return _inventoryDetails; }
+            set { _inventoryDetails = value;  }
         }
 
         private UserControl _currentUserControl;
@@ -86,64 +89,38 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
         public ICommand GetRevenue { get; set; }
 
         //---------------------------------------------------
-        public ICommand GetMonthAvailable {  get; set; }
-        public ICommand GetYearAvailable { get; set; }
+       
         public ICommand FirstLoad { get; set; }
         public ICommand OpenBaoCaoTonKho {  get; set; }
         public ICommand OpenBaoCaoDoanhThu { get; set; }
         
         public BaoCaoViewModel() { 
             // PageCommand
-            FirstLoad = new RelayCommand<object>(_=> true, _ =>
+            FirstLoad = new RelayCommand<object>(_=> true, _=>
             {
                 var curDate = DateTime.Now;
                 var curYear = curDate.Year;
+                var years = Enumerable.Range(2020, (curYear - 2019)).ToList();
+                YearList = new ObservableCollection<int>(years);
                 var curMonth = curDate.Month;
+                var months = Enumerable.Range(1, 12).ToList();
+                MonthList = new ObservableCollection<int>(months);
                 Year = curYear;
                 Month = curMonth;
             });
             OpenBaoCaoTonKho = new RelayCommand<object>(_ => true, (param) =>
             {
-                var tonKho = new TonKho();
-                
-                CurrentUserControl = tonKho;
+                curTonKho = new TonKho();
+                CurrentUserControl = curTonKho;
 
             });
             OpenBaoCaoDoanhThu = new RelayCommand<object>(_ => true, (param) =>
             {
-                var doanhthu = new DoanhThu();
-                CurrentUserControl = doanhthu;
+                curDoanhThu = new DoanhThu();
+                CurrentUserControl = curDoanhThu;
             });
 
-            GetYearAvailable = new RelayCommand<object>(_ => true, (param) =>
-            {           
-                ComboBox comboBox = param as ComboBox;
-                var curDate = DateTime.Now;
-                var curYear = curDate.Year;
-                var years = Enumerable.Range(2000,(curYear-2000+1)).ToList();
-                YearList = years;
-                comboBox.Items.Add(years);
-            });
-
-            GetMonthAvailable = new RelayCommand<object>(_ => true, (param) =>
-            {
-                ComboBox combobox = param as ComboBox;
-                var curDate = DateTime.Now;
-                var curMonth = curDate.Month;
-                var curYear = curDate.Year;
-                if(Year == curYear)
-                {
-                    var months = Enumerable.Range(1, curMonth).ToList();
-                    MonthList = months;
-                    combobox.ItemsSource = months;
-                } else
-                {
-                    var months = Enumerable.Range(1, 12).ToList();
-                    MonthList = months;
-                    combobox.ItemsSource = months;
-                }
-               
-            });
+           
 
             // InventoryCommand
 
