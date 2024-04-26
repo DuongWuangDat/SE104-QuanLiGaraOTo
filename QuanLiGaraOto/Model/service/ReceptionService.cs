@@ -116,7 +116,7 @@ namespace QuanLiGaraOto.Model.service
         {
             using(var context = new QuanLiGaraOtoEntities())
             {
-                var reception = await context.Receptions.Where(r => r.LicensePlate == plate).FirstOrDefaultAsync();
+                var reception = await context.Receptions.Where(r => r.LicensePlate == plate).OrderByDescending(r => r.CreatedAt).FirstOrDefaultAsync();
                 if(reception == null)
                 {
                     return null;
