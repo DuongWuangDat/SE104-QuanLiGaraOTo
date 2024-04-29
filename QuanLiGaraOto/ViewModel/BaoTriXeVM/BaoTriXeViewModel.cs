@@ -60,7 +60,7 @@ namespace QuanLiGaraOto.ViewModel.BaoTriXeVM
         public string CusName
         {
             get { return _cusName; }
-            set { _cusName = value; }
+            set { _cusName = value; OnPropertyChanged(); }
         }
 
         private string _phoneNumber;
@@ -68,7 +68,7 @@ namespace QuanLiGaraOto.ViewModel.BaoTriXeVM
         public string PhoneNumber
         {
             get { return _phoneNumber; }
-            set { _phoneNumber = value; }
+            set { _phoneNumber = value; OnPropertyChanged(); }
         }
 
         private string _licensePlate;
@@ -76,7 +76,7 @@ namespace QuanLiGaraOto.ViewModel.BaoTriXeVM
         public string LicensePlate
         {
             get { return _licensePlate; }
-            set { _licensePlate = value; }
+            set { _licensePlate = value; OnPropertyChanged(); }
         }
 
         private string _address;
@@ -84,7 +84,7 @@ namespace QuanLiGaraOto.ViewModel.BaoTriXeVM
         public string Address
         {
             get { return _address; }
-            set { _address = value; }
+            set { _address = value; OnPropertyChanged(); }
         }
 
 
@@ -109,7 +109,7 @@ namespace QuanLiGaraOto.ViewModel.BaoTriXeVM
         public ICommand OpenManageBrandWD { get; set; }
 
         public ICommand AddReceptionCM { get; set; }
-
+        public ICommand ResetReceptionCM { get; set; }
         public BaoTriXeViewModel()
         {
             OpenManageBrandWD = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -215,6 +215,15 @@ namespace QuanLiGaraOto.ViewModel.BaoTriXeVM
                     }
                     
                 }
+            });
+
+            ResetReceptionCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                LicensePlate = "";
+                CusName = "";
+                PhoneNumber = "";
+                Address = "";
+                SelectedBrandItem = null;
             });
         }
 
