@@ -38,7 +38,7 @@
                 FontFamily="Roboto Condensed"
                 FontSize="25"
                 FontWeight="Bold">
-                Nhập tiền công  
+                Nhập tiền công
             </TextBlock>
 
             <TextBlock Grid.Row="1" Margin="354,19,305,271" FontFamily="Roboto Condensed" FontSize="17" FontWeight="Regular" Text="Đơn giá nhập:" />
@@ -47,23 +47,22 @@
             <TextBox Grid.Row="1" Margin="468,10,202,268" FontFamily="Roboto Condensed" FontSize="17" FontWeight="Regular" Text="{Binding DonGiaNhap}" />
 
             <!-- ComboBox -->
-            <ComboBox
-        Name="bienSoXeComboBox"
-        Width="285"
-        Margin="10,13,473,0"
-        VerticalAlignment="Top"
-        materialDesign:TextFieldAssist.TextBoxViewMargin="0"
-        FontFamily="Roboto Condensed"
-        FontSize="17"
-        FontWeight="Regular"
-        IsEditable="False"
-        Style="{StaticResource MaterialDesignComboBox}" Grid.Row="1">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </ComboBox>
+            <TextBlock
+                VerticalAlignment="Top"
+                FontFamily="Roboto Condensed"
+                FontSize="17"
+                FontWeight="Regular" Margin="10,22,452,0" Grid.Row="1">
+                Tên tiền công:
+            </TextBlock>
+            <TextBox
+                Name="bienSoXeTextBox"
+                Margin="125,14,452,0"
+                VerticalAlignment="Top"
+                materialDesign:TextFieldAssist.TextBoxViewMargin="0"
+                FontFamily="Roboto Condensed"
+                FontSize="17"
+                FontWeight="Regular"
+                Text="{Binding LicensePlate}" Grid.Row="1"/>
 
             <!-- Nút Thêm -->
             <Button 
@@ -79,25 +78,25 @@
             materialDesign:ButtonAssist.CornerRadius="20"/>
 
             <Border
-Grid.Row="1"
-Margin="0,73,0,0"
-Padding="10"
-HorizontalAlignment="Center"
-Background="White"
-CornerRadius="35">
-                <DataGrid
-                x:Name="dataGrid"
+                Grid.Row="1"
+                Margin="0,73,0,0"
+                Padding="10"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Top"
-                AutoGenerateColumns="False"
                 Background="White"
-                CanUserReorderColumns="False"
-                CanUserResizeColumns="False"
-                CanUserSortColumns="True"
-                ColumnWidth="SizeToCells"
-                IsReadOnly="True"
-                SelectionMode="Single"
-                SelectionUnit="FullRow">
+                CornerRadius="35">  
+                <DataGrid
+                    x:Name="dataGrid"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    AutoGenerateColumns="False"
+                    Background="White"
+                    CanUserReorderColumns="False"
+                    CanUserResizeColumns="False"
+                    CanUserSortColumns="True"
+                    ColumnWidth="SizeToCells"
+                    IsReadOnly="True"
+                    SelectionMode="Single"
+                    SelectionUnit="FullRow">    
                     <DataGrid.CellStyle>
                         <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                             <Setter Property="BorderThickness" Value="0" />
@@ -113,25 +112,25 @@ CornerRadius="35">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            FontSize="15"
-             />
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        FontSize="15"
+                                         /> 
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
                         <DataGridTemplateColumn
-Width="auto"
-Header="Đơn giá bán"
-SortMemberPath="Customer.Name">
+                            Width="auto"
+                            Header="Đơn giá bán"
+                            SortMemberPath="Customer.Name"> 
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            FontSize="15"
-             />
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        FontSize="15"
+                                         /> 
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -140,20 +139,19 @@ SortMemberPath="Customer.Name">
             </Border>
 
             <Button 
-            Grid.Row="2" 
-            Command="{Binding HoanTatClose}"
-            CommandParameter="{Binding ElementName=danhSachTienCongWindow}"
-            Margin="0,0,45,27" 
-            Content="Hoàn tất" 
-            HorizontalAlignment="Right" 
-            VerticalAlignment="Bottom"
-            Height="40"
-            Width="100" 
-            Background="#3093A0"
-            BorderBrush="Transparent"
-            Foreground="White"
-            materialDesign:ButtonAssist.CornerRadius="20" Click="Button_Click"/>
-
+                Grid.Row="2" 
+                Command="{Binding HoanTatClose}"
+                CommandParameter="{Binding ElementName=danhSachTienCongWindow}"
+                Margin="0,0,45,27" 
+                Content="Hoàn tất" 
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Bottom"
+                Height="40"
+                Width="100" 
+                Background="#3093A0"
+                BorderBrush="Transparent"
+                Foreground="White"
+                materialDesign:ButtonAssist.CornerRadius="20" Click="Button_Click"/>    
         </Grid>
     </Border>
 </Window>

@@ -47,17 +47,23 @@
             <TextBox Grid.Row="1" Margin="468,10,202,268" FontFamily="Roboto Condensed" FontSize="17" FontWeight="Regular" Text="" />
 
             <!-- ComboBox -->
+            <TextBlock
+                VerticalAlignment="Top"
+                FontFamily="Roboto Condensed"
+                FontSize="17"
+                FontWeight="Regular" Margin="10,22,452,0" Grid.Row="1">
+                Tên vật tư:
+            </TextBlock>
             <ComboBox
-            Name="bienSoXeComboBox"
-            Width="285"
-            Margin="10,13,473,0"
-            VerticalAlignment="Top"
-            materialDesign:TextFieldAssist.TextBoxViewMargin="0"
-            FontFamily="Roboto Condensed"
-            FontSize="17"
-            FontWeight="Regular"
-            IsEditable="False"
-            Style="{StaticResource MaterialDesignComboBox}" Grid.Row="1">
+                Name="bienSoXeComboBox"
+                Margin="97,13,452,0"
+                VerticalAlignment="Top"
+                materialDesign:TextFieldAssist.TextBoxViewMargin="0"
+                FontFamily="Roboto Condensed"
+                FontSize="17"
+                FontWeight="Regular"
+                IsEditable="False"
+                Style="{StaticResource MaterialDesignComboBox}" Grid.Row="1">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="" />
