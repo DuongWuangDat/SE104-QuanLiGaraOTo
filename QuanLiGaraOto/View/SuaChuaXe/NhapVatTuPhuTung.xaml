@@ -37,8 +37,13 @@
         VerticalAlignment="Center"
         FontFamily="Roboto Condensed"
         FontSize="25"
-        FontWeight="Bold">
-        Nhập vật tư phụ tùng
+        FontWeight="Bold"/>
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontFamily="Roboto Condensed"
+                       FontSize="25"
+                       FontWeight="Bold">
+            Nhập vật tư phụ tùng
             </TextBlock>
 
             <TextBlock Grid.Row="1" Margin="354,19,305,271" FontFamily="Roboto Condensed" FontSize="17" FontWeight="Regular" Text="Đơn giá nhập:" />
@@ -189,7 +194,6 @@
             BorderBrush="Transparent"
             Foreground="White"
             materialDesign:ButtonAssist.CornerRadius="20"/>
-
         </Grid>
     </Border>
 </Window>

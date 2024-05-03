@@ -16,6 +16,12 @@
         DataContext="{StaticResource SuaChuaXeVM}"    
         mc:Ignorable="d">
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FirstLoadAddRepairContent}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Border materialDesign:ElevationAssist.Elevation="Dp4"
         Background="White"
         BorderThickness="0"
@@ -72,10 +78,10 @@
                         FontFamily="Roboto Condensed"
                         FontSize="17"
                         FontWeight="Regular"
-                        Text="{Binding NoiDung}">
+                        Text="{Binding NoiDung, Mode=TwoWay}">
                             <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="LostFocus">
-                                    <i:InvokeCommandAction Command="{Binding LostFocusHoTenChuXe}" CommandParameter="{Binding ElementName=hoTenChuXeTextBox}" />
+                                <i:EventTrigger EventName="TextChanged">
+                                    <i:InvokeCommandAction Command="{Binding UpdateTextCommand}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </TextBox>
@@ -97,22 +103,22 @@
                         FontWeight="Regular">
                         Tiền công:
                         </TextBlock>
-                        <ComboBox
-                        Name="tienCongTextBox1"
-                        Width="285"
-                        Margin="10,0"
-                        VerticalAlignment="Center"
-                        materialDesign:TextFieldAssist.TextBoxViewMargin="0"
-                        FontFamily="Roboto Condensed"
-                        FontSize="17"
-                        FontWeight="Regular"
-                        Text="{Binding NoiDung}">
+                        <TextBox
+                            Name="tienCongTextBox"
+                            Width="212"
+                            Margin="10,0"
+                            VerticalAlignment="Center"
+                            materialDesign:TextFieldAssist.TextBoxViewMargin="0"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            FontWeight="Regular"
+                            Text="{Binding NoiDung, Mode=TwoWay}">
                             <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="LostFocus">
-                                    <i:InvokeCommandAction Command="{Binding LostFocusHoTenChuXe}" CommandParameter="{Binding ElementName=noiDungTextBox}" />
+                                <i:EventTrigger EventName="TextChanged">
+                                    <i:InvokeCommandAction Command="{Binding UpdateTextCommand}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
-                        </ComboBox>
+                        </TextBox>
                     </StackPanel>
                 </StackPanel>
             </Grid>
@@ -128,19 +134,25 @@
 
                 Grid.Row="1">
                 <DataGrid.Columns>
-                    <DataGridCheckBoxColumn 
-                    Header="Vật tư phụ tùng"
-                    Width="auto">
-                        <d:DataGridCheckBoxColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <CheckBox IsChecked="{Binding Selected}" />
-                                    <TextBlock/>
-                                    TT
-                                </StackPanel>
-                            </DataTemplate>
-                        </d:DataGridCheckBoxColumn.CellTemplate>
-                    </DataGridCheckBoxColumn>
+                    <DataGridComboBoxColumn 
+                        Header="Vật tư phụ tùng"
+                        Width="auto"
+                        SelectedItemBinding="{Binding SelectedItem}">   
+                        <DataGridComboBoxColumn.ElementStyle>
+                            <Style TargetType="ComboBox">
+                                <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.PartsList}" />
+                                <Setter Property="IsEditable" Value="True" />
+                                <Setter Property="DisplayMemberPath" Value="Name" />
+                            </Style>
+                        </DataGridComboBoxColumn.ElementStyle>
+                        <DataGridComboBoxColumn.EditingElementStyle>
+                            <Style TargetType="ComboBox">
+                                <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.PartsList}" />
+                                <Setter Property="IsEditable" Value="True" />
+                                <Setter Property="DisplayMemberPath" Value="Name" />
+                            </Style>
+                        </DataGridComboBoxColumn.EditingElementStyle>
+                    </DataGridComboBoxColumn>
                     <DataGridTextColumn 
                     Header="Số lượng" 
                     Width="auto"
