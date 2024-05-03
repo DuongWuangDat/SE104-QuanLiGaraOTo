@@ -54,22 +54,15 @@
                 FontWeight="Regular" Margin="10,22,452,0" Grid.Row="1">
                 Tên tiền công:
             </TextBlock>
-            <ComboBox
-                    Name="tenTienCongComboBox"
-                    Margin="120,13,434,0"
-                    VerticalAlignment="Top"
-                    materialDesign:TextFieldAssist.TextBoxViewMargin="0"
-                    FontFamily="Roboto Condensed"
-                    FontSize="17"
-                    FontWeight="Regular"
-                    IsEditable="False"
-                    Style="{StaticResource MaterialDesignComboBox}" Grid.Row="1">   
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectionChanged">
-                            <i:InvokeCommandAction Command="" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-            </ComboBox>
+            <TextBox
+                Name="tenTienCongTextBox"
+                Margin="125,14,452,0"
+                VerticalAlignment="Top"
+                materialDesign:TextFieldAssist.TextBoxViewMargin="0"
+                FontFamily="Roboto Condensed"
+                FontSize="17"
+                FontWeight="Regular"
+                Text="{Binding LicensePlate}" Grid.Row="1"/>
 
             <!-- Nút Thêm -->
             <Button 
