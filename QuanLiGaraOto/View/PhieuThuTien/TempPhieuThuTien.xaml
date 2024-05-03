@@ -34,6 +34,8 @@
 
     <Grid>
         <Border
+            Width="830"
+            Height="400"
             materialDesign:ElevationAssist.Elevation="Dp4"
             Background="White"
             BorderThickness="0"
@@ -48,14 +50,15 @@
                     <RowDefinition Height="1.5*" />
                 </Grid.RowDefinitions>
 
-                <TextBlock
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    FontFamily="Roboto Condensed"
-                    FontSize="25"
-                    FontWeight="Bold">
-                    Thêm phiếu thu tiền
-                </TextBlock>
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <TextBlock
+                        FontFamily="Roboto Condensed"
+                        FontSize="25"
+                        FontWeight="Bold">
+                        Thêm phiếu thu tiền
+                    </TextBlock>
+                    <Separator Background="White" />
+                </StackPanel>
 
                 <Grid Grid.Row="1" Margin="0,10,0,0">
                     <Grid.ColumnDefinitions>
@@ -81,7 +84,7 @@
                             </TextBlock>
                             <TextBox
                                 Name="hoTenChuXeTextBox"
-                                Width="285"
+                                Width="280"
                                 Margin="10,0"
                                 VerticalAlignment="Center"
                                 materialDesign:TextFieldAssist.TextBoxViewMargin="0"
@@ -110,7 +113,7 @@
                             </TextBlock>
                             <ComboBox
                                 Name="soDienThoaiComboBox"
-                                Width="285"
+                                Width="295"
                                 Margin="10,0"
                                 VerticalAlignment="Center"
                                 materialDesign:TextFieldAssist.TextBoxViewMargin="0"
@@ -159,7 +162,7 @@
                             </TextBlock>
                             <ComboBox
                                 Name="bienSoXeComboBox"
-                                Width="285"
+                                Width="295"
                                 Margin="10,0"
                                 VerticalAlignment="Center"
                                 materialDesign:TextFieldAssist.TextBoxViewMargin="0"
@@ -196,7 +199,7 @@
                                 Ngày thu tiền:
                             </TextBlock>
                             <DatePicker
-                                Width="268"
+                                Width="280"
                                 Margin="10,0"
                                 materialDesign:TextFieldAssist.TextBoxViewMargin="0"
                                 FontSize="17"
@@ -216,7 +219,7 @@
                             </TextBlock>
                             <TextBox
                                 x:Name="tienNo"
-                                Width="320"
+                                Width="325"
                                 Margin="10,0"
                                 VerticalAlignment="Center"
                                 FontFamily="Roboto Condensed"
