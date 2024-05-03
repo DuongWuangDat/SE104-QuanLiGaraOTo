@@ -54,16 +54,16 @@
                 FontWeight="Regular" Margin="10,22,452,0" Grid.Row="1">
                 Tên tiền công:
             </TextBlock>
-            <TextBox
-                Name="tenTienCongTextBox"
-                Margin="125,14,452,0"
-                VerticalAlignment="Top"
-                materialDesign:TextFieldAssist.TextBoxViewMargin="0"
-                FontFamily="Roboto Condensed"
-                FontSize="17"
-                FontWeight="Regular"
-                Text="{Binding LicensePlate}" Grid.Row="1"/>
-
+            <TextBox Name="bienSoXeTextBox"
+                     Margin="125,14,452,0"
+                     VerticalAlignment="Top"
+                     materialDesign:TextFieldAssist.TextBoxViewMargin="0"
+                     FontFamily="Roboto Condensed"
+                     FontSize="17"
+                     FontWeight="Regular"
+                     Text="{Binding WageName}"
+                     Grid.Row="1" />
+            
             <!-- Nút Thêm -->
             <Button 
             Grid.Row="1" 
