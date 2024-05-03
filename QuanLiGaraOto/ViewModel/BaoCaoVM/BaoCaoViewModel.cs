@@ -4,7 +4,6 @@ using QuanLiGaraOto.Model;
 using QuanLiGaraOto.Model.service;
 using QuanLiGaraOto.Utils;
 using QuanLiGaraOto.View.BaoCao;
-
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System;
@@ -16,6 +15,11 @@ using System.Windows.Controls;
 using QuanLiGaraOto.View.MessageBox;
 using System.Windows.Media;
 using System.Collections.Generic;
+using System.IO;
+using System.Windows.Media.Imaging;
+using System.Windows;
+using Microsoft.Office.Interop;
+using Microsoft.Office.Interop.Word;
 
 namespace QuanLiGaraOto.ViewModel.BaoCaoVM
 {
@@ -24,6 +28,7 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
         private int _id;
         private int _month;
         private int _year;
+        public List<int> stt;
 
         private TonKho curTonKho;
         private DoanhThu curDoanhThu;
@@ -31,6 +36,8 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
 
         public int Month { get { return _month; } set { _month = value; OnPropertyChanged(); } }
         public int Year { get { return _year; } set { _year = value; OnPropertyChanged(); } }
+
+        public List<int> STT { get { return stt; } }
 
         private ObservableCollection<int> _monthList;
         public ObservableCollection<int> MonthList
@@ -93,6 +100,8 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
         public ICommand FirstLoad { get; set; }
         public ICommand OpenBaoCaoTonKho {  get; set; }
         public ICommand OpenBaoCaoDoanhThu { get; set; }
+        public ICommand PrintBaoCao {  get; set; }
+
         
         public BaoCaoViewModel() { 
             // PageCommand
@@ -120,7 +129,76 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                 CurrentUserControl = curDoanhThu;
             });
 
-           
+            PrintBaoCao = new RelayCommand<object>(_=> true, _ =>
+            {
+                // Kiểm tra xem UserControl hiện tại có phải là BaoCaoDoanhThu không
+                if (CurrentUserControl is DoanhThu)
+                {
+                    //// Chụp ảnh chụp màn hình của UserControl
+                    //RenderTargetBitmap rtb = new RenderTargetBitmap((int)curDoanhThu.ActualWidth, (int)curDoanhThu.ActualHeight, 96, 96, PixelFormats.Pbgra32);
+                    //rtb.Render(curDoanhThu);
+
+                    //// Lưu hình ảnh vào tệp tạm thời
+                    //string tempFilePath = Path.Combine(Path.GetTempPath(), "tempImage.png");
+                    //using (var fileStream = new FileStream(tempFilePath, FileMode.Create))
+                    //{
+                    //    PngBitmapEncoder pngToFile = new PngBitmapEncoder();
+                    //    pngToFile.Frames.Add(BitmapFrame.Create(rtb));
+                    //    pngToFile.Save(fileStream);
+                    //}
+
+                    // Tạo một tài liệu Word mới
+                    var wordApp = new Microsoft.Office.Interop.Word.Application();
+                    var document = wordApp.Documents.Add();
+                    // Thêm header
+                    foreach (Microsoft.Office.Interop.Word.Section section in document.Sections)
+                    {
+                        // Lấy header của mỗi section
+                        Microsoft.Office.Interop.Word.HeaderFooter header = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary];
+                        header.Range.Text = "Báo cáo doanh thu tháng "+ Month.ToString() +" năm " + Year.ToString();
+                        header.Range.Font.Size = 32;
+                        header.Range.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                    }
+
+                    //// Chèn hình ảnh từ tệp tạm thời vào tài liệu
+                    //document.InlineShapes.AddPicture(tempFilePath, LinkToFile: false, SaveWithDocument: true);
+
+                    //// Xóa tệp tạm thời
+                    //File.Delete(tempFilePath);
+
+                    // Tạo bảng trong tài liệu Word
+                     var table = document.Tables.Add(document.Content, RevenueList.Count + 1, 5); // Số cột cố định là 5
+
+                    // Điền dữ liệu từ RevenueList vào bảng
+                    table.Cell(1, 1).Range.Text = "STT";
+                    table.Cell(1, 2).Range.Text = "Hiệu xe";
+                    table.Cell(1, 3).Range.Text = "Số lượt sửa chữa";
+                    table.Cell(1, 4).Range.Text = "Thành Tiền";
+                    table.Cell(1, 5).Range.Text = "Tỉ lệ";
+                    for (int i = 0; i < RevenueList.Count; i++)
+                    {
+                        var item = RevenueList[i];
+                        table.Cell(i + 2, 1).Range.Text = i.ToString();
+                        table.Cell(i + 2, 2).Range.Text = item.BrandCar.Name;
+                        table.Cell(i + 2, 3).Range.Text = item.RepairCount.ToString();
+                        table.Cell(i + 2, 4).Range.Text = item.Price.ToString();
+                        table.Cell(i + 2, 5).Range.Text = item.Ratio.ToString();
+                    }
+                    // Lưu tài liệu
+                    string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads", "BaoCaoDoanhThu.docx");
+                    document.SaveAs2(filePath);
+                    document.Close();
+
+                    // Đóng ứng dụng Word
+                    wordApp.Quit();
+
+                    MessageBoxCustom.Show(MessageBoxCustom.Success,"Báo cáo doanh thu đã được in thành công tại: " + filePath);
+                }
+                else
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Vui lòng mở Báo cáo doanh thu trước khi in.");
+                }
+            });
 
             // InventoryCommand
 
@@ -165,6 +243,10 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                 if (RevenueReport != null)
                 {
                     RevenueList = new ObservableCollection<RevenueDetailDTO>(RevenueReport.RevenueDetails);
+                    for(int i=0; i<RevenueList.Count; i++)
+                    {
+                        STT.Add(i);
+                    }
                 }
             });
 

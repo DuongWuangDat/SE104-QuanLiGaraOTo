@@ -20,17 +20,17 @@ namespace QuanLiGaraOto.ViewModel.CaiDatQuyDinhVM
 {
     internal class CaiDatQuyDinhViewModel : BaseViewModel
     {
-        private ParameterDTO tiLeTinhDonGiaBan;
+        private ParameterDTO tiLeTinhDonGiaBan = new ParameterDTO();
         public ParameterDTO TiLeTinhDonGiaBan
         {
             get { return tiLeTinhDonGiaBan; }
-            set { tiLeTinhDonGiaBan = value;  }
+            set { tiLeTinhDonGiaBan = value; OnPropertyChanged();  }
         }
-        private ParameterDTO apDungQÐKiemTraSoTienThu;
+        private ParameterDTO apDungQÐKiemTraSoTienThu = new ParameterDTO();
         public ParameterDTO ApDungQÐKiemTraSoTienThu
         {
             get { return apDungQÐKiemTraSoTienThu; }
-            set { apDungQÐKiemTraSoTienThu = value; }
+            set { apDungQÐKiemTraSoTienThu = value; OnPropertyChanged(); }
         }
         private ObservableCollection<int> checklist;
         public ObservableCollection<int> CheckList
@@ -46,11 +46,11 @@ namespace QuanLiGaraOto.ViewModel.CaiDatQuyDinhVM
             set { check = value; OnPropertyChanged(); }
         }
 
-        private ParameterDTO soXeSuaChuaToiDa;
+        private ParameterDTO soXeSuaChuaToiDa = new ParameterDTO();
         public ParameterDTO SoXeSuaChuaToiDa
         {
             get { return soXeSuaChuaToiDa; }
-            set { soXeSuaChuaToiDa = value; }
+            set { soXeSuaChuaToiDa = value; OnPropertyChanged(); }
         }
         private List<ParameterDTO> parameterDTOsCollection;
         public List<ParameterDTO> ParameterDTOsCollection
@@ -73,16 +73,9 @@ namespace QuanLiGaraOto.ViewModel.CaiDatQuyDinhVM
             {
                 CheckList = new ObservableCollection<int> { 0, 1 };
 
-                TiLeTinhDonGiaBan = new ParameterDTO();
-                TiLeTinhDonGiaBan.Name = "TiLeTinhDonGiaBan";
                 TiLeTinhDonGiaBan.Value = await ParameterService.Ins.GetRatio();
 
-                SoXeSuaChuaToiDa = new ParameterDTO();
-                soXeSuaChuaToiDa.Name = "SoXeSuaChuaToiDa";
                 SoXeSuaChuaToiDa.Value = await ParameterService.Ins.SoXeSuaChuaTrongNgay();
-
-                ApDungQÐKiemTraSoTienThu = new ParameterDTO();
-                ApDungQÐKiemTraSoTienThu.Name = "ApDungQÐKiemTraSoTienThu";
 
                 var IsCheck = await ParameterService.Ins.ApDungPhat();
                 if (IsCheck)
@@ -98,47 +91,53 @@ namespace QuanLiGaraOto.ViewModel.CaiDatQuyDinhVM
                 
 
             });
-           
+
+
             UpdateParameter = new RelayCommand<object>(_ => true, async (p) =>
             {
-                if (p is TextBox parameter)
+                string resultmessage = "";
+                // SoXeSuaChuaToiDa
+                //var cultureInfo = CultureInfo.InvariantCulture;
+                var (xesuccess, xemessage) = await ParameterService.Ins.UpdateParameter("SoXeSuaChuaToiDa", (float)(SoXeSuaChuaToiDa.Value));
+                if (xesuccess)
                 {
-                  
-                    
-                        var cultureInfo = CultureInfo.InvariantCulture;
-                        if (double.TryParse(parameter.Text, NumberStyles.Float, cultureInfo,out var number))
-                        {
-                            var (success, message) = await ParameterService.Ins.UpdateParameter(parameter.Name, (float)double.Parse(parameter.Text,cultureInfo));
-                            if (success)
-                            {
-                                MessageBoxCustom.Show(MessageBoxCustom.Success, message);
-                            }
-                            else
-                            {
-                                MessageBoxCustom.Show(MessageBoxCustom.Error, message);
-                            }
-                        }
-
-                    
-                       
-
+                    resultmessage += "Cập nhật số xe sửa chữa tối đa: "+ xemessage + "\n";
                 }
-                if(p is ComboBox comboBox)
+                else
                 {
-                    var ischeck = comboBox.SelectedItem;
-                    if ((int)ischeck == 1)
-                    {
-                        Check = 1;
-                        ApDungQÐKiemTraSoTienThu.Value = 1;
-                    }
-                    else
-                    {
-                        Check = 0;
-                        ApDungQÐKiemTraSoTienThu.Value = 0;
-                    }
+                    resultmessage += "Cập nhật số xe sửa chữa tối đa: " + xemessage + "\n";
                 }
-                TiLeTinhDonGiaBan.Value = await ParameterService.Ins.GetRatio();
-                SoXeSuaChuaToiDa.Value = await ParameterService.Ins.SoXeSuaChuaTrongNgay();
+
+                // TiLeDonGiaBan
+                var (tilesuccess, tilemessage) = await ParameterService.Ins.UpdateParameter("TiLeTinhDonGiaBan", (float)(TiLeTinhDonGiaBan.Value));
+                if (tilesuccess)
+                {
+                    resultmessage += "Cập nhật tỉ lệ đơn giá bán: " + tilemessage + "\n";
+                }
+                else
+                {
+                    resultmessage += "Cập nhật tỉ lệ đơn giá bán: " + tilemessage + "\n";
+                }
+
+                // ApDungQuyDinhKiemTraSoTienThu
+                var (success, message) = await ParameterService.Ins.UpdateParameter("ApDungQÐKiemTraSoTienThu", (float)(ApDungQÐKiemTraSoTienThu.Value));
+                if(success)
+                {
+                    resultmessage += "Áp dụng quy định kiểm tra tiền thu: " + message ;
+                }
+                else
+                {
+                    resultmessage += "Áp dụng quy định kiểm tra tiền thu: " + message ;
+                }
+
+                if(success && tilesuccess && xesuccess)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Success, resultmessage);
+                }
+                else
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, resultmessage);
+                }
             });
 
 

@@ -32,7 +32,7 @@
                     Background="White"
                     CornerRadius="20">
                     <DataGrid
-                        x:Name="dataGrid"
+                        x:Name="BaoCaoDoanhThu"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Top"
                         AutoGenerateColumns="False"
@@ -63,7 +63,7 @@
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
                                         FontSize="15"
-                                        Text="1" />
+                                        Text="{Binding STT}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

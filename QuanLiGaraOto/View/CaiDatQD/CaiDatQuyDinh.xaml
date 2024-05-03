@@ -6,8 +6,8 @@
   xmlns:local="clr-namespace:QuanLiGaraOto.View.BaoCao"
   xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
   xmlns:materialDesignControls="http://materialdesigninxaml.net/winfx/xaml/themes" 
-      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
-      mc:Ignorable="d" 
+  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+  mc:Ignorable="d" 
   d:DesignHeight="800" d:DesignWidth="1536"
   DataContext="{StaticResource CaiDatQuyDinhVM}"
   Title="PageCaiDatQuyDinh"
@@ -89,10 +89,9 @@
                                 Foreground="Black"
                                 HorizontalContentAlignment="Center"
                                 VerticalContentAlignment="Bottom"
-                                Text="{Binding SoXeSuaChuaToiDa.Value, Mode=TwoWay}"
-                                Background="#D0D2D3"
-                                IsEnabled="True"
-                                 />
+                                Text="{Binding SoXeSuaChuaToiDa.Value}"
+                                Background="#DEFFEF"
+                                IsEnabled="True"/>
                             <!-- hàng 1 -->
                             
                             <!-- hàng 2 -->
@@ -109,8 +108,8 @@
                                 VerticalContentAlignment="Bottom"
                                 IsEnabled="True"
                                 ItemsSource="{Binding CheckList}"
-                                SelectedItem="{Binding Check, Mode=TwoWay}"
-                                Background="#D0D2D3" />
+                                SelectedItem="{Binding Check}"
+                                Background="#DEFFEF" />
 
                             <!-- hàng 3 -->
                             <Label Grid.Row="4" Content="Tỉ lệ tính đơn giá" FontSize="25" FontWeight="Bold"
@@ -124,8 +123,8 @@
                                 HorizontalContentAlignment="Center"
                                 VerticalContentAlignment="Bottom"
                                 Foreground="Black"
-                                Background="#D0D2D3"
-                                Text="{Binding TiLeTinhDonGiaBan.Value, Mode=TwoWay}"
+                                Background="#DEFFEF"
+                                Text="{Binding TiLeTinhDonGiaBan.Value, StringFormat={}{0:F2}}"
                                 IsEnabled="True" />
                             <!-- hàng 6 -->
                             <Button
@@ -137,21 +136,9 @@
                                 Background="#3F7B88"
                                 materialDesign:ButtonAssist.CornerRadius="10"
                                 Command="{Binding UpdateParameter}"
-                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 ToolTip="MaterialDesignRaisedButton with Round Corners">
                                 <TextBlock Text="Apply" FontSize="24" FontWeight="Bold"/>
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="Click">
-                                        <i:InvokeCommandAction Command="{Binding UpdateParameter}" CommandParameter="{Binding ElementName=SoXeSuaChuaToiDa}"/>
-                                    </i:EventTrigger>
-                                    <i:EventTrigger EventName="Click">
-                                        <i:InvokeCommandAction Command="{Binding UpdateParameter}" CommandParameter="{Binding ElementName=TiLeTinhDonGiaBan}"/>
-                                    </i:EventTrigger>
-                                    <i:EventTrigger EventName="Click">
-                                        <i:InvokeCommandAction Command="{Binding UpdateParameter}" CommandParameter="{Binding ElementName=ApDungQÐKiemTraSoTienThu}"/>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
                             </Button>
                         </Grid>
                     </StackPanel>
