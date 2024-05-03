@@ -13,25 +13,23 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QuanLiGaraOto.View.PhieuThuTien
+namespace QuanLiGaraOto.View.SuaChuaXe
 {
-	/// <summary>
-	/// Interaction logic for PhieuThuTien.xaml
-	/// </summary>
-	public partial class PhieuThuTien : Page
-	{
-		public PhieuThuTien()
-		{
-			InitializeComponent();
-		}
-
-		private void Edit_Click(object sender, RoutedEventArgs e)
-		{
+    /// <summary>
+    /// Interaction logic for PhieuSuaChuaXe.xaml
+    /// </summary>
+    public partial class PhieuSuaChuaXe : Page
+    {
+        public PhieuSuaChuaXe()
+        {
+            InitializeComponent();
+        }
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
 
         }
-
-		private void Delete_Click(object sender, RoutedEventArgs e)
-		{
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
 
         }
         private void Button_Click(object sender, RoutedEventArgs e)

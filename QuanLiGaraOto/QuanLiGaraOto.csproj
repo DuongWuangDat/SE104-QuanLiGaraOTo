@@ -180,6 +180,7 @@
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\PhieuThuTienVM\PhieuThuTienViewModel.cs" />
     <Compile Include="ViewModel\PhieuThuTienVM\ThemPhieuThuTienViewModel.cs" />
+    <Compile Include="ViewModel\SuaChuaXeVM\SuaChuaXeViewModel.cs" />
     <Compile Include="View\BaoTriXePage\BaoTriXePage.xaml.cs">
       <DependentUpon>BaoTriXePage.xaml</DependentUpon>
     </Compile>
@@ -208,6 +209,24 @@
       <DependentUpon>ThemPhieuThuTien.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\placeholder.cs" />
+    <Compile Include="View\SuaChuaXe\NhapVatTuPhuTung.xaml.cs">
+      <DependentUpon>NhapVatTuPhuTung.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SuaChuaXe\PhieuSuaChuaXe.xaml.cs">
+      <DependentUpon>PhieuSuaChuaXe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SuaChuaXe\QuanLiTienCong.xaml.cs">
+      <DependentUpon>QuanLiTienCong.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SuaChuaXe\QuanLiVatTuPhuTung.xaml.cs">
+      <DependentUpon>QuanLiVatTuPhuTung.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SuaChuaXe\ThemLoaiVatTu.xaml.cs">
+      <DependentUpon>ThemLoaiVatTu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SuaChuaXe\ThemNoiDungSuaChua.xaml.cs">
+      <DependentUpon>ThemNoiDungSuaChua.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\TraCuuXe\TraCuuXe.xaml.cs">
       <DependentUpon>TraCuuXe.xaml</DependentUpon>
     </Compile>
@@ -256,6 +275,30 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\PhieuThuTien\ThemPhieuThuTien.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SuaChuaXe\NhapVatTuPhuTung.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SuaChuaXe\PhieuSuaChuaXe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SuaChuaXe\QuanLiTienCong.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SuaChuaXe\QuanLiVatTuPhuTung.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SuaChuaXe\ThemLoaiVatTu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SuaChuaXe\ThemNoiDungSuaChua.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -354,6 +397,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Img\information.png" />
     <Resource Include="Resources\Icon\cancel.png" />
     <Resource Include="Resources\Icon\Trash.png" />
     <Resource Include="Resources\Icon\Edit.png" />

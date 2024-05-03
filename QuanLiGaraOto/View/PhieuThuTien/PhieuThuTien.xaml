@@ -95,7 +95,7 @@
                         BorderThickness="0"
                         Command="{Binding ThemPhieuThuTienOpen}"
                         CommandParameter="{Binding ElementName=phieuThuTienPage}"
-                        Style="{StaticResource MaterialDesignRaisedLightButton}">
+                        Style="{StaticResource MaterialDesignRaisedLightButton}" Click="Button_Click">
                         <StackPanel Orientation="Horizontal">
                             <Image
                                 MaxWidth="30"

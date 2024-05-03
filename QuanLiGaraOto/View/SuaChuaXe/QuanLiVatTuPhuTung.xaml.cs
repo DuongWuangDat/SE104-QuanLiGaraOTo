@@ -10,30 +10,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QuanLiGaraOto.View.PhieuThuTien
+namespace QuanLiGaraOto.View.SuaChuaXe
 {
-	/// <summary>
-	/// Interaction logic for PhieuThuTien.xaml
-	/// </summary>
-	public partial class PhieuThuTien : Page
-	{
-		public PhieuThuTien()
-		{
-			InitializeComponent();
-		}
-
-		private void Edit_Click(object sender, RoutedEventArgs e)
-		{
-
+    /// <summary>
+    /// Interaction logic for QuanLiVatTuPhuTung.xaml
+    /// </summary>
+    public partial class QuanLiVatTuPhuTung : Window
+    {
+        public QuanLiVatTuPhuTung()
+        {
+            InitializeComponent();
         }
 
-		private void Delete_Click(object sender, RoutedEventArgs e)
-		{
-
-        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
