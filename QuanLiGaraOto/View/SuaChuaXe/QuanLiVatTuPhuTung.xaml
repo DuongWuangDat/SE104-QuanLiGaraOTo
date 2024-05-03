@@ -13,20 +13,19 @@
         AllowsTransparency="True"
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="None"      
+        WindowStyle="None"
         DataContext="{StaticResource SuaChuaXeVM}"
         mc:Ignorable="d">
 
-    <Border 
-    materialDesign:ElevationAssist.Elevation="Dp4"
-    Background="White"
-    BorderThickness="0"
-    CornerRadius="20">
+    <Border materialDesign:ElevationAssist.Elevation="Dp4"
+            Background="White"
+            BorderThickness="0"
+            CornerRadius="20">
 
         <Grid Width="768"
-          Margin="20,0,0,0"
-          HorizontalAlignment="Left"
-          Background="Transparent">
+              Margin="20,0,0,0"
+              HorizontalAlignment="Left"
+              Background="Transparent">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="2.7*" />
@@ -34,99 +33,113 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            FontFamily="Roboto Condensed"
-            FontSize="25"
-            FontWeight="Bold">
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontFamily="Roboto Condensed"
+                       FontSize="25"
+                       FontWeight="Bold">
             Danh Sách Vật Tư Phụ Tùng
             </TextBlock>
 
-            <Border
-            Grid.Row="1"
-            Margin="0,10,0,0"
-            Padding="10"
-            HorizontalAlignment="Center"
-            Background="White"
-            CornerRadius="35">
-                <DataGrid
-                x:Name="dataGrid"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Top"
-                AutoGenerateColumns="False"
-                Background="White"
-                CanUserReorderColumns="False"
-                CanUserResizeColumns="False"
-                CanUserSortColumns="True"
-                ColumnWidth="SizeToCells"
-                IsReadOnly="True"
-                SelectionMode="Single"
-                SelectionUnit="FullRow">
+            <Border Grid.Row="1"
+                    Margin="0,10,0,0"
+                    Padding="10"
+                    HorizontalAlignment="Center"
+                    Background="White"
+                    CornerRadius="35">
+                <DataGrid x:Name="dataGrid"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Top"
+                          AutoGenerateColumns="False"
+                          Background="White"
+                          CanUserReorderColumns="False"
+                          CanUserResizeColumns="False"
+                          CanUserSortColumns="True"
+                          ColumnWidth="SizeToCells"
+                          IsReadOnly="True"
+                          SelectionMode="Single"
+                          SelectionUnit="FullRow"
+                          ItemsSource="{Binding supplyColection}"
+                          SelectedItem="{Binding SelectedSupply}">
                     <DataGrid.CellStyle>
-                        <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
-                            <Setter Property="BorderThickness" Value="0" />
-                            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                        <Style BasedOn="{StaticResource MaterialDesignDataGridCell}"
+                               TargetType="DataGridCell">
+                            <Setter Property="BorderThickness"
+                                    Value="0" />
+                            <Setter Property="FocusVisualStyle"
+                                    Value="{x:Null}" />
                         </Style>
                     </DataGrid.CellStyle>
 
                     <DataGrid.Columns>
-                        <DataGridTemplateColumn
-                        Width="auto"
-                        Header="Tên"
-                        SortMemberPath="SuppliesName">
+                        <DataGridTemplateColumn Width="auto"
+                                                Header="Tên"
+                                                SortMemberPath="Name">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    FontSize="15"
-                                    />
+                                    <TextBlock HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
+                                               FontSize="15" 
+                                               Text="{Binding Name}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn
-                        Width="auto"
-                        Header="Còn lại"
-                        SortMemberPath="CountInStock">
+                        <DataGridTemplateColumn Width="auto"
+                                                Header="Còn lại"
+                                                SortMemberPath="CountInStock">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    FontSize="15"
-                                    />
+                                    <TextBlock HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
+                                               FontSize="15"
+                                               Text="{Binding CountInStock}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn
-                            Width="auto"
-                            Header="Đơn giá nhập"
-                            SortMemberPath="InputPrices">   
+                        <DataGridTemplateColumn Width="auto"
+                                                Header="Đơn giá nhập"
+                                                SortMemberPath="InputPrices">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"   
-                                        />      
+                                    <TextBlock HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
+                                               FontSize="15"
+                                               Text="{Binding InputPrices, StringFormat={}{0:N0} VNĐ}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn
-                            Width="auto"
-                            Header="Đơn giá bán"
-                            SortMemberPath="OutputPrices">  
+                        <DataGridTemplateColumn Width="auto"
+                                                Header="Đơn giá bán"
+                                                SortMemberPath="OutputPrices">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        />  
+                                    <TextBlock HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
+                                               FontSize="15"
+                                               Text="{Binding OutputPrices, StringFormat={}{0:N0} VNĐ}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Width="auto"
+                                                Header="">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Width="24.8"
+                                                Height="24.8"
+                                                BorderBrush="Transparent"
+                                                Click="Button_Click_1">
+                                            <Button.Background>
+                                                <ImageBrush ImageSource="/QuanLiGaraOto;component/Resources/Img/delete_button.png" />
+                                            </Button.Background>
+                                        </Button>
+                                    </StackPanel>
+
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -134,42 +147,42 @@
                 </DataGrid>
             </Border>
 
-            <Button Grid.Row="2" 
-                Margin="238,108,330,0" 
-                Command="{Binding ThemLoaiVatTuOpen}"
-                CommandParameter="danhSachVatTuPhuTungWindow"
-                Content="Thêm loại vật tư phụ tùng" 
-                VerticalAlignment="Top" 
-                Height="40"
-                Width="200" 
-                Background="#3093A0"
-                BorderBrush="Transparent"
-                Foreground="White"
-                materialDesign:ButtonAssist.CornerRadius="20"/>
-            <Button Grid.Row="2" 
-                Margin="462,108,126,0" 
-                Command="{Binding NhapVatTuPhuTungOpen}"
-                CommandParameter="danhSachVatTuPhuTungWindow"
-                Content="Nhập vật tư phụ tùng" 
-                VerticalAlignment="Top"
-                Height="40"
-                Width="180" 
-                Background="#3093A0"
-                BorderBrush="Transparent"
-                Foreground="White"
-                materialDesign:ButtonAssist.CornerRadius="20" Click="Button_Click"/>
-            <Button Grid.Row="2" 
-                Margin="658,108,10,0" 
-                Command="{Binding XongClose}"
-                CommandParameter="{Binding ElementName=danhSachVatTuPhuTungWindow}"
-                Content="Xong" 
-                VerticalAlignment="Top" 
-                Height="40"
-                Width="80"
-                Background="#3093A0"
-                BorderBrush="Transparent"
-                Foreground="White"
-                materialDesign:ButtonAssist.CornerRadius="20"/>
+            <Button Grid.Row="2"
+                    Margin="238,108,330,0"
+                    Command="{Binding ThemLoaiVatTuOpen}"
+                    CommandParameter="danhSachVatTuPhuTungWindow"
+                    Content="Thêm loại vật tư phụ tùng"
+                    VerticalAlignment="Top"
+                    Height="40"
+                    Width="200"
+                    Background="#3093A0"
+                    BorderBrush="Transparent"
+                    Foreground="White"
+                    materialDesign:ButtonAssist.CornerRadius="20" />
+            <Button Grid.Row="2"
+                    Margin="462,108,126,0"
+                    Command="{Binding NhapVatTuPhuTungOpen}"
+                    CommandParameter="danhSachVatTuPhuTungWindow"
+                    Content="Nhập vật tư phụ tùng"
+                    VerticalAlignment="Top"
+                    Height="40"
+                    Width="180"
+                    Background="#3093A0"
+                    BorderBrush="Transparent"
+                    Foreground="White"
+                    materialDesign:ButtonAssist.CornerRadius="20" />
+            <Button Grid.Row="2"
+                    Margin="658,108,10,0"
+                    Command="{Binding XongClose}"
+                    CommandParameter="{Binding ElementName=danhSachVatTuPhuTungWindow}"
+                    Content="Xong"
+                    VerticalAlignment="Top"
+                    Height="40"
+                    Width="80"
+                    Background="#3093A0"
+                    BorderBrush="Transparent"
+                    Foreground="White"
+                    materialDesign:ButtonAssist.CornerRadius="20" />
         </Grid>
     </Border>
 </Window>

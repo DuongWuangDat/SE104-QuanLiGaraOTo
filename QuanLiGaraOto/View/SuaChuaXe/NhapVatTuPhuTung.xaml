@@ -14,17 +14,21 @@
         AllowsTransparency="True"
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="None"         
+        WindowStyle="None"
         mc:Ignorable="d">
-
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FirstLoadSupplyInput}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Border materialDesign:ElevationAssist.Elevation="Dp4"
-    Background="White"
-    BorderThickness="0"
-    CornerRadius="20">
+            Background="White"
+            BorderThickness="0"
+            CornerRadius="20">
         <Grid Width="768"
-      Margin="20,0,0,0"
-      HorizontalAlignment="Left"
-      Background="Transparent">
+              Margin="20,0,0,0"
+              HorizontalAlignment="Left"
+              Background="Transparent">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="2.7*" />
@@ -32,38 +36,51 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center"
-        FontFamily="Roboto Condensed"
-        FontSize="25"
-        FontWeight="Bold">
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontFamily="Roboto Condensed"
+                       FontSize="25"
+                       FontWeight="Bold">
         Nhập vật tư phụ tùng
             </TextBlock>
 
-            <TextBlock Grid.Row="1" Margin="354,19,305,271" FontFamily="Roboto Condensed" FontSize="17" FontWeight="Regular" Text="Đơn giá nhập:" />
+            <TextBlock Grid.Row="1"
+                       Margin="354,19,305,271"
+                       FontFamily="Roboto Condensed"
+                       FontSize="17"
+                       FontWeight="Regular"
+                       Text="Đơn giá nhập:" />
 
             <!-- Ô nhập giá -->
-            <TextBox Grid.Row="1" Margin="468,10,202,268" FontFamily="Roboto Condensed" FontSize="17" FontWeight="Regular" Text="" />
+            <TextBox Grid.Row="1"
+                     Margin="468,10,202,268"
+                     FontFamily="Roboto Condensed"
+                     FontSize="17"
+                     FontWeight="Regular"
+                     Text="{Binding PriceSp}" />
 
             <!-- ComboBox -->
-            <TextBlock
-                VerticalAlignment="Top"
-                FontFamily="Roboto Condensed"
-                FontSize="17"
-                FontWeight="Regular" Margin="10,22,452,0" Grid.Row="1">
+            <TextBlock VerticalAlignment="Top"
+                       FontFamily="Roboto Condensed"
+                       FontSize="17"
+                       FontWeight="Regular"
+                       Margin="10,22,452,0"
+                       Grid.Row="1">
                 Tên vật tư:
             </TextBlock>
-            <ComboBox
-                Name="bienSoXeComboBox"
-                Margin="97,13,452,0"
-                VerticalAlignment="Top"
-                materialDesign:TextFieldAssist.TextBoxViewMargin="0"
-                FontFamily="Roboto Condensed"
-                FontSize="17"
-                FontWeight="Regular"
-                IsEditable="False"
-                Style="{StaticResource MaterialDesignComboBox}" Grid.Row="1">
+            <ComboBox Name="bienSoXeComboBox"
+                      Margin="97,13,452,0"
+                      VerticalAlignment="Top"
+                      materialDesign:TextFieldAssist.TextBoxViewMargin="0"
+                      FontFamily="Roboto Condensed"
+                      FontSize="17"
+                      FontWeight="Regular"
+                      IsEditable="False"
+                      Style="{StaticResource MaterialDesignComboBox}"
+                      Grid.Row="1"
+                      ItemsSource="{Binding supplyColection}"
+                      SelectedItem="{Binding SelectedSp}"
+                      DisplayMemberPath="Name">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="" />
@@ -71,104 +88,120 @@
                 </i:Interaction.Triggers>
             </ComboBox>
 
+            <!--Số lượng-->
+            <TextBlock Grid.Row="1"
+                       Margin="12,66,670,224"
+                       FontFamily="Roboto Condensed"
+                       FontSize="17"
+                       FontWeight="Regular"
+                       Text="Số lượng: " />
+            <TextBox Grid.Row="1"
+                     Margin="98,57,572,221"
+                     FontFamily="Roboto Condensed"
+                     FontSize="17"
+                     FontWeight="Regular"
+                     Text="{Binding Count}" />
             <!-- Nút Thêm -->
-            <Button 
-            Grid.Row="1" 
-            Margin="612,11,34,0" 
-            Command="{Binding AddReceptionCM}"
-            Content="Thêm" 
-            VerticalAlignment="Top" 
-            Width="80" 
-            Height="40"
-            Background="#3093A0"
-            BorderBrush="Transparent"
-            Foreground="White"
-            materialDesign:ButtonAssist.CornerRadius="20"/>
-
-            <Border
-            Grid.Row="1"
-            Margin="205,73,0,112"
-            Padding="10"
-            HorizontalAlignment="Left"
-            Background="White"
-            CornerRadius="35" Grid.RowSpan="2">
-                <DataGrid
-                    x:Name="dataGrid"
-                    HorizontalAlignment="Center"
+            <Button Grid.Row="1"
+                    Margin="612,11,34,0"
+                    Command="{Binding AddSpDetail}"
+                    Content="Thêm"
                     VerticalAlignment="Top"
-                    AutoGenerateColumns="False"
+                    Width="80"
+                    Height="40"
+                    Background="#3093A0"
+                    BorderBrush="Transparent"
+                    Foreground="White"
+                    materialDesign:ButtonAssist.CornerRadius="20" />
+
+            <Border Grid.Row="1"
+                    Margin="229,115,0,107"
+                    Padding="10"
+                    HorizontalAlignment="Left"
                     Background="White"
-                    CanUserReorderColumns="False"
-                    CanUserResizeColumns="False"
-                    CanUserSortColumns="True"
-                    ColumnWidth="SizeToCells"
-                    IsReadOnly="True"
-                    SelectionMode="Single"
-                    SelectionUnit="FullRow">
+                    CornerRadius="35"
+                    Grid.RowSpan="2">
+                <DataGrid x:Name="dataGrid"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Top"
+                          AutoGenerateColumns="False"
+                          Background="White"
+                          CanUserReorderColumns="False"
+                          CanUserResizeColumns="False"
+                          CanUserSortColumns="True"
+                          ColumnWidth="SizeToCells"
+                          IsReadOnly="True"
+                          SelectionMode="Single"
+                          SelectionUnit="FullRow"
+                          ItemsSource="{Binding spDetailCollection}"
+                          SelectedItem="{Binding SelectedSpDetail}">
                     <DataGrid.CellStyle>
-                        <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
-                            <Setter Property="BorderThickness" Value="0" />
-                            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                        <Style BasedOn="{StaticResource MaterialDesignDataGridCell}"
+                               TargetType="DataGridCell">
+                            <Setter Property="BorderThickness"
+                                    Value="0" />
+                            <Setter Property="FocusVisualStyle"
+                                    Value="{x:Null}" />
                         </Style>
                     </DataGrid.CellStyle>
 
                     <DataGrid.Columns>
-                        <DataGridTemplateColumn
-                        Width="auto"
-                        Header="Tên"
-                        SortMemberPath="Name">
+                        <DataGridTemplateColumn Width="auto"
+                                                Header="Tên"
+                                                SortMemberPath="Supply.Name">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    FontSize="15"
-                                    Text="" />
+                                    <TextBlock HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
+                                               FontSize="15"
+                                               Text="{Binding Supply.Name}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn
-                            Width="auto"
-                            Header="Số lượng"
-                            SortMemberPath="Count">
+                        <DataGridTemplateColumn Width="auto"
+                                                Header="Số lượng"
+                                                SortMemberPath="Count">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    FontSize="15"
-                                    Text="" />
+                                    <TextBlock HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
+                                               FontSize="15"
+                                               Text="{Binding Count}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn
-                        Width="auto"
-                        Header="Đơn giá nhập"
-                        SortMemberPath="InputPrices">
+                        <DataGridTemplateColumn Width="auto"
+                                                Header="Đơn giá nhập"
+                                                SortMemberPath="InputPrices">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    FontSize="15"
-                                    Text="" />
+                                    <TextBlock HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
+                                               FontSize="15"
+                                               Text="{Binding PriceItem, StringFormat={}{0:N0} VNĐ}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn
-                        Width="auto"
-                        Header="Đơn giá bán"
-                        SortMemberPath="OutputPrices">
+
+                        <DataGridTemplateColumn Width="auto"
+                                                Header="">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    FontSize="15"
-                                    Text="" />
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Width="24.8"
+                                                Height="24.8"
+                                                BorderBrush="Transparent"
+                                                Click="Button_Click_1">
+                                            <Button.Background>
+                                                <ImageBrush ImageSource="/QuanLiGaraOto;component/Resources/Img/delete_button.png" />
+                                            </Button.Background>
+                                        </Button>
+                                    </StackPanel>
+
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -176,19 +209,33 @@
                 </DataGrid>
             </Border>
 
-            <Button 
-            Grid.Row="2" 
-            Command=""
-            Margin="0,0,45,27" 
-            Content="Hoàn tất" 
-            HorizontalAlignment="Right" 
-            VerticalAlignment="Bottom"
-            Height="40"
-            Width="100" 
-            Background="#3093A0"
-            BorderBrush="Transparent"
-            Foreground="White"
-            materialDesign:ButtonAssist.CornerRadius="20"/>
+            <Button Grid.Row="2"
+                    Command="{Binding NhapVatTuPhuTungClose}"
+                    CommandParameter="{Binding ElementName=nhapVatTuPhuTungWindow}"
+                    Margin="0,0,28,27"
+                    Content="Hủy bỏ"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Height="40"
+                    Width="Auto"
+                    Background="#3093A0"
+                    Opacity="0.57"
+                    BorderBrush="Transparent"
+                    Foreground="White"
+                    materialDesign:ButtonAssist.CornerRadius="20" />
+            <Button Grid.Row="2"
+                    Command="{Binding AddSpInput}"
+                    Margin="0,0,119,27"
+                    Content="Thêm phiếu"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Height="40"
+                    Width="Auto"
+                    Background="#3093A0"
+                    BorderBrush="Transparent"
+                    Foreground="White"
+                    materialDesign:ButtonAssist.CornerRadius="20" />
+
 
         </Grid>
     </Border>

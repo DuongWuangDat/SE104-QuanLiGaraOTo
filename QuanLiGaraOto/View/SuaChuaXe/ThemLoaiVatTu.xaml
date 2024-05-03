@@ -10,7 +10,7 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        FontFamily="{DynamicResource MaterialDesignFont}"   
+        FontFamily="{DynamicResource MaterialDesignFont}"
         Height="300"
         Width="499"
         x:Name="manageSuppliesWD"
@@ -21,9 +21,9 @@
         mc:Ignorable="d">
 
     <Border Background="White"
-        CornerRadius="20"
-        BorderThickness="1"
-        BorderBrush="Black">
+            CornerRadius="20"
+            BorderThickness="1"
+            BorderBrush="Black">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="89" />
@@ -32,37 +32,38 @@
                 <RowDefinition Height="76" />
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0"
-                   Text="Thêm loại vật tư"
-                   FontSize="40"
-                   FontWeight="Bold"
-                   Margin="46,42,0,0" />
+                       Text="Thêm loại vật tư"
+                       FontSize="40"
+                       FontWeight="Bold"
+                       Margin="46,42,0,0" />
             <StackPanel Grid.Row="1"
-                    Orientation="Horizontal">
+                        Orientation="Horizontal">
                 <TextBlock Text="Tên loại vật tư"
-                       FontSize="25"
-                       FontWeight="Light"
-                       Margin="46,22,0,0" />
+                           FontSize="25"
+                           FontWeight="Light"
+                           Margin="46,22,0,0" />
                 <TextBox x:Name="addSuppliesField"
-                     Width="201"
-                     Margin="19,20,0,10"
-                     FontSize="20">
+                         Width="201"
+                         Margin="19,20,0,10"
+                         FontSize="20"
+                         Text="{Binding SupplyName}">
                     <TextBox.Template>
                         <ControlTemplate TargetType="TextBox">
 
                             <Border Name="border"
-                                BorderThickness="0,0,0,1"
-                                Padding="2"
-                                BorderBrush="#616161"
-                                Background="Transparent">
+                                    BorderThickness="0,0,0,1"
+                                    Padding="2"
+                                    BorderBrush="#616161"
+                                    Background="Transparent">
                                 <ScrollViewer Margin="0"
-                                          x:Name="PART_ContentHost" />
+                                              x:Name="PART_ContentHost" />
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsFocused"
-                                     Value="True">
+                                         Value="True">
                                     <Setter TargetName="border"
-                                        Property="BorderBrush"
-                                        Value="#3F7B88" />
+                                            Property="BorderBrush"
+                                            Value="#3F7B88" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -70,32 +71,33 @@
                 </TextBox>
             </StackPanel>
 
-            <Button Command="{Binding AddSuppliesName}" 
-                CommandParameter="{Binding ElementName=addBrandField}"
-                Background="#3093A0"
-                materialDesign:ButtonAssist.CornerRadius="20"
-                Width="106"
-                Height="57"
-                Content="Thêm"
-                FontSize="20"
-                FontWeight="Bold"
-                Margin="248,0,143,19"
-                BorderBrush="Transparent" Grid.Row="3" />
+            <Button Command="{Binding AddSuppliesName}"
+                    CommandParameter="{Binding ElementName=addBrandField}"
+                    Background="#3093A0"
+                    materialDesign:ButtonAssist.CornerRadius="20"
+                    Width="106"
+                    Height="57"
+                    Content="Thêm"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Margin="248,0,143,19"
+                    BorderBrush="Transparent"
+                    Grid.Row="3" />
 
             <Button Command="{Binding CancelAddingSupplies}"
-                CommandParameter="{Binding ElementName=manageSuppliesWD}"
-                Grid.Row="3"
-                Content="Hủy bỏ"
-                FontSize="20"
-                FontWeight="Bold"
-                HorizontalAlignment="Left"
-                materialDesign:ButtonAssist.CornerRadius="20"
-                Width="120"
-                Height="57"
-                Background="#3093A0"
-                Opacity="0.57"
-                BorderBrush="Transparent"
-                Margin="367,0,0,19" />
+                    CommandParameter="{Binding ElementName=manageSuppliesWD}"
+                    Grid.Row="3"
+                    Content="Hủy bỏ"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    HorizontalAlignment="Left"
+                    materialDesign:ButtonAssist.CornerRadius="20"
+                    Width="120"
+                    Height="57"
+                    Background="#3093A0"
+                    Opacity="0.57"
+                    BorderBrush="Transparent"
+                    Margin="367,0,0,19" />
         </Grid>
     </Border>
 </Window>

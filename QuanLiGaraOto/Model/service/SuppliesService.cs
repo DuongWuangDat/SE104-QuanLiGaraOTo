@@ -56,14 +56,15 @@ namespace QuanLiGaraOto.Model.service
                     IsDeleted = false
                 };
                 //Modify inventory report
+                
+                //------------------------
+                context.Supplies.Add(supply);
+                await context.SaveChangesAsync();
                 var isSuccess = await InvetoryReportService.Ins.AddNewSupply(supply);
                 if (!isSuccess)
                 {
                     return (false, "Something went wrong");
                 }
-                //------------------------
-                context.Supplies.Add(supply);
-                await context.SaveChangesAsync();
                 return (true, "Add new supply successfully!");
             }
         }
@@ -143,6 +144,7 @@ namespace QuanLiGaraOto.Model.service
                     };
                     
                     var supply = await context.Supplies.Where(s => s.ID == suppliesInputDT.Supply.ID).FirstOrDefaultAsync();
+                    supplyInput.TotalMoney += (decimal)(suppliesInputDT.Count * suppliesInputDT.PriceItem);
                     supply.CountInStock += suppliesInputDT.Count;
                     supply.InputPrices = suppliesInputDT.PriceItem;
                     double valuePara = await ParameterService.Ins.GetRatio();

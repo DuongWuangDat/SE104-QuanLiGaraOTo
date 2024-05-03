@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuanLiGaraOto.ViewModel.SuaChuaXeVM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,12 @@ namespace QuanLiGaraOto.View.SuaChuaXe
         public NhapVatTuPhuTung()
         {
             InitializeComponent();
+        }
+
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            (DataContext as SuaChuaXeViewModel).DeleteSpDetail.Execute(new object());
         }
     }
 }
