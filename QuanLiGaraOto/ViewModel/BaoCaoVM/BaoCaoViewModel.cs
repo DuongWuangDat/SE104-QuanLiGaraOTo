@@ -173,7 +173,7 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                     table.Cell(1, 1).Range.Text = "STT";
                     table.Cell(1, 2).Range.Text = "Hiệu xe";
                     table.Cell(1, 3).Range.Text = "Số lượt sửa chữa";
-                    table.Cell(1, 4).Range.Text = "Thành Tiền";
+                    table.Cell(1, 4).Range.Text = "Thành tiền";
                     table.Cell(1, 5).Range.Text = "Tỉ lệ";
                     for (int i = 0; i < RevenueList.Count; i++)
                     {
