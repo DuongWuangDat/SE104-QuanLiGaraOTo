@@ -131,7 +131,7 @@ namespace QuanLiGaraOto.Model.service
                 return true;
             }
         }
-        public async Task<bool> DeleteRevenueDetial(int brandCarID)
+        public async Task<bool> DeleteRevenueDetail(int brandCarID)
         {
             using(var context = new QuanLiGaraOtoEntities())
             {
