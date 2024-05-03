@@ -1,4 +1,7 @@
-﻿using System;
+﻿using QuanLiGaraOto.Model.service;
+using QuanLiGaraOto.View.MessageBox;
+using QuanLiGaraOto.ViewModel.SuaChuaXeVM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,9 +27,10 @@ namespace QuanLiGaraOto.View.SuaChuaXe
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
 
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            (DataContext as SuaChuaXeViewModel).DeleteWage.Execute(new object());
         }
     }
 }

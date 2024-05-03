@@ -13,6 +13,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using MaterialDesignThemes.Wpf;
 using System;
+using QuanLiGaraOto.View.MessageBox;
 
 namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
 {
@@ -24,6 +25,43 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
             get { return noiDungSuaChuaCollection; }
             set { noiDungSuaChuaCollection = value; OnPropertyChanged(); }
         }
+
+        //-------------Them vat cong------------------------//
+        private string _wageName;
+
+        public string WageName
+        {
+            get { return _wageName; }
+            set { _wageName = value; }
+        }
+
+        private string _price;
+
+        public string Price
+        {
+            get { return _price; }
+            set { _price = value; }
+        }
+
+        private ObservableCollection<WageDTO> _wageCollection;
+
+        public ObservableCollection<WageDTO> wageCollection
+        {
+            get { return _wageCollection; }
+            set { _wageCollection = value; OnPropertyChanged(); }
+        }
+
+        private WageDTO _selectedWage;
+
+        public WageDTO SelectedWage
+        {
+            get { return _selectedWage; }
+            set { _selectedWage = value; }
+        }
+
+
+
+        //--------------------------------------------------//
 
         private string _content;
         public string Content
@@ -56,6 +94,10 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
             set { ngaySuaChua = value; OnPropertyChanged(); }
         }
 
+        public ICommand AddWage { get; set; }
+
+        public ICommand DeleteWage { get; set; }
+        public ICommand wageClose { get; set; }
         public ICommand FirstLoadRepairCar {  get; set; }
 
         public ICommand QuanLiVatTuPhuTungOpen { get; set; }
@@ -80,7 +122,47 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
         {
             FirstLoadRepairCar = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
+                wageCollection = new ObservableCollection<WageDTO>(await WageService.Ins.GetAllWage());
+            });
 
+            AddWage = new RelayCommand<object>(p => { return true; }, async (p) =>
+            {
+                WageDTO newWage = new WageDTO
+                {
+                    Name = WageName,
+                    Price = decimal.Parse(Price)
+                };
+                var (isSucess, msg) = await WageService.Ins.AddNewWage(newWage);
+                if (isSucess)
+                {
+                    wageCollection.Add(newWage);
+                    MessageBoxCustom.Show(MessageBoxCustom.Success, "Thêm thành công");
+                }
+                else
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Khong them duoc du lieu");
+                }
+            });
+
+            DeleteWage = new RelayCommand<object>(p => { return true; }, async (p) =>
+            {
+                var (isSuccess, msg) = await WageService.Ins.DeleteWage(SelectedWage.ID);
+                if(isSuccess)
+                {
+                    wageCollection.Remove(SelectedWage);
+                    MessageBoxCustom.Show(MessageBoxCustom.Success, "Xóa thành công");
+                }
+                else
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Khong xoa duoc du lieu");
+                }
+            });
+
+            wageClose = new RelayCommand<Window>(p => { return true; }, (p) =>
+            {
+                WageName = null;
+                Price = null;
+                p.Close();
             });
 
             QuanLiTienCongOpen = new RelayCommand<object>(_ => true, async _ =>
