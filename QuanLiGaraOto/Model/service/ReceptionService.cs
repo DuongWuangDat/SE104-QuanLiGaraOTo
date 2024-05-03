@@ -54,8 +54,15 @@ namespace QuanLiGaraOto.Model.service
 
         public async Task<(bool, string)> AddNewReception(ReceptionDTO newReception)
         {
+            var maxNumberOfCar = await ParameterService.Ins.SoXeSuaChuaTrongNgay();
+            var curNumberOfCar = await CountByDate(DateTime.Now);
+            if(curNumberOfCar >= maxNumberOfCar)
+            {
+                return (false, "Number of car in a day is over the limit!");
+            }
             using (var context = new QuanLiGaraOtoEntities())
             {
+                
                 var existCustomer = await context.Customers.Where(c => c.PhoneNumber == newReception.Customer.PhoneNumber).FirstOrDefaultAsync();
                 if(existCustomer!=null)
                 {
@@ -74,7 +81,7 @@ namespace QuanLiGaraOto.Model.service
                         Debt = 0,
                         CreatedAt = DateTime.Now,
                         BrandID = newReception.BrandCar.ID,
-                        CustomerID = newReception.Customer.ID,
+                        CustomerID = existCustomer.ID,
                         IsDeleted = false
                     };
                     context.Receptions.Add(reception);
@@ -92,7 +99,8 @@ namespace QuanLiGaraOto.Model.service
                         Name = newReception.Customer.Name,
                         Address = newReception.Customer.Address,
                         PhoneNumber = newReception.Customer.PhoneNumber,
-                        Email = ""
+                        Email = "",
+                        IsDeleted = false
                     },
                     IsDeleted= false
                 };
@@ -103,11 +111,48 @@ namespace QuanLiGaraOto.Model.service
         }
 
 
+
+        public async Task<ReceptionDTO> GetReceptionbyPlate(String plate)
+        {
+            using(var context = new QuanLiGaraOtoEntities())
+            {
+                var reception = await context.Receptions.Where(r => r.LicensePlate == plate).OrderByDescending(r => r.CreatedAt).FirstOrDefaultAsync();
+                if(reception == null)
+                {
+                    return null;
+                }
+                var receptionDTO = new ReceptionDTO
+                {
+                    ID = reception.ID,
+                    LicensePlate = reception.LicensePlate,
+                    Debt = reception.Debt,
+                    CreatedAt = reception.CreatedAt,
+                    BrandCar = new BrandCarDTO
+                    {
+                        ID = reception.BrandCar.ID,
+                        Name = reception.BrandCar.Name
+                    },
+                    Customer = new CustomerDTO
+                    {
+                        ID = reception.Customer.ID,
+                        Name = reception.Customer.Name,
+                        PhoneNumber = reception.Customer.PhoneNumber,
+                        Email = reception.Customer.Email,
+                        Address = reception.Customer.Address
+                    }
+                   
+                };
+                return receptionDTO;
+            }
+        }
+
         public async Task<int> CountByDate (DateTime date)
         {
             using(var context = new QuanLiGaraOtoEntities())
             {
-                var count = await context.Receptions.Where(r => r.CreatedAt == date).CountAsync();
+                var count = await context.Receptions.Where(r => DbFunctions.TruncateTime(r.CreatedAt) == date.Date).CountAsync();
+
+                Console.WriteLine(date.Date);
                 return count;
             }
         }
