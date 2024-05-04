@@ -36,6 +36,18 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
+            <TextBlock
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        FontFamily="Roboto Condensed"
+        FontSize="25"
+        FontWeight="Bold"/>
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontFamily="Roboto Condensed"
+                       FontSize="25"
+                       FontWeight="Bold">
+            Nhập vật tư phụ tùng
             <TextBlock HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        FontFamily="Roboto Condensed"
