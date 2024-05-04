@@ -46,9 +46,7 @@
             Thêm nội dung sửa chữa
             </TextBlock>
 
-            <Grid Grid.Row="1"
-                  Margin="0,10,0,210"
-                  Grid.RowSpan="2">
+            <Grid Grid.Row="1" Margin="0,10,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -69,15 +67,18 @@
                                    FontWeight="Regular">   
                         Nội dung:
                         </TextBlock>
-                        <TextBox Name="noiDungTextBox"
-                                 Width="285"
-                                 Margin="10,0"
-                                 VerticalAlignment="Center"
-                                 materialDesign:TextFieldAssist.TextBoxViewMargin="0"
-                                 FontFamily="Roboto Condensed"
-                                 FontSize="17"
-                                 FontWeight="Regular"
-                                 Text="{Binding NoiDung, Mode=TwoWay}">
+
+                        <TextBox
+                            Name="noiDungTextBox"
+                            Width="284"
+                            Margin="10,0"
+                            VerticalAlignment="Center"
+                            materialDesign:TextFieldAssist.TextBoxViewMargin="0"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            FontWeight="Regular"
+                            Text="{Binding NoiDung, Mode=TwoWay}"
+                            IsEnabled="False">  
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="TextChanged">
                                     <i:InvokeCommandAction Command="{Binding UpdateTextCommand}" />
@@ -85,11 +86,37 @@
                             </i:Interaction.Triggers>
                         </TextBox>
                     </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            FontWeight="Regular">
+                            Vật tư phụ tùng:
+                        </TextBlock>
+                        <ComboBox
+                            Name="soDienThoaiComboBox"
+                            Width="234"
+                            Margin="10,0"
+                            VerticalAlignment="Center"
+                            materialDesign:TextFieldAssist.TextBoxViewMargin="0"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            IsEditable="False"
+                            FontWeight="Regular">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="">
+                                    <i:InvokeCommandAction Command="" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
+                    </StackPanel>
                 </StackPanel>
 
-                <StackPanel Grid.Column="1"
-                            HorizontalAlignment="Right">
-                    <StackPanel.Resources>
+
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,10" Width="384">
+                        <StackPanel.Resources>
                         <Style TargetType="StackPanel">
                             <Setter Property="Margin"
                                     Value="0,0,0,10" />
@@ -103,15 +130,18 @@
                                    FontWeight="Regular">
                         Tiền công:
                         </TextBlock>
-                        <TextBox Name="tienCongTextBox"
-                                 Width="212"
-                                 Margin="10,0"
-                                 VerticalAlignment="Center"
-                                 materialDesign:TextFieldAssist.TextBoxViewMargin="0"
-                                 FontFamily="Roboto Condensed"
-                                 FontSize="17"
-                                 FontWeight="Regular"
-                                 Text="{Binding NoiDung, Mode=TwoWay}">
+
+                        <TextBox
+                            Name="tienCongTextBox"
+                            Width="212"
+                            Margin="10,0"
+                            VerticalAlignment="Center"
+                            materialDesign:TextFieldAssist.TextBoxViewMargin="0"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            FontWeight="Regular"
+                            Text=""
+                            IsEnabled="False">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="TextChanged">
                                     <i:InvokeCommandAction Command="{Binding UpdateTextCommand}" />
@@ -119,82 +149,125 @@
                             </i:Interaction.Triggers>
                         </TextBox>
                     </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            FontWeight="Regular">
+                            Số lượng
+                        </TextBlock>
+                        <TextBox
+                            Name="soLuongTextBox"
+                            Width="65"
+                            Margin="10,0"
+                            VerticalAlignment="Center"
+                            materialDesign:TextFieldAssist.TextBoxViewMargin="0"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            FontWeight="Regular"
+                            Text="">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="TextChanged">
+                                    <i:InvokeCommandAction Command="" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
+                    </StackPanel>
+
+                    <Button 
+                        Grid.Row="1" 
+                        Margin="250,-30,20,0" 
+                        Command="{Binding AddReceptionCM}"
+                        Content="Thêm" 
+                        VerticalAlignment="Top" 
+                        Width="80" 
+                        Height="40"
+                        Background="#3093A0"
+                        BorderBrush="Transparent"
+                        Foreground="White"
+                        materialDesign:ButtonAssist.CornerRadius="20"/>
                 </StackPanel>
             </Grid>
 
-            <DataGrid x:Name="dataGrid"
-                      Background="White"
-                      AutoGenerateColumns="False"
-                      ItemsSource="{Binding PartsList}"
-                      Margin="196,73,196,162"
-                      SelectionMode="Single"
-                      SelectionUnit="FullRow"
-                      Grid.Row="1"
-                      SelectionChanged="dataGrid_SelectionChanged">
+            <DataGrid
+                x:Name="dataGrid"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                AutoGenerateColumns="False"
+                Background="White"
+                CanUserReorderColumns="False"
+                CanUserResizeColumns="False"
+                CanUserSortColumns="True"
+                ColumnWidth="SizeToCells"
+                IsReadOnly="True"
+                SelectionMode="Single"
+                SelectionUnit="FullRow" Grid.Row="1">   
+                <DataGrid.CellStyle>
+                    <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                    </Style>
+                </DataGrid.CellStyle>
 
                 <DataGrid.Columns>
-                    <DataGridComboBoxColumn Header="Vật tư phụ tùng"
-                                            Width="auto"
-                                            SelectedItemBinding="{Binding SelectedItem}">
-                        <DataGridComboBoxColumn.ElementStyle>
-                            <Style TargetType="ComboBox">
-                                <Setter Property="ItemsSource"
-                                        Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.PartsList}" />
-                                <Setter Property="IsEditable"
-                                        Value="True" />
-                                <Setter Property="DisplayMemberPath"
-                                        Value="Name" />
-                            </Style>
-                        </DataGridComboBoxColumn.ElementStyle>
-                        <DataGridComboBoxColumn.EditingElementStyle>
-                            <Style TargetType="ComboBox">
-                                <Setter Property="ItemsSource"
-                                        Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.PartsList}" />
-                                <Setter Property="IsEditable"
-                                        Value="True" />
-                                <Setter Property="DisplayMemberPath"
-                                        Value="Name" />
-                            </Style>
-                        </DataGridComboBoxColumn.EditingElementStyle>
-                    </DataGridComboBoxColumn>
-                    <DataGridTextColumn Header="Số lượng"
-                                        Width="auto"
-                                        Binding="{Binding Quantity}" />
-                    <DataGridTextColumn Header="Đơn giá"
-                                        Width="auto"
-                                        Binding="{Binding UnitPrice}" />
+                    <DataGridTemplateColumn
+                        Width="auto"
+                        Header="Vật tư phụ tùng"
+                        SortMemberPath="">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontSize="15"
+                                    Text="" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn
+                        Width="auto"
+                        Header="Số lượng"
+                        SortMemberPath="">   
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontSize="15"
+                                    Text="" />  
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn
+                        Width="auto"
+                        Header="Đơn giá"
+                        SortMemberPath="">  
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontSize="15"
+                                    Text="" />  
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
 
-
-            <StackPanel Grid.Row="3"
-                        HorizontalAlignment="Center"
-                        Orientation="Horizontal"
-                        Margin="0,0,0,20"
-                        Width="768">
-
-                <TextBlock VerticalAlignment="Center"
-                           HorizontalAlignment="Left"
-                           FontFamily="Roboto Condensed"
-                           FontSize="17"
-                           FontWeight="Regular">
-                Thành tiền:
-                </TextBlock>
-                <TextBox Width="150"
-                         Margin="10,0"
-                         VerticalAlignment="Center"
-                         materialDesign:TextFieldAssist.TextBoxViewMargin="0"
-                         FontFamily="Roboto Condensed"
-                         FontSize="17"
-                         FontWeight="Regular"
-                         Text="{Binding ThanhTien}">
-                </TextBox>
-
-                <Button MinWidth="120"
+                <StackPanel
+                    Grid.Row="3"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal" Margin="0,0,0,20" Width="768"> 
+                    <Button MinWidth="120"
                         MinHeight="50"
                         MaxWidth="151"
                         MaxHeight="57"
-                        Margin="215,0,0,0"
+                        Margin="450,0,0,0"
                         HorizontalAlignment="Right"
                         HorizontalContentAlignment="Center"
                         VerticalContentAlignment="Center"
@@ -202,6 +275,7 @@
                         materialDesign:ElevationAssist.Elevation="Dp3"
                         Background="#3093A0"
                         BorderThickness="0">
+
                     <StackPanel Orientation="Horizontal">
                         <TextBlock HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
@@ -209,7 +283,7 @@
                                    FontSize="16"
                                    FontWeight="Bold"
                                    Foreground="White"> 
-                        Thêm
+                                   Thêm
                         </TextBlock>
                     </StackPanel>
                 </Button>
