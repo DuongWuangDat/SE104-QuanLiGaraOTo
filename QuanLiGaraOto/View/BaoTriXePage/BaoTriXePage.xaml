@@ -175,8 +175,6 @@
                                       DisplayMemberPath="Name"
                                       ItemsSource="{Binding BrandCarList}"
                                       SelectedItem="{Binding SelectedBrandItem}">
-
-
                             </ComboBox>
 
                         </StackPanel>

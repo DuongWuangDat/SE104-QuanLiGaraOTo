@@ -159,6 +159,12 @@ namespace QuanLiGaraOto.ViewModel.BaoTriXeVM
 
             DeleteBrandCar = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
+                Window wd = new DeleteMessageBox();
+                wd.ShowDialog();
+                if (wd.DialogResult == false)
+                {
+                    return;
+                }
                 var (isSuccess, message) = await BrandCarService.Ins.DeleteBrandCar(SelectedBrand.ID);
                 if (isSuccess)
                 {

@@ -5,6 +5,7 @@ using QuanLiGaraOto.View.PhieuThuTien;
 using QuanLiGaraOto.View.TraCuuXe;
 using QuanLiGaraOto.View.BaoCao;
 using QuanLiGaraOto.View.CaiDatQD;
+using QuanLiGaraOto.View.SuaChuaXe;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,7 +50,7 @@ namespace QuanLiGaraOto.ViewModel
 
 
 
-			LoadSuaChuaXePage = new RelayCommand<Frame>((p) => { return true; }, (p) => { });
+			LoadSuaChuaXePage = new RelayCommand<Frame>((p) => { return true; }, (p) => { p.Content = new PhieuSuaChuaXe(); });
 			LoadTraCuuXePage = new RelayCommand<Frame>((p) => { return true; }, (p) => { p.Content = new TraCuuXe(); });
 			LoadPhieuThuTienPage = new RelayCommand<Frame>((p) => { return true; }, (p) => { p.Content = new PhieuThuTien(); });
 			LoadBaoCaoThangPage = new RelayCommand<Frame>((p) => { return true; }, (p) => { p.Content = new BaoCaoPage(); });

@@ -22,11 +22,7 @@
         AllowsTransparency="True"
         WindowStyle="None"
         MouseLeftButtonDown="manageBrandWD_MouseLeftButtonDown">
-    <!--<i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding FirstLoadBrandCar}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>-->
+    
     <Window.Resources>
         <converter:IndexConverter x:Key="IndexConverter" />
     </Window.Resources>
@@ -99,7 +95,7 @@
                     Margin="22,12,22,12"
                           ItemsSource="{Binding BrandCarList}"
                           SelectedItem="{Binding SelectedBrand}"
-                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=5}">
 
                     <ListView.ItemContainerStyle>
 
