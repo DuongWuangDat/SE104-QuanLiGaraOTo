@@ -17,6 +17,8 @@ using QuanLiGaraOto.View.MessageBox;
 
 namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
 {
+
+
     internal class SuaChuaXeViewModel : BaseViewModel
     {
         private ObservableCollection<RepairDetailDTO> noiDungSuaChuaCollection;
@@ -209,6 +211,8 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
 
         public ICommand DeleteRpdt { get; set; }
         public ICommand OpenAddSupplyRepair { get; set; }
+        public ICommand AddRpSpDt { get; set; }
+        public ICommand OnCloseRpSpDtWd { get; set; }
         // public ICommand HoanTatClose { get; set; }
 
         public SuaChuaXeViewModel()
@@ -219,6 +223,7 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
                 supplyColection = new ObservableCollection<SupplyDTO>(await SuppliesService.Ins.GetAllSupply());
                 rpdtCollection = new ObservableCollection<RepairDetailDTO>();
                 NgaySuaChua = DateTime.Now;
+                Console.WriteLine(supplyColection.ToArray().Length);
             });
 
             FirstLoadSupplyInput = new RelayCommand<object>((p) => { return true; }, async (p) =>
@@ -486,13 +491,27 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
                 rpdtCollection.Remove(SelectedRpdt);
             });
 
-            OpenAddSupplyRepair = new RelayCommand<object>(p => { return false; }, async (p) =>
+            OpenAddSupplyRepair = new RelayCommand<object>(p => { return true; }, async (p) =>
             {
                 Window mainWindow = Application.Current.MainWindow; // Lấy cửa sổ chính
                 mainWindow.Opacity = 0.5; // Làm mờ cửa sổ chính
+                Console.WriteLine(supplyColection.ToArray().Length);
+                ThemNoiDungSuaChua dialogWindow = new ThemNoiDungSuaChua();
+                dialogWindow.ShowDialog();
+                // Hiển thị cửa sổ dialog
+                mainWindow.Opacity = 1.0;
+            });
 
-                Window dialogWindow = new ThemNoiDungSuaChua();
-                dialogWindow.ShowDialog(); // Hiển thị cửa sổ dialog
+
+
+            AddRpSpDt = new RelayCommand<object>(p => { return true; }, (p) =>
+            {
+                Console.WriteLine(SelectedRpdt.Content);
+            });
+
+            OnCloseRpSpDtWd = new RelayCommand<Window>(p => { return true; }, (p) =>
+            {
+                p.Close();
             });
         }
     }

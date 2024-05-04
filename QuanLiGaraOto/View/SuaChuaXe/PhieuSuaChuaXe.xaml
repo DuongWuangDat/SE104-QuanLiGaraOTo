@@ -336,13 +336,6 @@
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
-
-                                <!-- 
-        
-        
-        
-        -->
-
                                 <DataGridTemplateColumn Header="">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -377,13 +370,15 @@
                 </Grid>
 
                 <StackPanel Orientation="Horizontal"
-                            Grid.Row="2">
-                    <Button Command="{Binding ResetReceptionCM}"
+                            Grid.Row="2"
+                            VerticalAlignment="Top"
+                            >
+                    <Button 
                             Content="Thêm mới"
                             VerticalAlignment="Top"
                             FontSize="26"
                             FontWeight="Bold"
-                            Margin="300,70,0,0"
+                            Margin="300,20,0,0"
                             Height="57"
                             Width="262"
                             Background="#B71010"
@@ -391,12 +386,12 @@
                             Foreground="White"
                             materialDesign:ButtonAssist.CornerRadius="20" />    
 
-                    <Button Command="{Binding AddReceptionCM}"
+                    <Button 
                             Content="Thêm phiếu sửa chữa"
                             VerticalAlignment="Top"
                             FontSize="26"
                             FontWeight="Bold"
-                            Margin="20,70,0,0"
+                            Margin="20,20,0,0"
             
                             Height="57"
                             Width="290"
