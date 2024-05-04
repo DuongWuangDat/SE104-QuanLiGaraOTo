@@ -291,7 +291,7 @@
                         ItemsSource="{Binding NoiDungSuaChuaCollection}"
                         SelectionMode="Single"
                         SelectionUnit="FullRow" 
-                        Grid.ColumnSpan="2" Height="36">    
+                        Grid.ColumnSpan="2" Height="36">
                         <DataGrid.CellStyle>
                             <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                                 <Setter Property="BorderThickness" Value="0" />
@@ -350,12 +350,6 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            <!-- 
-                            
-                            
-                            
-                            -->
-
                             <DataGridTemplateColumn 
                                 Header="">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -380,6 +374,36 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
+
+                <StackPanel Orientation="Horizontal"
+                            Grid.Row="2">
+                    <Button Command="{Binding ResetReceptionCM}"
+                            Content="Thêm mới"
+                            VerticalAlignment="Top"
+                            FontSize="26"
+                            FontWeight="Bold"
+                            Margin="300,70,0,0"
+                            Height="57"
+                            Width="262"
+                            Background="#B71010"
+                            BorderBrush="Transparent"
+                            Foreground="White"
+                            materialDesign:ButtonAssist.CornerRadius="20" />    
+
+                    <Button Command="{Binding AddReceptionCM}"
+                            Content="Thêm phiếu sửa chữa"
+                            VerticalAlignment="Top"
+                            FontSize="26"
+                            FontWeight="Bold"
+                            Margin="20,70,0,0"
+            
+                            Height="57"
+                            Width="290"
+                            Background="#3093A0"
+                            BorderBrush="Transparent"
+                            Foreground="White"
+                            materialDesign:ButtonAssist.CornerRadius="20" />    
+                </StackPanel>
             </Grid>
         </Grid>
     </Grid>
