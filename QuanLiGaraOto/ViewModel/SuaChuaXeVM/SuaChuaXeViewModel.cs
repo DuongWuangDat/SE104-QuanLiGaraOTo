@@ -79,7 +79,7 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
         public ObservableCollection<SupplyDTO> supplyColection
         {
             get { return _supplyColection; }
-            set { _supplyColection = value; }
+            set { _supplyColection = value; OnPropertyChanged(); }
         }
 
         private SupplyDTO _selectedSupply;
@@ -125,6 +125,33 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
         public SuppliesInputDetailDTO SelectedSpDetail { get; set; }
 
         //--------------------------------------------------//
+        //-------------Them phieu sua chua------------------------//
+
+        private WageDTO _wageSelected;
+
+        public WageDTO wageSelected
+        {
+            get { return _wageSelected; }
+            set { _wageSelected = value; }
+        }
+        private ObservableCollection<RepairDetailDTO> _rpdtCollection;
+
+        public ObservableCollection<RepairDetailDTO> rpdtCollection
+        {
+            get { return _rpdtCollection; }
+            set { _rpdtCollection = value; OnPropertyChanged(); }
+        }
+
+        private RepairDetailDTO _selectedRpdt;
+
+        public RepairDetailDTO SelectedRpdt
+        {
+            get { return _selectedRpdt; }
+            set { _selectedRpdt = value; }
+        }
+
+
+        //--------------------------------------------------//
 
         private string _content;
         public string Content
@@ -141,13 +168,6 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
             set { _licensePlate = value; }
         }
 
-        private string _wage;
-
-        public string Wage
-        {
-            get { return _wage; }
-            set { _wage = value; }
-        }
 
         private DateTime ngaySuaChua;
 
@@ -181,11 +201,13 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
 
         public ICommand XongClose { get; set; }
 
-        public ICommand ThemNoiDungVaoBang { get; set; }
+        public ICommand AddContent { get; set; }
 
         public ICommand FirstLoadSupplyInput { get; set; }
 
         public ICommand NhapVatTuPhuTungClose { get; set; }
+
+        public ICommand DeleteRpdt { get; set; }
 
         // public ICommand HoanTatClose { get; set; }
 
@@ -195,6 +217,8 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
             {
                 wageCollection = new ObservableCollection<WageDTO>(await WageService.Ins.GetAllWage());
                 supplyColection = new ObservableCollection<SupplyDTO>(await SuppliesService.Ins.GetAllSupply());
+                rpdtCollection = new ObservableCollection<RepairDetailDTO>();
+                NgaySuaChua = DateTime.Now;
             });
 
             FirstLoadSupplyInput = new RelayCommand<object>((p) => { return true; }, async (p) =>
@@ -383,10 +407,10 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
                     PriceItem = decimal.Parse(PriceSp)
                 };
                 spDetailCollection.Add(newSuppliesDetail);
-                MessageBoxCustom.Show(MessageBoxCustom.Success, "Thêm thành công");
-                SelectedSp = null;
-                Count = null;
-                PriceSp = null;
+                //MessageBoxCustom.Show(MessageBoxCustom.Success, "Thêm thành công");
+                //SelectedSp = null;
+                //Count = null;
+                //PriceSp = null;
             });
 
             AddSpInput = new RelayCommand<object>((p) => { return true; }, async (p) =>
@@ -405,7 +429,10 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
                 var (isSuccess, msg)= await SuppliesService.Ins.AddSupplyInput(suppliesInput);
                 if(isSuccess)
                 {
+
+                    supplyColection = new ObservableCollection<SupplyDTO>(await SuppliesService.Ins.GetAllSupply());
                     MessageBoxCustom.Show(MessageBoxCustom.Success, "Thêm thành công");
+
                 }
                 else
                 {
@@ -430,6 +457,33 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
                 Count = null;
                 PriceSp = null;
                 p.Close();
+            });
+
+            AddContent = new RelayCommand<object>(p => { return true; }, async (p) => 
+            {
+                var price = wageSelected.Price;
+                var newRepairDetail = new RepairDetailDTO
+                {
+                    Content = Content,
+                    WageId = wageSelected.ID,
+                    WageName = wageSelected.Name,
+                    WagePrice = wageSelected.Price,
+                    Price = price,
+                    RepairSuppliesDetails= new List<RepairSuppliesDetailDTO>()
+                };
+                
+                rpdtCollection.Add(newRepairDetail);
+            });
+
+            DeleteRpdt = new RelayCommand<object>(p => { return true; }, (p) =>
+            {
+                Window wd = new DeleteMessageBox();
+                wd.ShowDialog();
+                if (wd.DialogResult == false)
+                {
+                    return;
+                }
+                rpdtCollection.Remove(SelectedRpdt);
             });
         }
     }

@@ -87,10 +87,11 @@
                     Command="{Binding AddWage}"/>
 
             <Border Grid.Row="1"
-                    Margin="0,73,0,0"
+                    Margin="0,73,0,100"
                     Padding="10"
                     HorizontalAlignment="Center"
                     Background="White"
+                    Grid.RowSpan="2"
                     CornerRadius="35">
                 <DataGrid x:Name="dataGrid"
                           HorizontalAlignment="Center"
