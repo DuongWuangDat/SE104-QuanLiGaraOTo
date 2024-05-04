@@ -349,7 +349,8 @@
                                             <StackPanel Orientation="Horizontal">
                                                 <Button Width="24.8"
                                                         Height="24.8"
-                                                        BorderBrush="Transparent">
+                                                        BorderBrush="Transparent"
+                                                        Click="Button_Click">
                                                     <Button.Background>
                                                         <ImageBrush ImageSource="/QuanLiGaraOto;component/Resources/Img/information.png" />
                                                     </Button.Background>

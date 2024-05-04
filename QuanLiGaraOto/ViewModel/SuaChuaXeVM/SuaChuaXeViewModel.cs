@@ -208,7 +208,7 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
         public ICommand NhapVatTuPhuTungClose { get; set; }
 
         public ICommand DeleteRpdt { get; set; }
-
+        public ICommand OpenAddSupplyRepair { get; set; }
         // public ICommand HoanTatClose { get; set; }
 
         public SuaChuaXeViewModel()
@@ -484,6 +484,15 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
                     return;
                 }
                 rpdtCollection.Remove(SelectedRpdt);
+            });
+
+            OpenAddSupplyRepair = new RelayCommand<object>(p => { return false; }, async (p) =>
+            {
+                Window mainWindow = Application.Current.MainWindow; // Lấy cửa sổ chính
+                mainWindow.Opacity = 0.5; // Làm mờ cửa sổ chính
+
+                Window dialogWindow = new ThemNoiDungSuaChua();
+                dialogWindow.ShowDialog(); // Hiển thị cửa sổ dialog
             });
         }
     }

@@ -30,5 +30,10 @@ namespace QuanLiGaraOto.View.SuaChuaXe
         {
             (DataContext as SuaChuaXeViewModel).DeleteRpdt.Execute(new object());
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as SuaChuaXeViewModel).OpenAddSupplyRepair.Execute(new object());
+        }
     }
 }
