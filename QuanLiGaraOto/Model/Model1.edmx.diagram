@@ -5,38 +5,53 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
 <<<<<<< HEAD
-      <Diagram DiagramId="e07e05029d864aa0922b69c44aac5802" Name="Diagram1" ZoomLevel="135">
-        <EntityTypeShape EntityType="QuanLiGaraOtoModel.Bill" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLiGaraOtoModel.BrandCar" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLiGaraOtoModel.Customer" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLiGaraOtoModel.InventoryReport" Width="1.5" PointX="7.5" PointY="14.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLiGaraOtoModel.InventoryReportDetail" Width="1.5" PointX="9.75" PointY="11.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLiGaraOtoModel.Parameter" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLiGaraOtoModel.Reception" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLiGaraOtoModel.Repair" Width="1.5" PointX="5.25" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLiGaraOtoModel.RepairDetail" Width="1.5" PointX="7.5" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLiGaraOtoModel.RepairSuppliesDetail" Width="1.5" PointX="9.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLiGaraOtoModel.Revenue" Width="1.5" PointX="3.75" PointY="13.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLiGaraOtoModel.RevenueDetail" Width="1.5" PointX="6" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLiGaraOtoModel.Supply" Width="1.5" PointX="7.5" PointY="11.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLiGaraOtoModel.SuppliesInput" Width="1.5" PointX="7.5" PointY="17.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLiGaraOtoModel.SuppliesInputDetail" Width="1.5" PointX="9.75" PointY="14.75" IsExpanded="true" />
+      <Diagram DiagramId="e07e05029d864aa0922b69c44aac5802" Name="Diagram1" ZoomLevel="88">
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.Bill" Width="1.5" PointX="4.6070885046418235" PointY="15.404377810379666" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.BrandCar" Width="1.5" PointX="1.8839732305537784" PointY="9.36969612975125" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.Customer" Width="1.5" PointX="8.3307504878988254" PointY="1.0897242431946677" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.InventoryReport" Width="1.5" PointX="6.9348927060770311" PointY="11.776794826507938" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.InventoryReportDetail" Width="1.5" PointX="8.422724899101409" PointY="11.612234508438146" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.Parameter" Width="1.5" PointX="7.5142724623504442" PointY="10.884541367592542" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.Reception" Width="1.5" PointX="8.2572346200501716" PointY="13.840283862240744" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.Repair" Width="1.5" PointX="9.0791564290780364" PointY="0.0028459578765770224" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.RepairDetail" Width="1.5" PointX="9.7038023740536552" PointY="2.1489377329819548" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.RepairSuppliesDetail" Width="1.5" PointX="10.426510377985664" PointY="29.84220331806792" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.Revenue" Width="1.5" PointX="2.502049551579193" PointY="16.469160162130912" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.RevenueDetail" Width="1.5" PointX="1.8743381602104465" PointY="28.6658975615473" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.Supply" Width="1.5" PointX="9.96379052566541" PointY="23.467444743713106" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.SuppliesInput" Width="1.5" PointX="4.02287691087596" PointY="26.446459082163152" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.SuppliesInputDetail" Width="1.5" PointX="8.7210317145665321" PointY="15.282421849333877" />
+        <EntityTypeShape EntityType="QuanLiGaraOtoModel.Wage" Width="1.5" PointX="1.6613048825698464" PointY="3.576840029832367" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_Bill_Recept" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_Recept_Brand" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_RevenueDT_Brand" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_Recept_Cus" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_InventoryDT_Inventory" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_InventoryDT_Supplies" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_Repair_Recept" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_RepairDT_Repair" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_RepairDT_Wage" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_RepairSupDT_RepairDT" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_RepairSupDT_Sup" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_RevenueDT_Revenue" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_SuppliesInputDetail_Supply" />
+        <AssociationConnector Association="QuanLiGaraOtoModel.FK_SuppliesInputDetail_Input" />
         <EntityTypeShape EntityType="QuanLiGaraOtoModel.sysdiagram" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLiGaraOtoModel.Wage" Width="1.5" PointX="5.25" PointY="10.875" IsExpanded="true" />
-        <AssociationConnector Association="QuanLiGaraOtoModel.FK_Bill_Recept" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLiGaraOtoModel.FK_Recept_Brand" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLiGaraOtoModel.FK_RevenueDT_Brand" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLiGaraOtoModel.FK_Recept_Cus" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLiGaraOtoModel.FK_InventoryDT_Inventory" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLiGaraOtoModel.FK_InventoryDT_Supplies" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLiGaraOtoModel.FK_Repair_Recept" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLiGaraOtoModel.FK_RepairDT_Repair" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLiGaraOtoModel.FK_RepairDT_Wage" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLiGaraOtoModel.FK_RepairSupDT_RepairDT" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLiGaraOtoModel.FK_RepairSupDT_Sup" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLiGaraOtoModel.FK_RevenueDT_Revenue" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLiGaraOtoModel.FK_SuppliesInputDetail_Supply" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLiGaraOtoModel.FK_SuppliesInputDetail_Input" ManuallyRouted="false" />
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 =======
       <Diagram DiagramId="e07e05029d864aa0922b69c44aac5802" Name="Diagram1" ZoomLevel="65">
         <EntityTypeShape EntityType="QuanLiGaraOtoModel.Bill" Width="1.5" PointX="8.25" PointY="8" />

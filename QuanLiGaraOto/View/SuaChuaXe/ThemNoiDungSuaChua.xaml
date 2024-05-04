@@ -73,7 +73,7 @@
                             FontFamily="Roboto Condensed"
                             FontSize="17"
                             FontWeight="Regular"
-                           Text=""
+                           Text="{Binding SpContent}"
                             IsEnabled="False">  
                            
                         </TextBox>
@@ -97,6 +97,7 @@
                                   IsEditable="False"
                                   FontWeight="Regular"
                                   ItemsSource="{Binding supplyColection}"
+                                  SelectedItem="{Binding SelectedSupplyDt}"
                                   DisplayMemberPath="Name">
                         </ComboBox>
                     </StackPanel>
@@ -127,7 +128,7 @@
                                  FontFamily="Roboto Condensed"
                                  FontSize="17"
                                  FontWeight="Regular"
-                                 Text=""
+                                 Text="{Binding SpWage}"
                                  IsEnabled="False">
                         </TextBox>
                     </StackPanel>
@@ -149,7 +150,7 @@
                             FontFamily="Roboto Condensed"
                             FontSize="17"
                             FontWeight="Regular"
-                            Text="">
+                                 Text="{Binding CountSupply}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="TextChanged">
                                     <i:InvokeCommandAction Command="" />
@@ -158,7 +159,7 @@
                         </TextBox>
                     </StackPanel>
 
-                    <Button 
+                    <Button Command="{Binding AddRecordRpSpDt}"
                         Grid.Row="1" 
                         Margin="250,-30,20,0" 
                         Content="Thêm" 
@@ -190,7 +191,9 @@
                           IsReadOnly="True"
                           SelectionMode="Single"
                           SelectionUnit="FullRow"
-                          Grid.Row="1">
+                          Grid.Row="1"
+                          ItemsSource="{Binding RpSpDtCollection}"
+                          SelectedItem="{Binding SelectedSpRpDt}">
                     <DataGrid.CellStyle>
                         <Style BasedOn="{StaticResource MaterialDesignDataGridCell}"
                                TargetType="DataGridCell">
@@ -204,39 +207,58 @@
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Width="auto"
                                                 Header="Vật tư phụ tùng"
-                                                SortMemberPath="">
+                                                SortMemberPath="Supply.Name">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock HorizontalAlignment="Left"
                                                VerticalAlignment="Center"
                                                FontSize="15"
-                                               Text="" />
+                                               Text="{Binding Supply.Name}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
                         <DataGridTemplateColumn Width="auto"
                                                 Header="Số lượng"
-                                                SortMemberPath="">
+                                                SortMemberPath="Count">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock HorizontalAlignment="Left"
                                                VerticalAlignment="Center"
                                                FontSize="15"
-                                               Text="" />
+                                               Text="{Binding Count, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
                         <DataGridTemplateColumn Width="auto"
                                                 Header="Đơn giá"
-                                                SortMemberPath="">
+                                                SortMemberPath="PriceItem">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock HorizontalAlignment="Left"
                                                VerticalAlignment="Center"
                                                FontSize="15"
-                                               Text="" />
+                                               Text="{Binding PriceItem, StringFormat={}{0:N0} VNĐ}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="auto"
+                                                Header="">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Width="24.8"
+                                                Height="24.8"
+                                                BorderBrush="Transparent"
+                                                Click="Button_Click">
+                                            <Button.Background>
+                                                <ImageBrush ImageSource="/QuanLiGaraOto;component/Resources/Img/delete_button.png" />
+                                            </Button.Background>
+                                        </Button>
+                                    </StackPanel>
+
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -261,7 +283,8 @@
                         materialDesign:ElevationAssist.Elevation="Dp3"
                         Background="#3093A0"
                         BorderThickness="0"
-                            Command="{Binding AddRpSpDt}">
+                            Command="{Binding AddRpSpDt}"
+                            CommandParameter="{Binding ElementName=themNoiDungSuaChuaWindow}">
 
                     <StackPanel Orientation="Horizontal">
                         <TextBlock HorizontalAlignment="Center"

@@ -134,7 +134,7 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
         public WageDTO wageSelected
         {
             get { return _wageSelected; }
-            set { _wageSelected = value; }
+            set { _wageSelected = value; OnPropertyChanged(); }
         }
         private ObservableCollection<RepairDetailDTO> _rpdtCollection;
 
@@ -149,7 +149,57 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
         public RepairDetailDTO SelectedRpdt
         {
             get { return _selectedRpdt; }
-            set { _selectedRpdt = value; }
+            set { _selectedRpdt = value; OnPropertyChanged(); }
+        }
+
+        //-------------Them phieu supply tung noi dung------------------------//
+
+        private string _spWage;
+
+        public string SpWage
+        {
+            get { return _spWage; }
+            set { _spWage = value; }
+        }
+
+        private string _spContent;
+
+        public string SpContent
+        {
+            get { return _spContent; }
+            set { _spContent = value; }
+        }
+
+        private ObservableCollection<RepairSuppliesDetailDTO> _repairSuppliesDtCollection;
+
+        public ObservableCollection<RepairSuppliesDetailDTO> RpSpDtCollection
+        {
+            get { return _repairSuppliesDtCollection; }
+            set { _repairSuppliesDtCollection = value; OnPropertyChanged(); }
+        }
+
+        private string _countSupply;
+
+        public string CountSupply
+        {
+            get { return _countSupply; }
+            set { _countSupply = value;OnPropertyChanged(); }
+        }
+
+        private SupplyDTO _selectedSupplyDt;
+
+        public SupplyDTO SelectedSupplyDt
+        {
+            get { return _selectedSupplyDt; }
+            set { _selectedSupplyDt = value;OnPropertyChanged(); }
+        }
+
+        private RepairSuppliesDetailDTO _selectedRpSpDt;
+
+        public RepairSuppliesDetailDTO SelectedSpRpDt
+        {
+            get { return _selectedRpSpDt; }
+            set { _selectedRpSpDt = value; }
         }
 
 
@@ -159,7 +209,7 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
         public string Content
         {
             get { return _content; }
-            set { _content = value; }
+            set { _content = value; OnPropertyChanged(); }
         }
 
         private string _licensePlate;
@@ -167,7 +217,7 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
         public string LicensePlate
         {
             get { return _licensePlate; }
-            set { _licensePlate = value; }
+            set { _licensePlate = value; OnPropertyChanged(); }
         }
 
 
@@ -212,7 +262,11 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
         public ICommand DeleteRpdt { get; set; }
         public ICommand OpenAddSupplyRepair { get; set; }
         public ICommand AddRpSpDt { get; set; }
+        public ICommand AddRecordRpSpDt { get; set; }
         public ICommand OnCloseRpSpDtWd { get; set; }
+        public ICommand ResetRepair { get; set; }
+        public ICommand AddRepair { get; set; }
+        public ICommand DeleteRpSpDt { get; set; }
         // public ICommand HoanTatClose { get; set; }
 
         public SuaChuaXeViewModel()
@@ -233,11 +287,11 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
 
             AddWage = new RelayCommand<object>(p => { return true; }, async (p) =>
             {
-                if(WageName == null || WageName == "" || Price == null || Price == "")
+                if (WageName == null || WageName == "" || Price == null || Price == "")
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Vui lòng nhập đủ thông tin"); return;
                 }
-                if(decimal.TryParse(Price, out decimal price) == false)
+                if (decimal.TryParse(Price, out decimal price) == false)
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Vui lòng nhập đúng định dạng"); return;
                 }
@@ -267,7 +321,7 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
                     return;
                 }
                 var (isSuccess, msg) = await WageService.Ins.DeleteWage(SelectedWage.ID);
-                if(isSuccess)
+                if (isSuccess)
                 {
                     wageCollection.Remove(SelectedWage);
                     MessageBoxCustom.Show(MessageBoxCustom.Success, "Xóa thành công");
@@ -287,8 +341,8 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
 
             QuanLiTienCongOpen = new RelayCommand<object>(_ => true, async _ =>
             {
-                Window mainWindow = Application.Current.MainWindow; 
-                mainWindow.Opacity = 0.5; 
+                Window mainWindow = Application.Current.MainWindow;
+                mainWindow.Opacity = 0.5;
 
                 Window dialogWindow = new QuanLiTienCong();
                 dialogWindow.ShowDialog(); // Hiển thị cửa sổ dialog
@@ -341,7 +395,7 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
 
             // HoanTatClose = new RelayCommand<Window>((p) => { return true; }, (p) =>
             // {
-                // p.Close();
+            // p.Close();
             // });
 
             CancelAddingSupplies = new RelayCommand<Window>((p) => { return true; }, (p) =>
@@ -351,7 +405,7 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
 
             AddSuppliesName = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
-                if(SupplyName == null || SupplyName == "")
+                if (SupplyName == null || SupplyName == "")
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Vui lòng nhập tên vật tư");
                 }
@@ -363,7 +417,7 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
                     OutputPrices = 0
                 };
                 var (isSuccess, msg) = await SuppliesService.Ins.AddNewSupply(newSupply);
-                if(isSuccess)
+                if (isSuccess)
                 {
                     SupplyName = null;
                     supplyColection.Add(newSupply);
@@ -379,12 +433,12 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
             {
                 Window wd = new DeleteMessageBox();
                 wd.ShowDialog();
-                if(wd.DialogResult == false)
+                if (wd.DialogResult == false)
                 {
                     return;
                 }
                 var (isSuccess, msg) = await SuppliesService.Ins.DeleteSupply(SelectedSupply.ID);
-                if(isSuccess)
+                if (isSuccess)
                 {
                     supplyColection.Remove(SelectedSupply);
                     MessageBoxCustom.Show(MessageBoxCustom.Success, "Xóa thành công");
@@ -397,11 +451,11 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
 
             AddSpDetail = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                if(SelectedSp == null || Count == null || PriceSp == null)
+                if (SelectedSp == null || Count == null || PriceSp == null)
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Vui lòng nhập đủ thông tin"); return;
                 }
-                if(int.TryParse(Count, out int count) == false || decimal.TryParse(PriceSp, out decimal price) == false)
+                if (int.TryParse(Count, out int count) == false || decimal.TryParse(PriceSp, out decimal price) == false)
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Vui lòng nhập đúng định dạng"); return;
                 }
@@ -421,7 +475,7 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
             AddSpInput = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
                 List<SuppliesInputDetailDTO> suppliesInputDetails = new List<SuppliesInputDetailDTO>(spDetailCollection);
-                if(suppliesInputDetails.ToArray().Length == 0)
+                if (suppliesInputDetails.ToArray().Length == 0)
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Vui lòng thêm vật tư"); return;
                 }
@@ -431,8 +485,8 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
                     SuppliesInputDetails = suppliesInputDetails,
                     TotalMoney = 0
                 };
-                var (isSuccess, msg)= await SuppliesService.Ins.AddSupplyInput(suppliesInput);
-                if(isSuccess)
+                var (isSuccess, msg) = await SuppliesService.Ins.AddSupplyInput(suppliesInput);
+                if (isSuccess)
                 {
 
                     supplyColection = new ObservableCollection<SupplyDTO>(await SuppliesService.Ins.GetAllSupply());
@@ -464,7 +518,7 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
                 p.Close();
             });
 
-            AddContent = new RelayCommand<object>(p => { return true; }, async (p) => 
+            AddContent = new RelayCommand<object>(p => { return true; }, async (p) =>
             {
                 var price = wageSelected.Price;
                 var newRepairDetail = new RepairDetailDTO
@@ -474,9 +528,9 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
                     WageName = wageSelected.Name,
                     WagePrice = wageSelected.Price,
                     Price = price,
-                    RepairSuppliesDetails= new List<RepairSuppliesDetailDTO>()
+                    RepairSuppliesDetails = new List<RepairSuppliesDetailDTO>()
                 };
-                
+
                 rpdtCollection.Add(newRepairDetail);
             });
 
@@ -491,11 +545,13 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
                 rpdtCollection.Remove(SelectedRpdt);
             });
 
-            OpenAddSupplyRepair = new RelayCommand<object>(p => { return true; }, async (p) =>
+            OpenAddSupplyRepair = new RelayCommand<object>(p => { return true; }, (p) =>
             {
+                SpContent = SelectedRpdt.Content;
+                SpWage = SelectedRpdt.WageName;
+                RpSpDtCollection = new ObservableCollection<RepairSuppliesDetailDTO>(SelectedRpdt.RepairSuppliesDetails);
                 Window mainWindow = Application.Current.MainWindow; // Lấy cửa sổ chính
                 mainWindow.Opacity = 0.5; // Làm mờ cửa sổ chính
-                Console.WriteLine(supplyColection.ToArray().Length);
                 ThemNoiDungSuaChua dialogWindow = new ThemNoiDungSuaChua();
                 dialogWindow.ShowDialog();
                 // Hiển thị cửa sổ dialog
@@ -504,14 +560,107 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
 
 
 
-            AddRpSpDt = new RelayCommand<object>(p => { return true; }, (p) =>
+            AddRpSpDt = new RelayCommand<Window>(p => { return true; }, (p) =>
             {
-                Console.WriteLine(SelectedRpdt.Content);
+                SelectedRpdt.RepairSuppliesDetails = new List<RepairSuppliesDetailDTO>(RpSpDtCollection);
+                decimal price = 0;
+                foreach (RepairSuppliesDetailDTO i in RpSpDtCollection)
+                {
+                    price += (decimal)(i.PriceItem * i.Count);
+                }
+                SelectedRpdt.Price = SelectedRpdt.WagePrice + price;
+                SelectedSupplyDt = null;
+                CountSupply = null;
+                p.Close();
+
             });
 
             OnCloseRpSpDtWd = new RelayCommand<Window>(p => { return true; }, (p) =>
             {
+                SelectedSupplyDt = null;
+                CountSupply = null;
                 p.Close();
+
+            });
+
+            AddRecordRpSpDt = new RelayCommand<object>(p => { return true; }, (p) =>
+            {
+                if (int.TryParse(CountSupply, out int rs) == false)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Định dạng dữ liệu không đúng");
+                    return;
+                }
+                var newRpSpDt = new RepairSuppliesDetailDTO
+                {
+                    Count = int.Parse(CountSupply),
+                    PriceItem = SelectedSupplyDt.OutputPrices,
+                    Supply = SelectedSupplyDt
+                };
+                var record = RpSpDtCollection.FirstOrDefault(x => x.Supply.ID == SelectedSupplyDt.ID);
+                if (record != null)
+                {
+                    record.Count += newRpSpDt.Count;
+                }
+                else
+                {
+                    RpSpDtCollection.Add(newRpSpDt);
+                }
+            });
+
+            DeleteRpSpDt = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                Window wd = new DeleteMessageBox();
+                wd.ShowDialog();
+                if (wd.DialogResult == false)
+                {
+                    return;
+                }
+                RpSpDtCollection.Remove(SelectedSpRpDt);
+            });
+
+            ResetRepair = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                LicensePlate = null;
+                Content = null;
+                wageSelected = null;
+                NgaySuaChua = DateTime.Now;
+                rpdtCollection = new ObservableCollection<RepairDetailDTO>();
+            });
+
+            AddRepair = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            {
+                if (LicensePlate == null || LicensePlate == "" || rpdtCollection.ToArray().Length == 0 || wageSelected == null || Content == ""|| Content == null)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Vui lòng nhập đủ thông tin"); return;
+                }
+                var recept = await ReceptionService.Ins.GetReceptionbyPlate(LicensePlate);
+                if (recept==null)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Không tìm thấy phiếu tiếp nhận phù hợp"); return;
+                }
+                var repairDetails = new List<RepairDetailDTO>(rpdtCollection);
+                var newRepair = new RepairDTO
+                {
+
+                    RepairDate = NgaySuaChua,
+                    TotalPrice = 0,
+                    Reception = recept,
+                    RepairDetails = repairDetails
+                };
+                var (isSuccess, msg) = await RepairService.Ins.AddNewRepair(newRepair);
+                if(isSuccess)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Success, "Thêm thành công");
+                    LicensePlate = null;
+                    Content = null;
+                    wageSelected = null;
+                    NgaySuaChua = DateTime.Now;
+                    rpdtCollection = new ObservableCollection<RepairDetailDTO>();
+                }
+                else
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Khong them duoc du lieu");
+                }
             });
         }
     }

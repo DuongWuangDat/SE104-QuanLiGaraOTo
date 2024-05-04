@@ -373,7 +373,7 @@
                             Grid.Row="2"
                             VerticalAlignment="Top"
                             >
-                    <Button 
+                    <Button Command="{Binding ResetRepair}"
                             Content="Thêm mới"
                             VerticalAlignment="Top"
                             FontSize="26"
@@ -384,9 +384,9 @@
                             Background="#B71010"
                             BorderBrush="Transparent"
                             Foreground="White"
-                            materialDesign:ButtonAssist.CornerRadius="20" />    
+                            materialDesign:ButtonAssist.CornerRadius="20" />
 
-                    <Button 
+                    <Button Command="{Binding AddRepair}"
                             Content="Thêm phiếu sửa chữa"
                             VerticalAlignment="Top"
                             FontSize="26"

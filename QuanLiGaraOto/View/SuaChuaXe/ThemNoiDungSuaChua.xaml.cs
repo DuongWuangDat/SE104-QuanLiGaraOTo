@@ -16,12 +16,6 @@ namespace QuanLiGaraOto.View.SuaChuaXe
         public ThemNoiDungSuaChua()
         {
             InitializeComponent();
-            DataContext = new SuaChuaXeViewModel();
-        }
-
-        private void Huy_Click(object sender, RoutedEventArgs e)
-        {
-            Window.GetWindow(this)?.Close();
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -40,6 +34,11 @@ namespace QuanLiGaraOto.View.SuaChuaXe
         private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as SuaChuaXeViewModel).DeleteRpSpDt.Execute(new object());
         }
     }
 }

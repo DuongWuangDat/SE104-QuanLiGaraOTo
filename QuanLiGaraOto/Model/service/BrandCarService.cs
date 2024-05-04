@@ -1,4 +1,5 @@
 ﻿using QuanLiGaraOto.DTOs;
+using QuanLiGaraOto.View.MessageBox;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -25,66 +26,92 @@ namespace QuanLiGaraOto.Model.service
 
         public async Task<List<BrandCarDTO>> GetListBrandCar()
         {
-            using (var context = new QuanLiGaraOtoEntities())
+            try
             {
-                var brandCarList = (from b in context.BrandCars where b.IsDeleted == false 
-                                    select new BrandCarDTO{
-                                        ID = b.ID,
-                                        Name = b.Name
-                                    }).ToListAsync();
-                return await brandCarList;
+                using (var context = new QuanLiGaraOtoEntities())
+                {
+                    var brandCarList = (from b in context.BrandCars
+                                        where b.IsDeleted == false
+                                        select new BrandCarDTO
+                                        {
+                                            ID = b.ID,
+                                            Name = b.Name
+                                        }).ToListAsync();
+                    return await brandCarList;
+                }
+            }catch (Exception e)
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Không thể lấy danh sách hãng xe!");
+                return null;
             }
+
         }
 
         public async Task<(bool, string)> AddNewBrandCar(BrandCarDTO newBrand)
         {
-            using (var context = new QuanLiGaraOtoEntities())
+            try
             {
-                var existBrandCar = await context.BrandCars.Where(b => b.Name == newBrand.Name).FirstOrDefaultAsync();
-                if(existBrandCar!=null)
+                using (var context = new QuanLiGaraOtoEntities())
                 {
-                    if(existBrandCar.IsDeleted == true)
+                    var existBrandCar = await context.BrandCars.Where(b => b.Name == newBrand.Name).FirstOrDefaultAsync();
+                    if (existBrandCar != null)
                     {
-                        existBrandCar.IsDeleted = false;
-                        existBrandCar.Name = newBrand.Name;
-                        await context.SaveChangesAsync();
-                        return (true, "Add new brand car successfully!");
+                        if (existBrandCar.IsDeleted == true)
+                        {
+                            existBrandCar.IsDeleted = false;
+                            existBrandCar.Name = newBrand.Name;
+                            await context.SaveChangesAsync();
+                            return (true, "Add new brand car successfully!");
+                        }
+                        return (false, "Brand car is already exist!");
                     }
-                    return (false, "Brand car is already exist!");
+                    var brandCar = new BrandCar
+                    {
+                        Name = newBrand.Name,
+                        IsDeleted = false
+                    };
+                    context.BrandCars.Add(brandCar);
+                    await context.SaveChangesAsync();
+                    return (true, "Add new brand car successfully!");
                 }
-                var brandCar = new BrandCar
-                {
-                    Name =newBrand.Name,
-                    IsDeleted = false
-                };
-                context.BrandCars.Add(brandCar);
-                await context.SaveChangesAsync();
-                return (true, "Add new brand car successfully!");
             }
+            catch (Exception e)
+            {
+                return (false, "Không thể thêm dữ liệu");
+            }
+
         }
 
         public async Task<(bool,string)> DeleteBrandCar(int id)
         {
-            using (var context = new QuanLiGaraOtoEntities())
+            try
             {
-                var brandCar = await context.BrandCars.Where(b => b.ID == id).FirstOrDefaultAsync();
-                if (brandCar.Receptions.Count > 0)
+                using (var context = new QuanLiGaraOtoEntities())
                 {
-                    return (false, "Brand car is already in use!");
+                    var brandCar = await context.BrandCars.Where(b => b.ID == id).FirstOrDefaultAsync();
+                    if (brandCar.Receptions.Count > 0)
+                    {
+                        return (false, "Brand car is already in use!");
+                    }
+
+                    if (brandCar == null)
+                    {
+                        return (false, "Brand car is not exist!");
+                    }
+                    foreach (var revenueDetail in brandCar.RevenueDetails)
+                    {
+                        context.RevenueDetails.Remove(revenueDetail);
+                    }
+                    brandCar.IsDeleted = true;
+                    await context.SaveChangesAsync();
+                    return (true, "Delete brand car successfully!");
                 }
-              
-                if(brandCar == null)
-                {
-                    return (false, "Brand car is not exist!");
-                }
-                foreach (var revenueDetail in brandCar.RevenueDetails)
-                {
-                    context.RevenueDetails.Remove(revenueDetail);
-                }
-                brandCar.IsDeleted = true;
-                await context.SaveChangesAsync();
-                return (true, "Delete brand car successfully!");
             }
+            catch (Exception e)
+            {
+                return (false, "Không thể xóa dữ liệu");
+            }
+
         }
     }
 }
