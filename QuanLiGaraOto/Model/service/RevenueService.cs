@@ -178,7 +178,7 @@ namespace QuanLiGaraOto.Model.service
             }
             
         }
-        public async Task<bool> DeleteRevenueDetial(int brandCarID)
+        public async Task<bool> DeleteRevenueDetail(int brandCarID)
         {
             try
             {
