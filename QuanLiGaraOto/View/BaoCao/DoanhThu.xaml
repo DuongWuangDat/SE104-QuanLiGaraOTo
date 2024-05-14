@@ -55,6 +55,7 @@
                             <DataGridTemplateColumn
                                 Width="auto"
                                 Header="STT"
+                                SortMemberPath="STT"
                                 >
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -62,7 +63,7 @@
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
                                         FontSize="15"
-                                        Text="STT" />
+                                        Text="{Binding STT}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -92,7 +93,8 @@
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
                                             FontSize="15"
-                                            Text="{Binding RepairCount}" />
+                                            Text="{Binding RepairCount}" 
+                                            />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
