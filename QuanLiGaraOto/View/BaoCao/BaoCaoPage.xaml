@@ -22,6 +22,8 @@
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding FirstLoad}"/>
+            <i:InvokeCommandAction Command="{Binding GetRevenue}" />
+            <i:InvokeCommandAction Command="{Binding GetInventoryReport}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid Background="#3F7B88">
@@ -161,14 +163,16 @@
                 </Grid>
             </Grid>
             
-            <Grid Grid.Row="2">
+            <Grid Grid.Row="1">
                 <Label Name="TotalPrice"
+                       Width="auto"
+                       Height="30"
                        FontSize="20"
                        FontWeight="Bold"
                        Foreground="White"
                        Content="{Binding RevenueReport.TotalPrice}" 
                        HorizontalAlignment="Right"
-                       Margin="100,80"/>
+                       Margin="100,80,120,-575"/>
 
                 <Border x:Name="ListBaoCao"
                     Margin="0,100,0,0"

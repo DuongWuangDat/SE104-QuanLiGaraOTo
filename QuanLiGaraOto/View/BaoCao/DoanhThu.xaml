@@ -5,10 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QuanLiGaraOto.View.BaoCao" 
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
-             xmlns:baocaovm="clr-namespace:QuanLiGaraOto.ViewModel.BaoCaoVM" 
-             d:DataContext="{d:DesignInstance Type=baocaovm:BaoCaoViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1400">
+             DataContext="{StaticResource BaoCaoVM}"
+             d:DesignHeight="500" d:DesignWidth="1300">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding GetRevenue}" />
@@ -56,7 +55,8 @@
                             <DataGridTemplateColumn
                                 Width="auto"
                                 Header="STT"
-                                SortMemberPath="STT">
+                                SortMemberPath="STT"
+                                >
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock
@@ -93,7 +93,8 @@
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
                                             FontSize="15"
-                                            Text="{Binding RepairCount}" />
+                                            Text="{Binding RepairCount}" 
+                                            />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -124,7 +125,7 @@
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
                                         FontSize="15"
-                                        Text="{Binding Ratio}" />
+                                        Text="{Binding Ratio, StringFormat={}{0:F2}}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

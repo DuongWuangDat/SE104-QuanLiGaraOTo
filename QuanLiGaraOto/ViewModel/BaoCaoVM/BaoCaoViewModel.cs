@@ -28,7 +28,6 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
         private int _id;
         private int _month;
         private int _year;
-        public List<int> stt;
 
         private TonKho curTonKho;
         private DoanhThu curDoanhThu;
@@ -37,7 +36,6 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
         public int Month { get { return _month; } set { _month = value; OnPropertyChanged(); } }
         public int Year { get { return _year; } set { _year = value; OnPropertyChanged(); } }
 
-        public List<int> STT { get { return stt; } }
 
         private ObservableCollection<int> _monthList;
         public ObservableCollection<int> MonthList
@@ -232,20 +230,24 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                 var curYear = curDate.Year;
                 if (Year > curYear)
                 {
-                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Năm lớn hơn hiện tại, vui lòng nhập lại.");
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Năm lớn hơn năm hiện tại, vui lòng nhập lại.");
                 }
-                else if (Month > curMonth && Year == curYear)
+                else if (Month > (curMonth) && Year == curYear)
                 {
-                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Tháng lớn hơn hiện tại, vui lòng nhập lại.");
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Chỉ có thể xem dữ liệu các tháng trước, vui lòng nhập lại.");
                 }
 
                 RevenueReport = await RevenueService.Ins.GetRevenue(this.Month, this.Year);
+                Console.WriteLine("Pass Here");
+                Console.WriteLine(Year);
+                Console.WriteLine(Month);
+                Console.WriteLine(RevenueReport.RevenueDetails.Count);
                 if (RevenueReport != null)
                 {
                     RevenueList = new ObservableCollection<RevenueDetailDTO>(RevenueReport.RevenueDetails);
                     for(int i=0; i<RevenueList.Count; i++)
                     {
-                        STT.Add(i);
+                        RevenueList[i].STT = i + 1;
                     }
                 }
             });
