@@ -32,7 +32,7 @@ namespace QuanLiGaraOto.Model.service
                 using (var context = new QuanLiGaraOtoEntities())
                 {
                     var revenueList = (from r in context.Revenues
-                                       where r.IsDeleted == false
+                                       where r.IsDeleted == false && r.Month == Month && r.Year == Year
                                        select new RevenueDTO
                                        {
                                            ID = r.ID,
