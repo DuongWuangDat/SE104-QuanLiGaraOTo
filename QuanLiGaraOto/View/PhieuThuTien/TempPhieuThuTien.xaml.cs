@@ -17,11 +17,11 @@ using System.Windows.Shapes;
 namespace QuanLiGaraOto.View.PhieuThuTien
 {
 	/// <summary>
-	/// Interaction logic for PhieuThuTien.xaml
+	/// Interaction logic for TempPhieuThuTien.xaml
 	/// </summary>
-	public partial class PhieuThuTien : Page
+	public partial class TempPhieuThuTien : Page
 	{
-		public PhieuThuTien()
+		public TempPhieuThuTien()
 		{
 			InitializeComponent();
 		}

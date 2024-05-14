@@ -1,10 +1,12 @@
 ﻿using QuanLiGaraOto.DTOs;
+using QuanLiGaraOto.View.MessageBox;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 
 namespace QuanLiGaraOto.Model.service
 {
@@ -25,122 +27,175 @@ namespace QuanLiGaraOto.Model.service
 
         public async Task<RevenueDTO> GetRevenue(int Month, int Year)
         {
-            using (var context = new QuanLiGaraOtoEntities())
+            try
             {
-                var revenueList = (from r in context.Revenues
-                                   where r.IsDeleted == false
-                                   select new RevenueDTO
-                                   {
-                                       ID = r.ID,
-                                       Month = r.Month,
-                                       Year = r.Year,
-                                       TotalPrice = r.TotalPrice,
-                                       RevenueDetails = (from s in r.RevenueDetails
-                                                         select new RevenueDetailDTO
-                                                         {
-                                                             RepairCount = s.RepairCount,
-                                                             Ratio = s.Ratio,
-                                                             Price = s.Price,
-                                                             BrandCar = new BrandCarDTO
+                using (var context = new QuanLiGaraOtoEntities())
+                {
+                    var revenue = (from r in context.Revenues
+                                       where r.IsDeleted == false && r.Month == Month && r.Year == Year
+                                       select new RevenueDTO
+                                       {
+                                           ID = r.ID,
+                                           Month = r.Month,
+                                           Year = r.Year,
+                                           TotalPrice = r.TotalPrice,
+                                           RevenueDetails = (from s in r.RevenueDetails
+                                                             select new RevenueDetailDTO
                                                              {
-                                                                 ID = s.BrandCar.ID,
-                                                                 Name = s.BrandCar.Name
-                                                             }
-                                                             
-                                                         }).ToList()
-                                   }).FirstOrDefaultAsync();
-                return await revenueList;
+                                                                 RepairCount = s.RepairCount,
+                                                                 Ratio = s.Ratio,
+                                                                 Price = s.Price,
+                                                                 BrandCar = new BrandCarDTO
+                                                                 {
+                                                                     ID = s.BrandCar.ID,
+                                                                     Name = s.BrandCar.Name
+                                                                 }
+
+                                                             }).ToList()
+                                       }).FirstOrDefaultAsync();
+                    return await revenue;
+                }
+
+            }catch(Exception e)
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Không thể kết nối dữ liệu");
+                return null;
             }
+            
         }   
 
         public async Task<(bool, string)> InitRevenue()
         {
-            using(var context = new QuanLiGaraOtoEntities())
+            try
             {
-                var curDate = DateTime.Now; 
-                var isExist = await context.Revenues.AnyAsync(r => r.Month == curDate.Month && r.Year == curDate.Year);
-                if(isExist)
+                using (var context = new QuanLiGaraOtoEntities())
                 {
-                    return (false,"Bao cao doanh thu ton tai");
+                    var curDate = DateTime.Now;
+                    var isExist = await context.Revenues.AnyAsync(r => r.Month == curDate.Month && r.Year == curDate.Year);
+                    if (isExist)
+                    {
+                        return (false, "Bao cao doanh thu ton tai");
+                    }
+                    var revenue = new Revenue
+                    {
+                        Month = curDate.Month,
+                        Year = curDate.Year,
+                        TotalPrice = 0,
+                        IsDeleted = false
+                    };
+                    context.Revenues.Add(revenue);
+                    await context.SaveChangesAsync();
+                    return (true, "");
                 }
-                var revenue = new Revenue
-                {
-                    Month = curDate.Month,
-                    Year = curDate.Year,
-                    TotalPrice = 0,
-                    IsDeleted = false
-                };
-                context.Revenues.Add(revenue);
-                await context.SaveChangesAsync();
-                return (true,"");
+
+            }catch(Exception e)
+            {
+                return (false, null);
             }
+            
         }
 
         public async Task<Revenue> GetCurrentRevenueReport()
         {
-            using(var context = new QuanLiGaraOtoEntities())
+            try
             {
-                var curDate = DateTime.Now;
-                var revenue = await context.Revenues.Where(r => r.Month == curDate.Month && r.Year == curDate.Year).FirstOrDefaultAsync();
-                return revenue;
+                using (var context = new QuanLiGaraOtoEntities())
+                {
+                    var curDate = DateTime.Now;
+                    var revenue = await context.Revenues.Where(r => r.Month == curDate.Month && r.Year == curDate.Year).FirstOrDefaultAsync();
+                    return revenue;
+                }
+            }catch(Exception e)
+            {
+                return null;
             }
+            
         }
 
-        public async Task<bool> AddRepairRevenueDetail(RepairDTO repair)
+        public async Task<bool> AddRepairRevenueDetail(Repair repair, DateTime date)
         {
-            using(var context = new QuanLiGaraOtoEntities())
+            try
             {
-                var curRevenue = await GetCurrentRevenueReport();
-                var detail = await context.RevenueDetails.Where(r => r.RevenueId == curRevenue.ID && r.BrandCarId==repair.Reception.BrandCar.ID ).FirstOrDefaultAsync();
-                curRevenue.TotalPrice += repair.TotalPrice;
-                if (detail == null)
+                using (var context = new QuanLiGaraOtoEntities())
                 {
-                    var newDetail = new RevenueDetail
+                    var curRevenue = await context.Revenues.Where(r => r.Month == date.Month && r.Year == date.Year).FirstOrDefaultAsync();
+                    var detail = await context.RevenueDetails.Where(r => r.RevenueId == curRevenue.ID && r.BrandCarId == repair.Reception.BrandCar.ID).FirstOrDefaultAsync();
+                    var allDetail = await context.RevenueDetails.Where(r => r.RevenueId == curRevenue.ID).ToListAsync();
+                    var revenue = await context.Revenues.Where(r => r.ID == curRevenue.ID).FirstOrDefaultAsync();
+                    revenue.TotalPrice += repair.TotalPrice;
+                    foreach (var item in allDetail)
                     {
-                        RevenueId = curRevenue.ID,
-                        BrandCarId = (int)repair.Reception.BrandCar.ID,
-                        RepairCount = 1,
-                        Ratio =  (double)repair.TotalPrice / (double)curRevenue.TotalPrice,
-                        Price = repair.TotalPrice,
-                        IsDeleted = false
-                    };
-                    context.RevenueDetails.Add(detail);
+                        item.Ratio = (double)item.Price / (double)revenue.TotalPrice;
+                    }
+                    await context.SaveChangesAsync();
+                    if (detail == null)
+                    {
+                        var newDetail = new RevenueDetail
+                        {
+                            RevenueId = curRevenue.ID,
+                            BrandCarId = (int)repair.Reception.BrandCar.ID,
+                            RepairCount = 1,
+                            Ratio = (double)repair.TotalPrice / (double)revenue.TotalPrice,
+                            Price = repair.TotalPrice,
+                            IsDeleted = false
+                        };
+                        context.RevenueDetails.Add(newDetail);
+                        await context.SaveChangesAsync();
+                        return true;
+
+                    }
+                    detail.RepairCount += 1;
+                    detail.Price += repair.TotalPrice;
+                    detail.Ratio = (double)detail.Price / (double)revenue.TotalPrice;
                     await context.SaveChangesAsync();
                     return true;
-              
                 }
-                detail.RepairCount += 1;
-                detail.Price += repair.TotalPrice;
-                detail.Ratio = (double)detail.Price / (double)curRevenue.TotalPrice;
-                await context.SaveChangesAsync();
-                return true;
+            }catch(Exception e)
+            {
+                return false;
             }
+            
         }
 
         public async Task<bool> DeleteRepairRevenueDetail(Repair repair)
         {
-            using(var context = new QuanLiGaraOtoEntities())
+            try
             {
-                var curRevenue = await GetCurrentRevenueReport();
-                var detail = await context.RevenueDetails.Where(r => r.BrandCarId == repair.Reception.BrandID && r.RevenueId==curRevenue.ID).FirstOrDefaultAsync();
-                curRevenue.TotalPrice -= repair.TotalPrice;
-                detail.RepairCount -= 1;
-                detail.Price -= repair.TotalPrice;
-                detail.Ratio = (double)detail.Price / (double)curRevenue.TotalPrice;
-                await context.SaveChangesAsync();
-                return true;
+                using (var context = new QuanLiGaraOtoEntities())
+                {
+                    var curRevenue = await GetCurrentRevenueReport();
+                    var detail = await context.RevenueDetails.Where(r => r.BrandCarId == repair.Reception.BrandID && r.RevenueId == curRevenue.ID).FirstOrDefaultAsync();
+                    curRevenue.TotalPrice -= repair.TotalPrice;
+                    detail.RepairCount -= 1;
+                    detail.Price -= repair.TotalPrice;
+                    detail.Ratio = (double)detail.Price / (double)curRevenue.TotalPrice;
+                    await context.SaveChangesAsync();
+                    return true;
+                }
+            }catch(Exception e)
+            {
+                return false;
             }
+            
         }
         public async Task<bool> DeleteRevenueDetail(int brandCarID)
         {
-            using(var context = new QuanLiGaraOtoEntities())
+            try
             {
-                var curRevenue = await GetCurrentRevenueReport();
-                var detail = await context.RevenueDetails.Where(r => r.BrandCarId == brandCarID && r.RevenueId==curRevenue.ID).FirstOrDefaultAsync();
-                context.RevenueDetails.Remove(detail);
-                await context.SaveChangesAsync();
-                return true;
+                using (var context = new QuanLiGaraOtoEntities())
+                {
+                    var curRevenue = await GetCurrentRevenueReport();
+                    var detail = await context.RevenueDetails.Where(r => r.BrandCarId == brandCarID && r.RevenueId == curRevenue.ID).FirstOrDefaultAsync();
+                    context.RevenueDetails.Remove(detail);
+                    await context.SaveChangesAsync();
+                    return true;
+                }
+
+            }catch(Exception e)
+            {
+                return false;
             }
+            
         }
     }
 }

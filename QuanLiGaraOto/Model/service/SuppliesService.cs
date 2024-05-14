@@ -27,142 +27,181 @@ namespace QuanLiGaraOto.Model.service
 
         public async Task<List<SupplyDTO>> GetAllSupply()
         {
-            using(var context = new QuanLiGaraOtoEntities())
+            try
             {
-                var supplyList = (from s in context.Supplies
-                                where s.IsDeleted == false
-                                select new SupplyDTO
-                                {
-                                    ID = s.ID,
-                                    Name = s.Name,
-                                    CountInStock = s.CountInStock,
-                                    InputPrices = s.InputPrices,
-                                    OutputPrices = s.OutputPrices,
-                                }).ToListAsync();
-                return await supplyList;
+                using (var context = new QuanLiGaraOtoEntities())
+                {
+                    var supplyList = (from s in context.Supplies
+                                      where s.IsDeleted == false
+                                      select new SupplyDTO
+                                      {
+                                          ID = s.ID,
+                                          Name = s.Name,
+                                          CountInStock = s.CountInStock,
+                                          InputPrices = s.InputPrices,
+                                          OutputPrices = s.OutputPrices,
+                                      }).ToListAsync();
+                    return await supplyList;
+                }
             }
+            catch (Exception e)
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Không thể kết nối dữ liệu");
+                return null;
+            }
+            
         }
 
         public async Task<(bool, string)> AddNewSupply(SupplyDTO newSupply)
         {
-            using(var context = new QuanLiGaraOtoEntities())
+            try
             {
-                var supply = new Supply
+                using (var context = new QuanLiGaraOtoEntities())
                 {
-                    Name = newSupply.Name,
-                    CountInStock = 0,
-                    InputPrices = 0,
-                    OutputPrices = 0,
-                    IsDeleted = false
-                };
-                //Modify inventory report
-                var isSuccess = await InvetoryReportService.Ins.AddNewSupply(supply);
-                if (!isSuccess)
-                {
-                    return (false, "Something went wrong");
+                    var supply = new Supply
+                    {
+                        Name = newSupply.Name,
+                        CountInStock = 0,
+                        InputPrices = 0,
+                        OutputPrices = 0,
+                        IsDeleted = false
+                    };
+                    //Modify inventory report
+
+                    //------------------------
+                    context.Supplies.Add(supply);
+                    await context.SaveChangesAsync();
+                    var isSuccess = await InvetoryReportService.Ins.AddNewSupply(supply);
+                    if (!isSuccess)
+                    {
+                        return (false, "Something went wrong");
+                    }
+                    return (true, "Add new supply successfully!");
                 }
-                //------------------------
-                context.Supplies.Add(supply);
-                await context.SaveChangesAsync();
-                return (true, "Add new supply successfully!");
+            }catch(Exception e)
+            {
+                return (false, null);
             }
+            
         }
 
         public async Task<(bool, string)> DeleteSupply(int id)
         {
-            using(var context = new QuanLiGaraOtoEntities())
+            try
             {
-                var supply = await context.Supplies.Where(s => s.ID == id).FirstOrDefaultAsync();
-                if (supply == null)
+                using (var context = new QuanLiGaraOtoEntities())
                 {
-                    return (false, "Supply is not exist!");
+                    var supply = await context.Supplies.Where(s => s.ID == id).FirstOrDefaultAsync();
+                    if (supply == null)
+                    {
+                        return (false, "Supply is not exist!");
+                    }
+                    supply.IsDeleted = true;
+                    //Modify inventory report
+                    var isSuccess = await InvetoryReportService.Ins.DeleteDetail(supply.ID);
+                    if (!isSuccess)
+                    {
+                        return (false, "Something went wrong");
+                    }
+                    //----------------------
+                    await context.SaveChangesAsync();
+                    return (true, "Delete supply successfully!");
                 }
-                supply.IsDeleted = true;
-                //Modify inventory report
-                var isSuccess = await InvetoryReportService.Ins.DeleteDetail(supply.ID);
-                if (!isSuccess)
-                {
-                    return (false, "Something went wrong");
-                }
-                //----------------------
-                await context.SaveChangesAsync();
-                return (true, "Delete supply successfully!");
+            }catch(Exception e)
+            {
+                return (false, null);
             }
+            
         }
 
         public async Task<(bool, string)> UpdateSupply(int id, SupplyDTO newSupply)
         {
-            using(var context = new QuanLiGaraOtoEntities())
+            try
             {
-                var supply = await context.Supplies.Where(s => s.ID == id).FirstOrDefaultAsync();
-                if (supply == null)
+                using (var context = new QuanLiGaraOtoEntities())
                 {
-                    return (false, "Supply is not exist!");
+                    var supply = await context.Supplies.Where(s => s.ID == id).FirstOrDefaultAsync();
+                    if (supply == null)
+                    {
+                        return (false, "Supply is not exist!");
+                    }
+                    supply.Name = newSupply.Name;
+                    supply.CountInStock = newSupply.CountInStock;
+                    supply.InputPrices = newSupply.InputPrices;
+                    supply.OutputPrices = newSupply.OutputPrices;
+                    await context.SaveChangesAsync();
+                    return (true, "Update supply successfully!");
                 }
-                supply.Name = newSupply.Name;
-                supply.CountInStock = newSupply.CountInStock;
-                supply.InputPrices = newSupply.InputPrices;
-                supply.OutputPrices = newSupply.OutputPrices;
-                await context.SaveChangesAsync();
-                return (true, "Update supply successfully!");
+            }catch(Exception e)
+            {
+                return (false, null);
             }
+            
         }
 
         public async Task<(bool,string)> AddSupplyInput(SuppliesInputDTO newSuppliesInput)
         {
-            using(var context = new QuanLiGaraOtoEntities())
+            try
             {
-                int? maxID = await context.SuppliesInputs.MaxAsync(b => (int?)b.ID);
+                using (var context = new QuanLiGaraOtoEntities())
+                {
+                    int? maxID = await context.SuppliesInputs.MaxAsync(b => (int?)b.ID);
 
-                int curID = 0;
+                    int curID = 0;
 
-                if (maxID.HasValue)
-                {
-                    curID = (int)maxID + 1;
-                }
-                else
-                {
-                    curID = 1;
-                }
-                var supplyInput = new SuppliesInput
-                {
-                    DateInput = newSuppliesInput.DateInput,
-                    TotalMoney = newSuppliesInput.TotalMoney,
-                    IsDeleted = false
-                };
-                List<SuppliesInputDetail> suppliesInputDetails = new List<SuppliesInputDetail>();
-                foreach(var suppliesInputDT in newSuppliesInput.SuppliesInputDetails)
-                {
-                    var supplyInputDetail = new SuppliesInputDetail
+                    if (maxID.HasValue)
                     {
-                        InputID = curID,
-                        SuppliesID = suppliesInputDT.Supply.ID,
-                        Count = suppliesInputDT.Count,
-                        PriceItem = suppliesInputDT.PriceItem,
-                        IsDeleted= false
-                    };
-                    
-                    var supply = await context.Supplies.Where(s => s.ID == suppliesInputDT.Supply.ID).FirstOrDefaultAsync();
-                    supply.CountInStock += suppliesInputDT.Count;
-                    supply.InputPrices = suppliesInputDT.PriceItem;
-                    double valuePara = await ParameterService.Ins.GetRatio();
-                    supply.OutputPrices = (decimal)(supply.InputPrices * (decimal)valuePara);
-                    await context.SaveChangesAsync();
-                    suppliesInputDetails.Add(supplyInputDetail);
-                    //Modify inventory report
-                    var isSuccessPhatSinh = await InvetoryReportService.Ins.UpdatePhatSinh((int)supplyInputDetail.Count, supplyInputDetail.SuppliesID);
-                    var isSuccessTonCuoi = await InvetoryReportService.Ins.UpdateTonCuoi((int)supply.CountInStock, suppliesInputDT.Supply.ID);
-                    if (!isSuccessPhatSinh || !isSuccessTonCuoi)
-                    {
-                        return (false, "Something went wrong");
+                        curID = (int)maxID + 1;
                     }
-                    //-----------------------
+                    else
+                    {
+                        curID = 1;
+                    }
+                    var supplyInput = new SuppliesInput
+                    {
+                        DateInput = newSuppliesInput.DateInput,
+                        TotalMoney = newSuppliesInput.TotalMoney,
+                        IsDeleted = false
+                    };
+                    List<SuppliesInputDetail> suppliesInputDetails = new List<SuppliesInputDetail>();
+                    foreach (var suppliesInputDT in newSuppliesInput.SuppliesInputDetails)
+                    {
+                        var supplyInputDetail = new SuppliesInputDetail
+                        {
+                            InputID = curID,
+                            SuppliesID = suppliesInputDT.Supply.ID,
+                            Count = suppliesInputDT.Count,
+                            PriceItem = suppliesInputDT.PriceItem,
+                            IsDeleted = false
+                        };
+
+                        var supply = await context.Supplies.Where(s => s.ID == suppliesInputDT.Supply.ID).FirstOrDefaultAsync();
+                        supplyInput.TotalMoney += (decimal)(suppliesInputDT.Count * suppliesInputDT.PriceItem);
+                        supply.CountInStock += suppliesInputDT.Count;
+                        supply.InputPrices = suppliesInputDT.PriceItem;
+                        double valuePara = await ParameterService.Ins.GetRatio();
+                        supply.OutputPrices = (decimal)(supply.InputPrices * (decimal)valuePara);
+                        await context.SaveChangesAsync();
+                        suppliesInputDetails.Add(supplyInputDetail);
+                        //Modify inventory report
+                        var isSuccessPhatSinh = await InvetoryReportService.Ins.UpdatePhatSinh((int)supplyInputDetail.Count, supplyInputDetail.SuppliesID);
+                        var isSuccessTonCuoi = await InvetoryReportService.Ins.UpdateTonCuoi((int)supply.CountInStock, suppliesInputDT.Supply.ID);
+                        if (!isSuccessPhatSinh || !isSuccessTonCuoi)
+                        {
+                            return (false, "Something went wrong");
+                        }
+                        //-----------------------
+                    }
+                    context.SuppliesInputDetails.AddRange(suppliesInputDetails);
+                    context.SuppliesInputs.Add(supplyInput);
+                    await context.SaveChangesAsync();
+                    return (true, "Add supply input successfully!");
                 }
-                context.SuppliesInputDetails.AddRange(suppliesInputDetails);
-                context.SuppliesInputs.Add(supplyInput);
-                await context.SaveChangesAsync();
-                return (true, "Add supply input successfully!");
+            }catch(Exception e)
+            {
+                return (false, null);
             }
+            
         }
         public async Task<int> CountSupply()
         {

@@ -2,6 +2,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:tracuuxeviewmodel="clr-namespace:QuanLiGaraOto.ViewModel.TraCuuXeVM"
+    xmlns:suachuaxeviewmodel="clr-namespace:QuanLiGaraOto.ViewModel.SuaChuaXeVM"
     xmlns:viewmodel="clr-namespace:QuanLiGaraOto.ViewModel"
     xmlns:phieuthutienviewmodel="clr-namespace:QuanLiGaraOto.ViewModel.PhieuThuTienVM"
     xmlns:mainwindowviewmodel="clr-namespace:QuanLiGaraOto.ViewModel"
@@ -11,6 +12,7 @@
     <phieuthutienviewmodel:PhieuThuTienViewModel x:Key="PhieuThuTienVM" />
     <mainwindowviewmodel:MainWindowViewModel x:Key="MainWindowVM" />
     <phieuthutienviewmodel:ThemPhieuThuTienViewModel x:Key="ThemPhieuThuTienVM" />
+    <suachuaxeviewmodel:SuaChuaXeViewModel x:Key="SuaChuaXeVM" />
     <viewmodel1:BaoTriXeViewModel x:Key="BaoTriXeVM" />
     <tracuuxeviewmodel:TraCuuXeViewModel x:Key="TraCuuXeVM" />
     <baocaoviewmodel:BaoCaoViewModel x:Key="BaoCaoVM" />
