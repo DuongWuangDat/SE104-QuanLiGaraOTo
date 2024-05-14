@@ -22,8 +22,7 @@
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding FirstLoad}"/>
-            <i:InvokeCommandAction Command="{Binding GetRevenue}" />
-            <i:InvokeCommandAction Command="{Binding GetInventoryReport}" />
+            
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid Background="#3F7B88">

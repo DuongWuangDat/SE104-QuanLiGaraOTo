@@ -55,14 +55,14 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
         public InventoryReportDTO CurrentInventoryReport
         {
             get { return _currentInventoryReport; }
-            set { _currentInventoryReport = value;}
+            set { _currentInventoryReport = value; }
         }
 
         private ObservableCollection<InventoryReportDetailDTO> _inventoryDetails;
         public ObservableCollection<InventoryReportDetailDTO> InventoryDetails
         {
             get { return _inventoryDetails; }
-            set { _inventoryDetails = value;  }
+            set { _inventoryDetails = value;  OnPropertyChanged(); }
         }
 
         private UserControl _currentUserControl;
@@ -87,7 +87,7 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
         public ObservableCollection<RevenueDetailDTO> RevenueList
         {
             get { return _revenueList; }
-            set { _revenueList = value; }
+            set { _revenueList = value; OnPropertyChanged(); }
         }
 
         // Revenue Command
@@ -109,22 +109,23 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                 var curYear = curDate.Year;
                 var years = Enumerable.Range(2020, (curYear - 2019)).ToList();
                 YearList = new ObservableCollection<int>(years);
-                var curMonth = curDate.Month;
+                var curMonth = (curDate.Month-1);
                 var months = Enumerable.Range(1, 12).ToList();
                 MonthList = new ObservableCollection<int>(months);
                 Year = curYear;
                 Month = curMonth;
             });
-            OpenBaoCaoTonKho = new RelayCommand<object>(_ => true, (param) =>
+            OpenBaoCaoTonKho = new RelayCommand<object>(_ => true, async (param) =>
             {
                 curTonKho = new TonKho();
                 CurrentUserControl = curTonKho;
-
+                GetInventoryReport.Execute(null);
             });
-            OpenBaoCaoDoanhThu = new RelayCommand<object>(_ => true, (param) =>
+            OpenBaoCaoDoanhThu = new RelayCommand<object>(_ => true,async (param) =>
             {
                 curDoanhThu = new DoanhThu();
                 CurrentUserControl = curDoanhThu;
+                GetRevenue.Execute(null);
             });
 
             PrintBaoCao = new RelayCommand<object>(_=> true, _ =>
@@ -205,18 +206,21 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                 var curDate = DateTime.Now;
                 var curMonth = curDate.Month;
                 var curYear = curDate.Year;
-                if ( Year > curYear)
+                if (Year > curYear)
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Năm lớn hơn hiện tại, vui lòng nhập lại.");
+                    return;
                 }
-                else if (Month > curMonth && Year == curYear)
+                else if (Month > (curMonth-1) && Year == curYear)
                 {
-                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Tháng lớn hơn hiện tại, vui lòng nhập lại.");
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Chỉ có thể xem dữ liệu các tháng trước, vui lòng nhập lại.");
+                    return ;
                 }
 
                 CurrentInventoryReport = await InvetoryReportService.Ins.GetInventoryReport(this.Month, this.Year);
                 if (CurrentInventoryReport != null)
                 {
+                    Console.WriteLine(CurrentInventoryReport.InventoryReportDetails.Count);
                     InventoryDetails = new ObservableCollection<InventoryReportDetailDTO>(CurrentInventoryReport.InventoryReportDetails);
                 }
             });
@@ -231,21 +235,20 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                 if (Year > curYear)
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Năm lớn hơn năm hiện tại, vui lòng nhập lại.");
+                    return;
                 }
-                else if (Month > (curMonth) && Year == curYear)
+                else if (Month > (curMonth - 1) && Year == curYear)
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Chỉ có thể xem dữ liệu các tháng trước, vui lòng nhập lại.");
+                    return ;
                 }
 
                 RevenueReport = await RevenueService.Ins.GetRevenue(this.Month, this.Year);
-                Console.WriteLine("Pass Here");
-                Console.WriteLine(Year);
-                Console.WriteLine(Month);
-                Console.WriteLine(RevenueReport.RevenueDetails.Count);
+                Console.WriteLine("Pass");
                 if (RevenueReport != null)
                 {
                     RevenueList = new ObservableCollection<RevenueDetailDTO>(RevenueReport.RevenueDetails);
-                    for(int i=0; i<RevenueList.Count; i++)
+                    for (int i = 0; i < RevenueList.Count; i++)
                     {
                         RevenueList[i].STT = i + 1;
                     }

@@ -89,7 +89,7 @@
                                 Foreground="Black"
                                 HorizontalContentAlignment="Center"
                                 VerticalContentAlignment="Bottom"
-                                Text="{Binding SoXeSuaChuaToiDa.Value}"
+                                Text="{Binding SoXeSuaChuaToiDa.Value, Mode=TwoWay}"
                                 Background="#DEFFEF"
                                 IsEnabled="True"/>
                             <!-- hàng 1 -->
@@ -107,7 +107,7 @@
                                 HorizontalContentAlignment="Center"
                                 VerticalContentAlignment="Bottom"
                                 IsEnabled="True"
-                                ItemsSource="{Binding CheckList}"
+                                ItemsSource="{Binding CheckList, Mode=TwoWay}"
                                 SelectedItem="{Binding Check}"
                                 Background="#DEFFEF" />
 
@@ -124,7 +124,7 @@
                                 VerticalContentAlignment="Bottom"
                                 Foreground="Black"
                                 Background="#DEFFEF"
-                                Text="{Binding TiLeTinhDonGiaBan.Value, StringFormat={}{0:F2}}"
+                                Text="{Binding TiLeTinhDonGiaBan.Value, StringFormat={}{0:F2}, Mode=TwoWay}"
                                 IsEnabled="True" />
                             <!-- hàng 6 -->
                             <Button
