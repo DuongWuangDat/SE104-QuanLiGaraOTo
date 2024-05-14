@@ -31,7 +31,7 @@ namespace QuanLiGaraOto.Model.service
             {
                 using (var context = new QuanLiGaraOtoEntities())
                 {
-                    var revenueList = (from r in context.Revenues
+                    var revenue = (from r in context.Revenues
                                        where r.IsDeleted == false && r.Month == Month && r.Year == Year
                                        select new RevenueDTO
                                        {
@@ -53,7 +53,7 @@ namespace QuanLiGaraOto.Model.service
 
                                                              }).ToList()
                                        }).FirstOrDefaultAsync();
-                    return await revenueList;
+                    return await revenue;
                 }
 
             }catch(Exception e)
