@@ -136,7 +136,6 @@
                                 FontFamily="Roboto Condensed"
                                 FontSize="17"
                                 FontWeight="Regular"
-                                IsEnabled="False"
                                 Text="{Binding Email, Mode=TwoWay}" />
                         </StackPanel>
 

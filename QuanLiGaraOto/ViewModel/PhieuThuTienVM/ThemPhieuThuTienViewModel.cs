@@ -5,6 +5,7 @@ using QuanLiGaraOto.View.MessageBox;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Timers;
 using System.Windows;
@@ -120,6 +121,19 @@ namespace QuanLiGaraOto.ViewModel.PhieuThuTienVM
 		public ICommand SelectionChangedBienSoXe { get; set; }
 		public ICommand KeyUpTienThu { get; set; }
 		private ReceptionDTO reception;
+
+		public bool IsValidEmail(string email)
+		{
+			try
+			{
+				var addr = new System.Net.Mail.MailAddress(email);
+				return addr.Address == email;
+			}
+			catch
+			{
+				return false;
+			}
+		}
 
 		public ThemPhieuThuTienViewModel()
 		{
@@ -244,6 +258,21 @@ namespace QuanLiGaraOto.ViewModel.PhieuThuTienVM
 				{
 					MessageBoxCustom.Show(MessageBoxCustom.Error, "Vui lòng nhập đầy đủ thông tin");
 					return;
+				}
+				if (!IsValidEmail(Email))
+				{
+					MessageBoxCustom.Show(MessageBoxCustom.Error, "Email không hợp lệ");
+					return;
+				}
+				if (Email != reception.Customer.Email)
+				{
+					reception.Customer.Email = Email;
+					var (isSuccess, message) = await CustomerService.Ins.updateUserEmail(reception.Customer.ID, Email);
+					if (!isSuccess)
+					{
+						MessageBoxCustom.Show(MessageBoxCustom.Error, "Cập nhật email không thành công");
+						return;
+					}
 				}
 				BillDTO newBill = new BillDTO
 				{
