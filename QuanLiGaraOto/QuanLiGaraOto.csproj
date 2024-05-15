@@ -239,9 +239,6 @@
     <Compile Include="View\PhieuThuTien\PhieuThuTien.xaml.cs">
       <DependentUpon>PhieuThuTien.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\PhieuThuTien\TempPhieuThuTien.xaml.cs">
-      <DependentUpon>TempPhieuThuTien.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\PhieuThuTien\ThemPhieuThuTien.xaml.cs">
       <DependentUpon>ThemPhieuThuTien.xaml</DependentUpon>
     </Compile>
@@ -324,10 +321,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\PhieuThuTien\PhieuThuTien.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\PhieuThuTien\TempPhieuThuTien.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
