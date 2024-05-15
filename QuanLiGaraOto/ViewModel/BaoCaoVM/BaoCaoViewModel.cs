@@ -140,18 +140,25 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
             OpenBaoCaoTonKho = new RelayCommand<object>(_ => true, async (param) =>
             {
                 curTonKho = new TonKho();
-                CurrentUserControl = curTonKho;
                 IsVisible = Visibility.Hidden;
                 IsNullVisible = Visibility.Hidden;
                 GetInventoryReport.Execute(null);
+                if(CurrentInventoryReport != null && CurrentInventoryReport.InventoryReportDetails.Count != 0)
+                {
+                    CurrentUserControl = curTonKho;
+                }
+
             });
             OpenBaoCaoDoanhThu = new RelayCommand<object>(_ => true,async (param) =>
             {
                 curDoanhThu = new DoanhThu();
-                CurrentUserControl = curDoanhThu;
                 IsVisible = Visibility.Visible;
                 IsNullVisible = Visibility.Hidden;
                 GetRevenue.Execute(null);
+                if (RevenueReport != null && RevenueReport.RevenueDetails.Count != 0)
+                {
+                    CurrentUserControl = curDoanhThu;
+                }
             });
 
             PrintBaoCao = new RelayCommand<object>(_=> true, _ =>

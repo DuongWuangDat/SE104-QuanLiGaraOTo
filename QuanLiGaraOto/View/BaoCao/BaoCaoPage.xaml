@@ -208,7 +208,7 @@
                         Foreground="Red"
                         Visibility="{Binding IsNullVisible}"
                         Content="Dữ liệu không tồn tại" 
-                        Margin="600,80,500,300"/>
+                        Margin="600,80,600,300"/>
                 </Grid>
             </Grid>
         </Grid >
