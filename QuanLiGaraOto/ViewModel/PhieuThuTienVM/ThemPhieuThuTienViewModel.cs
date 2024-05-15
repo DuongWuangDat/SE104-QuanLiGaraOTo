@@ -265,7 +265,15 @@ namespace QuanLiGaraOto.ViewModel.PhieuThuTienVM
 					return;
 				}
 				if (Email != reception.Customer.Email)
+				{
 					reception.Customer.Email = Email;
+					var (isSuccess, message) = await CustomerService.Ins.updateUserEmail(reception.Customer.ID, Email);
+					if (!isSuccess)
+					{
+						MessageBoxCustom.Show(MessageBoxCustom.Error, "Cập nhật email không thành công");
+						return;
+					}
+				}
 				BillDTO newBill = new BillDTO
 				{
 					Reception = reception,
