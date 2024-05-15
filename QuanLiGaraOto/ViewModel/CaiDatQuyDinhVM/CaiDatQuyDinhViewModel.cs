@@ -72,11 +72,12 @@ namespace QuanLiGaraOto.ViewModel.CaiDatQuyDinhVM
             FirstLoad = new RelayCommand<object>(_ => true, async _ =>
             {
                 CheckList = new ObservableCollection<int> { 0, 1 };
-
-                TiLeTinhDonGiaBan.Value = await ParameterService.Ins.GetRatio();
-
-                SoXeSuaChuaToiDa.Value = await ParameterService.Ins.SoXeSuaChuaTrongNgay();
-
+                var DGParamater = new ParameterDTO();
+                DGParamater.Value = await ParameterService.Ins.GetRatio();
+                TiLeTinhDonGiaBan = DGParamater;
+                var xeParamater = new ParameterDTO();
+                xeParamater.Value = await ParameterService.Ins.SoXeSuaChuaTrongNgay();
+                SoXeSuaChuaToiDa = xeParamater;
                 var IsCheck = await ParameterService.Ins.ApDungPhat();
                 if (IsCheck)
                 {
