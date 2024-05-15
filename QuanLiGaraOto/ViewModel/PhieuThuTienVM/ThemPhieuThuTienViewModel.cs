@@ -254,6 +254,11 @@ namespace QuanLiGaraOto.ViewModel.PhieuThuTienVM
 
 			ThemPhieuThuTien = new RelayCommand<object>((p) => { return true; }, async (p) =>
 			{
+				if(NgayThuTien > DateTime.Now)
+				{
+					MessageBoxCustom.Show(MessageBoxCustom.Error, "Ngày thu tiền không được lớn hơn ngày hiện tại");
+					return;
+				}
 				if (string.IsNullOrEmpty(HoTenChuXe) || string.IsNullOrEmpty(DienThoai) || string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(BienSoXe) || string.IsNullOrEmpty(TienNo) || string.IsNullOrEmpty(TienThu))
 				{
 					MessageBoxCustom.Show(MessageBoxCustom.Error, "Vui lòng nhập đầy đủ thông tin");
@@ -264,6 +269,11 @@ namespace QuanLiGaraOto.ViewModel.PhieuThuTienVM
 					MessageBoxCustom.Show(MessageBoxCustom.Error, "Email không hợp lệ");
 					return;
 				}
+				if (int.Parse(TienThu.Replace(",", "")) > int.Parse(TienNo.Replace(",", "")))
+				{
+					MessageBoxCustom.Show(MessageBoxCustom.Error, "Số tiền thu không được lớn hơn số tiền nợ");
+					return;
+				}	
 				if (Email != reception.Customer.Email)
 				{
 					reception.Customer.Email = Email;
