@@ -71,6 +71,13 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
             get => _currentUserControl;
             set => SetProperty(ref _currentUserControl, value);
         }
+
+        private Visibility _isNullVisible;
+        public Visibility IsNullVisible
+        {
+            get { return _isVisible; }
+            set { _isVisible = value; OnPropertyChanged(); }
+        }
         // InventoryCommand---------------------------
 
         public ICommand GetInventoryReport { get; set; }
@@ -90,6 +97,19 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
             set { _revenueList = value; OnPropertyChanged(); }
         }
 
+        private decimal _totalprice;
+        public decimal TotalPrice { 
+            get { return _totalprice; } 
+            set { _totalprice = value; OnPropertyChanged(); }
+        }
+
+        private Visibility _isVisible;
+        public Visibility IsVisible
+        {
+            get { return _isVisible; }
+            set { _isVisible = value; OnPropertyChanged(); }
+        }
+
         // Revenue Command
         public ICommand GetRevenue { get; set; }
 
@@ -102,6 +122,8 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
 
         
         public BaoCaoViewModel() { 
+            IsVisible = Visibility.Hidden;
+            IsNullVisible = Visibility.Hidden;
             // PageCommand
             FirstLoad = new RelayCommand<object>(_=> true, _=>
             {
@@ -119,12 +141,16 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
             {
                 curTonKho = new TonKho();
                 CurrentUserControl = curTonKho;
+                IsVisible = Visibility.Hidden;
+                IsNullVisible = Visibility.Hidden;
                 GetInventoryReport.Execute(null);
             });
             OpenBaoCaoDoanhThu = new RelayCommand<object>(_ => true,async (param) =>
             {
                 curDoanhThu = new DoanhThu();
                 CurrentUserControl = curDoanhThu;
+                IsVisible = Visibility.Visible;
+                IsNullVisible = Visibility.Hidden;
                 GetRevenue.Execute(null);
             });
 
@@ -177,12 +203,15 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                     for (int i = 0; i < RevenueList.Count; i++)
                     {
                         var item = RevenueList[i];
-                        table.Cell(i + 2, 1).Range.Text = i.ToString();
+                        table.Cell(i + 2, 1).Range.Text = item.STT.ToString();
                         table.Cell(i + 2, 2).Range.Text = item.BrandCar.Name;
                         table.Cell(i + 2, 3).Range.Text = item.RepairCount.ToString();
-                        table.Cell(i + 2, 4).Range.Text = item.Price.ToString();
-                        table.Cell(i + 2, 5).Range.Text = item.Ratio.ToString();
+                        table.Cell(i + 2, 4).Range.Text = string.Format("{0:N0} VNĐ", item.Price);
+                        table.Cell(i + 2, 5).Range.Text = ((double)item.Ratio).ToString("F2");
                     }
+                    Microsoft.Office.Interop.Word.Paragraph totalRevenueParagraph = document.Content.Paragraphs.Add();
+                    totalRevenueParagraph.Range.Text = "Tổng doanh thu: " + string.Format("{0:N0} VNĐ", TotalPrice);
+                    totalRevenueParagraph.Range.InsertParagraphAfter();
                     // Lưu tài liệu
                     string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads", "BaoCaoDoanhThu.docx");
                     document.SaveAs2(filePath);
@@ -191,7 +220,7 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                     // Đóng ứng dụng Word
                     wordApp.Quit();
 
-                    MessageBoxCustom.Show(MessageBoxCustom.Success,"Báo cáo doanh thu đã được in thành công tại: " + filePath);
+                    MessageBoxCustom.Show(MessageBoxCustom.Success,"Báo cáo doanh thu đã được tạo thành công tại: " + filePath);
                 }
                 else
                 {
@@ -220,9 +249,11 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                 CurrentInventoryReport = await InvetoryReportService.Ins.GetInventoryReport(this.Month, this.Year);
                 if (CurrentInventoryReport != null)
                 {
+                    IsNullVisible = Visibility.Hidden;
                     Console.WriteLine(CurrentInventoryReport.InventoryReportDetails.Count);
                     InventoryDetails = new ObservableCollection<InventoryReportDetailDTO>(CurrentInventoryReport.InventoryReportDetails);
                 }
+                if(CurrentInventoryReport == null || CurrentInventoryReport.InventoryReportDetails.Count == 0) { IsNullVisible = Visibility.Visible; }
             });
 
             // Revenue Command
@@ -240,19 +271,22 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                 else if (Month > (curMonth - 1) && Year == curYear)
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Chỉ có thể xem dữ liệu các tháng trước, vui lòng nhập lại.");
-                    return ;
+                    return;
                 }
 
                 RevenueReport = await RevenueService.Ins.GetRevenue(this.Month, this.Year);
                 Console.WriteLine("Pass");
                 if (RevenueReport != null)
                 {
+                    IsNullVisible = Visibility.Hidden;
+                    TotalPrice = (decimal)RevenueReport.TotalPrice;
                     RevenueList = new ObservableCollection<RevenueDetailDTO>(RevenueReport.RevenueDetails);
                     for (int i = 0; i < RevenueList.Count; i++)
                     {
                         RevenueList[i].STT = i + 1;
                     }
-                }
+                } 
+                if(RevenueReport == null || RevenueReport.RevenueDetails.Count == 0) { IsNullVisible = Visibility.Visible; }
             });
 
         }
