@@ -139,26 +139,16 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
             });
             OpenBaoCaoTonKho = new RelayCommand<object>(_ => true, async (param) =>
             {
-                curTonKho = new TonKho();
                 IsVisible = Visibility.Hidden;
                 IsNullVisible = Visibility.Hidden;
                 GetInventoryReport.Execute(null);
-                if(CurrentInventoryReport != null && CurrentInventoryReport.InventoryReportDetails.Count != 0)
-                {
-                    CurrentUserControl = curTonKho;
-                }
-
             });
             OpenBaoCaoDoanhThu = new RelayCommand<object>(_ => true,async (param) =>
             {
-                curDoanhThu = new DoanhThu();
+                
                 IsVisible = Visibility.Visible;
                 IsNullVisible = Visibility.Hidden;
                 GetRevenue.Execute(null);
-                if (RevenueReport != null && RevenueReport.RevenueDetails.Count != 0)
-                {
-                    CurrentUserControl = curDoanhThu;
-                }
             });
 
             PrintBaoCao = new RelayCommand<object>(_=> true, _ =>
@@ -268,22 +258,25 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                 var curDate = DateTime.Now;
                 var curMonth = curDate.Month;
                 var curYear = curDate.Year;
+                CurrentUserControl = new UserControl();
                 if (Year > curYear)
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Năm lớn hơn hiện tại, vui lòng nhập lại.");
                     return;
                 }
-                else if (Month > (curMonth-1) && Year == curYear)
+                else if (Month > (curMonth - 1) && Year == curYear)
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Chỉ có thể xem dữ liệu các tháng trước, vui lòng nhập lại.");
                     return ;
                 }
 
                 CurrentInventoryReport = await InvetoryReportService.Ins.GetInventoryReport(this.Month, this.Year);
-                if (CurrentInventoryReport != null)
+                if (CurrentInventoryReport != null && CurrentInventoryReport.InventoryReportDetails.Count != 0)
                 {
                     IsNullVisible = Visibility.Hidden;
                     InventoryDetails = new ObservableCollection<InventoryReportDetailDTO>(CurrentInventoryReport.InventoryReportDetails);
+                    curTonKho = new TonKho();
+                    CurrentUserControl = curTonKho;
                 }
                 if(CurrentInventoryReport == null || CurrentInventoryReport.InventoryReportDetails.Count == 0) { IsNullVisible = Visibility.Visible; }
             });
@@ -295,6 +288,7 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                 var curDate = DateTime.Now;
                 var curMonth = curDate.Month;
                 var curYear = curDate.Year;
+                CurrentUserControl = new UserControl();
                 if (Year > curYear)
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Năm lớn hơn năm hiện tại, vui lòng nhập lại.");
@@ -307,7 +301,7 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                 }
 
                 RevenueReport = await RevenueService.Ins.GetRevenue(this.Month, this.Year);
-                if (RevenueReport != null)
+                if (RevenueReport != null && RevenueReport.RevenueDetails.Count != 0)
                 {
                     IsNullVisible = Visibility.Hidden;
                     TotalPrice = (decimal)RevenueReport.TotalPrice;
@@ -316,6 +310,8 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                     {
                         RevenueList[i].STT = i + 1;
                     }
+                    curDoanhThu = new DoanhThu();
+                    CurrentUserControl = curDoanhThu;
                 } 
                 if(RevenueReport == null || RevenueReport.RevenueDetails.Count == 0) { IsNullVisible = Visibility.Visible; }
             });
