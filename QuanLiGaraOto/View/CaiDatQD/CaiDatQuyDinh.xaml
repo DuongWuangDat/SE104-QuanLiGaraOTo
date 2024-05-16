@@ -91,13 +91,14 @@
                                 VerticalContentAlignment="Bottom"
                                 Text="{Binding SoXeSuaChuaToiDa.Value, Mode=TwoWay}"
                                 Background="#DEFFEF"
-                                IsEnabled="True"/>
+                                IsEnabled="True"
+                                PreviewTextInput="SoXeSuaChua_PreviewTextInput"/>
                             <!-- hàng 1 -->
                             
                             <!-- hàng 2 -->
                             <Label Grid.Row="2" Content="Áp Dụng kiểm tra số tiền thu" FontSize="25" FontWeight="Bold"
                                    Margin="50,0,0,0" VerticalAlignment="Center" />
-                            <ComboBox
+                            <CheckBox
                                 Grid.Row="2"
                                 x:Name="ApDungQÐKiemTraSoTienThu"
                                 Width="80"
@@ -106,10 +107,9 @@
                                 Foreground="Black"
                                 HorizontalContentAlignment="Center"
                                 VerticalContentAlignment="Bottom"
-                                IsEnabled="True"
-                                ItemsSource="{Binding CheckList, Mode=TwoWay}"
-                                SelectedItem="{Binding Check}"
-                                Background="#DEFFEF" />
+                                IsChecked="{Binding Check, Mode=TwoWay}"
+                                Content="{Binding ApDung}"
+                                Background="#259FBA" />
 
                             <!-- hàng 3 -->
                             <Label Grid.Row="4" Content="Tỉ lệ tính đơn giá" FontSize="25" FontWeight="Bold"
@@ -125,7 +125,8 @@
                                 Foreground="Black"
                                 Background="#DEFFEF"
                                 Text="{Binding TiLeTinhDonGiaBan.Value, StringFormat={}{0:F2}, Mode=TwoWay}"
-                                IsEnabled="True" />
+                                IsEnabled="True" 
+                                PreviewTextInput="TiLeTinhDonGiaBan_PreviewTextInput"/>
                             <!-- hàng 6 -->
                             <Button
                                 Grid.Row="6"
