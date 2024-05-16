@@ -121,7 +121,7 @@ namespace QuanLiGaraOto.ViewModel.CaiDatQuyDinhVM
                 }
 
                 // ApDungQuyDinhKiemTraSoTienThu
-                var (success, message) = await ParameterService.Ins.UpdateParameter("ApDungQÐKiemTraSoTienThu", (float)(ApDungQÐKiemTraSoTienThu.Value));
+                var (success, message) = await ParameterService.Ins.UpdateParameter("ApDungQÐKiemTraSoTienThu", (float)(check));
                 if(success)
                 {
                     resultmessage += "Áp dụng quy định kiểm tra tiền thu: " + message ;
