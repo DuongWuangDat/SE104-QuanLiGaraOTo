@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuanLiGaraOto.View.MessageBox;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,24 @@ namespace QuanLiGaraOto.View.CaiDatQD
         public CaiDatQuyDinh()
         {
             InitializeComponent();
+        }
+        private void TiLeTinhDonGiaBan_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Kiểm tra xem ký tự nhập vào có phải là số hay không
+            if (!char.IsDigit(e.Text, e.Text.Length - 1) && e.Text != ".")
+            {
+                e.Handled = true;
+                MessageBoxCustom.Show(MessageBoxCustom.Error,"Chỉ được nhập số nguyên và số thập phân");
+            }
+        }
+        private void SoXeSuaChua_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Kiểm tra xem ký tự nhập vào có phải là số hay không
+            if (!char.IsDigit(e.Text, e.Text.Length - 1) && e.Text == ".")
+            {
+                e.Handled = true;
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Chỉ được nhập số nguyên");
+            }
         }
     }
 }
