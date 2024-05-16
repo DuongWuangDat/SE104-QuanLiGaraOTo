@@ -109,7 +109,7 @@
                                 VerticalContentAlignment="Bottom"
                                 IsChecked="{Binding Check, Mode=TwoWay}"
                                 Content="{Binding ApDung}"
-                                Background="#DEFFEF" />
+                                Background="#259FBA" />
 
                             <!-- hàng 3 -->
                             <Label Grid.Row="4" Content="Tỉ lệ tính đơn giá" FontSize="25" FontWeight="Bold"
