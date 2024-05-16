@@ -27,11 +27,18 @@ namespace QuanLiGaraOto.View.CaiDatQD
         }
         private void TiLeTinhDonGiaBan_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
+            TextBox textBox = sender as TextBox;
+
             // Kiểm tra xem ký tự nhập vào có phải là số hay không
             if (!char.IsDigit(e.Text, e.Text.Length - 1) && e.Text != ".")
             {
                 e.Handled = true;
-                MessageBoxCustom.Show(MessageBoxCustom.Error,"Chỉ được nhập số nguyên và số thập phân");
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Chỉ được nhập số nguyên và số thập phân");
+            }
+            else if (e.Text == "." && textBox.Text.Contains("."))
+            {
+                e.Handled = true;
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Chỉ được nhập số nguyên và số thập phân");
             }
         }
         private void SoXeSuaChua_PreviewTextInput(object sender, TextCompositionEventArgs e)
