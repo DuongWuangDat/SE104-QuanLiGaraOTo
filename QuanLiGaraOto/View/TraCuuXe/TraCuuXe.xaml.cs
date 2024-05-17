@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuanLiGaraOto.ViewModel.TraCuuXeVM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,12 +28,12 @@ namespace QuanLiGaraOto.View.TraCuuXe
 
 		private void Edit_Click(object sender, RoutedEventArgs e)
 		{
-
+			(DataContext as TraCuuXeViewModel).OpenEditXe.Execute(traCuuXeWindow);
 		}
 
 		private void Delete_Click(object sender, RoutedEventArgs e)
 		{
-
+			(DataContext as TraCuuXeViewModel).DeleteXe.Execute(traCuuXeWindow);
 		}
-    }
+	}
 }

@@ -9,6 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="TraCuuXe"
     MaxWidth="1536"
+    x:Name="traCuuXeWindow"
     MaxHeight="800"
     DataContext="{StaticResource TraCuuXeVM}"
     mc:Ignorable="d">
@@ -113,6 +114,7 @@
                     ColumnWidth="SizeToCells"
                     IsReadOnly="True"
                     ItemsSource="{Binding XeCollection, Mode=TwoWay}"
+                    SelectedItem="{Binding SelectedItem}"
                     SelectionMode="Single"
                     SelectionUnit="FullRow">
                     <DataGrid.CellStyle>
@@ -185,6 +187,51 @@
 
                         <DataGridTemplateColumn
                             Width="auto"
+                            Header="Email"
+                            SortMemberPath="Customer.Email">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        FontSize="15"
+                                        Text="{Binding Customer.Email}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn
+                            Width="auto"
+                            Header="Số điện thoại"
+                            SortMemberPath="Customer.PhoneNumber">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        FontSize="15"
+                                        Text="{Binding Customer.PhoneNumber}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn
+                            Width="auto"
+                            Header="Địa chỉ"
+                            SortMemberPath="Customer.Address">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        FontSize="15"
+                                        Text="{Binding Customer.Address}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn
+                            Width="auto"
                             Header="Tiền nợ"
                             SortMemberPath="Debt">
                             <DataGridTemplateColumn.CellTemplate>
@@ -193,7 +240,38 @@
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
                                         FontSize="15"
-                                        Text="{Binding Debt,  StringFormat={}{0:N0} VNĐ}" />
+                                        Text="{Binding Debt, StringFormat={}{0:N0} VNĐ}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Width="auto" Header="">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button
+                                            Width="24.8"
+                                            Height="24.8"
+                                            BorderBrush="Transparent"
+                                            Click="Edit_Click">
+                                            <Button.Background>
+                                                <ImageBrush ImageSource="/QuanLiGaraOto;component/Resources/Icon/modify.png" />
+                                            </Button.Background>
+                                        </Button>
+
+                                        <Button
+                                            Width="24.8"
+                                            Height="24.8"
+                                            Margin="12,0,0,0"
+                                            BorderBrush="Transparent"
+                                            Click="Delete_Click">
+                                            <Button.Background>
+                                                <ImageBrush ImageSource="/QuanLiGaraOto;component/Resources/Icon/delete.png" />
+                                            </Button.Background>
+                                        </Button>
+                                    </StackPanel>
+
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
