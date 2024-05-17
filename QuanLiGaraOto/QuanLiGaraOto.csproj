@@ -454,6 +454,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Icon\modify.png" />
     <Resource Include="Resources\Icon\delete.png" />
     <Resource Include="Resources\Icon\printer_ico.png" />
     <Resource Include="Resources\Icon\doanh_thu.png" />
