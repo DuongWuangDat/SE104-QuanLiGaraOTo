@@ -139,26 +139,16 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
             });
             OpenBaoCaoTonKho = new RelayCommand<object>(_ => true, async (param) =>
             {
-                curTonKho = new TonKho();
                 IsVisible = Visibility.Hidden;
                 IsNullVisible = Visibility.Hidden;
                 GetInventoryReport.Execute(null);
-                if(CurrentInventoryReport != null && CurrentInventoryReport.InventoryReportDetails.Count != 0)
-                {
-                    CurrentUserControl = curTonKho;
-                }
-
             });
             OpenBaoCaoDoanhThu = new RelayCommand<object>(_ => true,async (param) =>
             {
-                curDoanhThu = new DoanhThu();
+                
                 IsVisible = Visibility.Visible;
                 IsNullVisible = Visibility.Hidden;
                 GetRevenue.Execute(null);
-                if (RevenueReport != null && RevenueReport.RevenueDetails.Count != 0)
-                {
-                    CurrentUserControl = curDoanhThu;
-                }
             });
 
             PrintBaoCao = new RelayCommand<object>(_=> true, _ =>
@@ -166,19 +156,7 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                 // Kiểm tra xem UserControl hiện tại có phải là BaoCaoDoanhThu không
                 if (CurrentUserControl is DoanhThu)
                 {
-                    //// Chụp ảnh chụp màn hình của UserControl
-                    //RenderTargetBitmap rtb = new RenderTargetBitmap((int)curDoanhThu.ActualWidth, (int)curDoanhThu.ActualHeight, 96, 96, PixelFormats.Pbgra32);
-                    //rtb.Render(curDoanhThu);
-
-                    //// Lưu hình ảnh vào tệp tạm thời
-                    //string tempFilePath = Path.Combine(Path.GetTempPath(), "tempImage.png");
-                    //using (var fileStream = new FileStream(tempFilePath, FileMode.Create))
-                    //{
-                    //    PngBitmapEncoder pngToFile = new PngBitmapEncoder();
-                    //    pngToFile.Frames.Add(BitmapFrame.Create(rtb));
-                    //    pngToFile.Save(fileStream);
-                    //}
-
+                    
                     // Tạo một tài liệu Word mới
                     var wordApp = new Microsoft.Office.Interop.Word.Application();
                     var document = wordApp.Documents.Add();
@@ -192,11 +170,6 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                         header.Range.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
                     }
 
-                    //// Chèn hình ảnh từ tệp tạm thời vào tài liệu
-                    //document.InlineShapes.AddPicture(tempFilePath, LinkToFile: false, SaveWithDocument: true);
-
-                    //// Xóa tệp tạm thời
-                    //File.Delete(tempFilePath);
 
                     // Tạo bảng trong tài liệu Word
                      var table = document.Tables.Add(document.Content, RevenueList.Count + 1, 5); // Số cột cố định là 5
@@ -229,9 +202,52 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
 
                     MessageBoxCustom.Show(MessageBoxCustom.Success,"Báo cáo doanh thu đã được tạo thành công tại: " + filePath);
                 }
+                // Kiểm tra xem UserControl hiện tại có phải là TonKho không
+                else if (CurrentUserControl is TonKho)
+                {
+                    // Tạo một tài liệu Word mới
+                    var wordApp = new Microsoft.Office.Interop.Word.Application();
+                    var document = wordApp.Documents.Add();
+                    // Thêm header
+                    foreach (Microsoft.Office.Interop.Word.Section section in document.Sections)
+                    {
+                        // Lấy header của mỗi section
+                        Microsoft.Office.Interop.Word.HeaderFooter header = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary];
+                        header.Range.Text = "Báo cáo tồn kho tháng " + Month.ToString() + " năm " + Year.ToString();
+                        header.Range.Font.Size = 32;
+                        header.Range.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                    }
+
+                    // Tạo bảng trong tài liệu Word
+                    var table = document.Tables.Add(document.Content, InventoryDetails.Count + 1, 4); // Số cột cố định là 4
+
+                    // Điền dữ liệu từ InventoryDetails vào bảng
+                    table.Cell(1, 1).Range.Text = "Vật tư phụ tùng";
+                    table.Cell(1, 2).Range.Text = "Tồn đầu";
+                    table.Cell(1, 3).Range.Text = "Phát sinh";
+                    table.Cell(1, 4).Range.Text = "Tồn cuối";
+                    for (int i = 0; i < InventoryDetails.Count; i++)
+                    {
+                        var item = InventoryDetails[i];
+                        table.Cell(i + 2, 1).Range.Text = item.SupplyName;
+                        table.Cell(i + 2, 2).Range.Text = item.TonDau.ToString();
+                        table.Cell(i + 2, 3).Range.Text = item.PhatSinh.ToString();
+                        table.Cell(i + 2, 4).Range.Text = item.TonCuoi.ToString();
+                    }
+
+                    // Lưu tài liệu
+                    string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads", "BaoCaoTonKho.docx");
+                    document.SaveAs2(filePath);
+                    document.Close();
+
+                    // Đóng ứng dụng Word
+                    wordApp.Quit();
+
+                    MessageBoxCustom.Show(MessageBoxCustom.Success, "Báo cáo tồn kho đã được tạo thành công tại: " + filePath);
+                }
                 else
                 {
-                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Vui lòng mở Báo cáo doanh thu trước khi in.");
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Vui lòng mở Báo cáo trước khi in.");
                 }
             });
 
@@ -242,23 +258,25 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                 var curDate = DateTime.Now;
                 var curMonth = curDate.Month;
                 var curYear = curDate.Year;
+                CurrentUserControl = new UserControl();
                 if (Year > curYear)
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Năm lớn hơn hiện tại, vui lòng nhập lại.");
                     return;
                 }
-                else if (Month > (curMonth-1) && Year == curYear)
+                else if (Month > (curMonth - 1) && Year == curYear)
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Chỉ có thể xem dữ liệu các tháng trước, vui lòng nhập lại.");
                     return ;
                 }
 
                 CurrentInventoryReport = await InvetoryReportService.Ins.GetInventoryReport(this.Month, this.Year);
-                if (CurrentInventoryReport != null)
+                if (CurrentInventoryReport != null && CurrentInventoryReport.InventoryReportDetails.Count != 0)
                 {
                     IsNullVisible = Visibility.Hidden;
-                    Console.WriteLine(CurrentInventoryReport.InventoryReportDetails.Count);
                     InventoryDetails = new ObservableCollection<InventoryReportDetailDTO>(CurrentInventoryReport.InventoryReportDetails);
+                    curTonKho = new TonKho();
+                    CurrentUserControl = curTonKho;
                 }
                 if(CurrentInventoryReport == null || CurrentInventoryReport.InventoryReportDetails.Count == 0) { IsNullVisible = Visibility.Visible; }
             });
@@ -270,6 +288,7 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                 var curDate = DateTime.Now;
                 var curMonth = curDate.Month;
                 var curYear = curDate.Year;
+                CurrentUserControl = new UserControl();
                 if (Year > curYear)
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Năm lớn hơn năm hiện tại, vui lòng nhập lại.");
@@ -282,8 +301,7 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                 }
 
                 RevenueReport = await RevenueService.Ins.GetRevenue(this.Month, this.Year);
-                Console.WriteLine("Pass");
-                if (RevenueReport != null)
+                if (RevenueReport != null && RevenueReport.RevenueDetails.Count != 0)
                 {
                     IsNullVisible = Visibility.Hidden;
                     TotalPrice = (decimal)RevenueReport.TotalPrice;
@@ -292,6 +310,8 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                     {
                         RevenueList[i].STT = i + 1;
                     }
+                    curDoanhThu = new DoanhThu();
+                    CurrentUserControl = curDoanhThu;
                 } 
                 if(RevenueReport == null || RevenueReport.RevenueDetails.Count == 0) { IsNullVisible = Visibility.Visible; }
             });

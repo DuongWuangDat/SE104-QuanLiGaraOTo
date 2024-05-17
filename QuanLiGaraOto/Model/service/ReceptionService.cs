@@ -204,5 +204,41 @@ namespace QuanLiGaraOto.Model.service
             }
             
         } 
+
+        public async Task<(bool, string)> UpdateReception(int id, ReceptionDTO reception)
+        {
+            using(var context = new QuanLiGaraOtoEntities())
+            {
+                var receptionUpdate = await context.Receptions.Where(r => r.ID == id).FirstOrDefaultAsync();
+                if (receptionUpdate == null)
+                {
+                    return (false, "Reception not found!");
+                }
+                receptionUpdate.LicensePlate = reception.LicensePlate;
+                receptionUpdate.Debt = reception.Debt;
+                receptionUpdate.BrandID = reception.BrandCar.ID;
+                receptionUpdate.Customer.Name = reception.Customer.Name;
+                receptionUpdate.Customer.PhoneNumber = reception.Customer.PhoneNumber;
+                receptionUpdate.Customer.Address = reception.Customer.Address;
+                receptionUpdate.Customer.Email = reception.Customer.Email;
+                await context.SaveChangesAsync();
+                return (true, "Update reception successfully!");
+            }
+        }
+
+        public async Task<(bool, string)> DeleteReception(int id)
+        {
+            using(var context = new QuanLiGaraOtoEntities())
+            {
+                var reception = await context.Receptions.Where(r => r.ID == id).FirstOrDefaultAsync();
+                if (reception == null)
+                {
+                    return (false, "Reception not found!");
+                }
+                reception.IsDeleted = true;
+                await context.SaveChangesAsync();
+                return (true, "Delete reception successfully!");
+            }
+        }
     }
 }

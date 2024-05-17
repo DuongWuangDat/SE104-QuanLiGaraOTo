@@ -32,18 +32,19 @@ namespace QuanLiGaraOto.ViewModel.CaiDatQuyDinhVM
             get { return apDungQÐKiemTraSoTienThu; }
             set { apDungQÐKiemTraSoTienThu = value; OnPropertyChanged(); }
         }
-        private ObservableCollection<int> checklist;
-        public ObservableCollection<int> CheckList
-        {
-            get { return checklist; }
-            set { checklist = value; OnPropertyChanged(); }
-        }
 
         private int check;
         public int Check
         {
             get { return check; }
             set { check = value; OnPropertyChanged(); }
+        }
+
+        private String _apDung;
+        public String ApDung
+        {
+            get { return _apDung; }
+            set {  _apDung = value; OnPropertyChanged();}
         }
 
         private ParameterDTO soXeSuaChuaToiDa = new ParameterDTO();
@@ -71,26 +72,26 @@ namespace QuanLiGaraOto.ViewModel.CaiDatQuyDinhVM
 
             FirstLoad = new RelayCommand<object>(_ => true, async _ =>
             {
-                CheckList = new ObservableCollection<int> { 0, 1 };
                 var DGParamater = new ParameterDTO();
                 DGParamater.Value = await ParameterService.Ins.GetRatio();
                 TiLeTinhDonGiaBan = DGParamater;
                 var xeParamater = new ParameterDTO();
                 xeParamater.Value = await ParameterService.Ins.SoXeSuaChuaTrongNgay();
                 SoXeSuaChuaToiDa = xeParamater;
+                ApDung = "";
                 var IsCheck = await ParameterService.Ins.ApDungPhat();
                 if (IsCheck)
                 {
                     Check = 1;
+                    ApDung = "Có";
                     ApDungQÐKiemTraSoTienThu.Value = 1;
                 }
                 else
                 {
                     Check = 0;
+                    ApDung = "Không";
                     ApDungQÐKiemTraSoTienThu.Value = 0;
                 }
-                
-
             });
 
 
@@ -121,9 +122,10 @@ namespace QuanLiGaraOto.ViewModel.CaiDatQuyDinhVM
                 }
 
                 // ApDungQuyDinhKiemTraSoTienThu
-                var (success, message) = await ParameterService.Ins.UpdateParameter("ApDungQÐKiemTraSoTienThu", (float)(ApDungQÐKiemTraSoTienThu.Value));
+                var (success, message) = await ParameterService.Ins.UpdateParameter("ApDungQÐKiemTraSoTienThu", (float)(check));
                 if(success)
                 {
+                    if(check==1) { ApDung = "Có"; } else { ApDung = "Không"; }
                     resultmessage += "Áp dụng quy định kiểm tra tiền thu: " + message ;
                 }
                 else
