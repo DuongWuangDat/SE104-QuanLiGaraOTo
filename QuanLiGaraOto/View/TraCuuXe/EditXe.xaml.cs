@@ -1,29 +1,35 @@
 ﻿using QuanLiGaraOto.View.MessageBox;
-using QuanLiGaraOto.ViewModel.PhieuThuTienVM;
 using System;
-using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
-namespace QuanLiGaraOto.View.PhieuThuTien
+namespace QuanLiGaraOto.View.TraCuuXe
 {
 	/// <summary>
-	/// Interaction logic for ThemPhieuThuTien.xaml
+	/// Interaction logic for EditXe.xaml
 	/// </summary>
-	public partial class ThemPhieuThuTien : Window
+	public partial class EditXe : Window
 	{
-		public ThemPhieuThuTien()
+		public EditXe()
 		{
 			InitializeComponent();
-			DataContext = new ThemPhieuThuTienViewModel();
 		}
 
 		private void PaymentTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			TextBox textBox = sender as TextBox;
 			string number = textBox.Text.Replace(",", "");
-			if(!string.IsNullOrEmpty(textBox.Text))
+			if (!string.IsNullOrEmpty(textBox.Text))
 			{
 				if (Decimal.TryParse(number, out decimal parsedNumber))
 				{
@@ -75,5 +81,5 @@ namespace QuanLiGaraOto.View.PhieuThuTien
 		{
 			this.DragMove();
 		}
-    }
+	}
 }

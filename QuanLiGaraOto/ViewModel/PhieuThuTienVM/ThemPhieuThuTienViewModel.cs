@@ -230,7 +230,7 @@ namespace QuanLiGaraOto.ViewModel.PhieuThuTienVM
 				}
 			});
 
-			KeyUpTienThu = new RelayCommand<object>((p) => { return true; }, (p) =>
+			KeyUpTienThu = new RelayCommand<object>((p) => { return true; }, async (p) =>
 			{
 				TextBox textBox = p as TextBox;
 				if (!string.IsNullOrEmpty(textBox.Text))
@@ -241,12 +241,13 @@ namespace QuanLiGaraOto.ViewModel.PhieuThuTienVM
 						NumberDecimalSeparator = "."
 					};
 					string tienThuNumber = textBox.Text.Replace(",", "");
-					if (int.Parse(tienThuNumber) > int.Parse(TienNo.Replace(",", "")))
-					{
-						NoConLai = "";
-						MessageBoxCustom.Show(MessageBoxCustom.Error, "Số tiền thu không được lớn hơn số tiền nợ");
-						return;
-					}
+					//bool apDungKiemTraTienThu = await ParameterService.Ins.ApDungPhat();
+					//if (apDungKiemTraTienThu && int.Parse(tienThuNumber) > int.Parse(TienNo.Replace(",", "")))
+					//{
+					//	NoConLai = "";
+					//	MessageBoxCustom.Show(MessageBoxCustom.Error, "Số tiền thu không được lớn hơn số tiền nợ");
+					//	return;
+					//}
 					int integerPart = (int.Parse(TienNo.Replace(",", "")) - int.Parse(tienThuNumber));
 					NoConLai = integerPart.ToString("N0", nfi);
 				}
@@ -254,7 +255,10 @@ namespace QuanLiGaraOto.ViewModel.PhieuThuTienVM
 
 			ThemPhieuThuTien = new RelayCommand<object>((p) => { return true; }, async (p) =>
 			{
-				if(NgayThuTien > DateTime.Now)
+
+				//bool apDungKiemTraTienThu = await ParameterService.Ins.ApDungPhat();
+
+				if (NgayThuTien > DateTime.Now)
 				{
 					MessageBoxCustom.Show(MessageBoxCustom.Error, "Ngày thu tiền không được lớn hơn ngày hiện tại");
 					return;
@@ -269,11 +273,11 @@ namespace QuanLiGaraOto.ViewModel.PhieuThuTienVM
 					MessageBoxCustom.Show(MessageBoxCustom.Error, "Email không hợp lệ");
 					return;
 				}
-				if (int.Parse(TienThu.Replace(",", "")) > int.Parse(TienNo.Replace(",", "")))
-				{
-					MessageBoxCustom.Show(MessageBoxCustom.Error, "Số tiền thu không được lớn hơn số tiền nợ");
-					return;
-				}	
+				//if (apDungKiemTraTienThu && int.Parse(TienThu.Replace(",", "")) > int.Parse(TienNo.Replace(",", "")))
+				//{
+				//	MessageBoxCustom.Show(MessageBoxCustom.Error, "Số tiền thu không được lớn hơn số tiền nợ");
+				//	return;
+				//}	
 				if (Email != reception.Customer.Email)
 				{
 					reception.Customer.Email = Email;
@@ -297,6 +301,14 @@ namespace QuanLiGaraOto.ViewModel.PhieuThuTienVM
 					if (isSuccess)
 					{
 						MessageBoxCustom.Show(MessageBoxCustom.Success, message);
+						HoTenChuXe = "";
+						SoDienThoaiList = new ObservableCollection<string>();
+						Email = "";
+						BienSoXeList = new ObservableCollection<string>();
+						NgayThuTien = DateTime.Now;
+						TienNo = "";
+						TienThu = "";
+						NoConLai = "";
 					}
 					else
 					{
@@ -307,17 +319,6 @@ namespace QuanLiGaraOto.ViewModel.PhieuThuTienVM
 				catch (Exception)
 				{
 					MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi xảy ra khi thêm phiếu thu tiền");
-				}
-				finally
-				{
-					HoTenChuXe = "";
-					SoDienThoaiList = new ObservableCollection<string>();
-					Email = "";
-					BienSoXeList = new ObservableCollection<string>();
-					NgayThuTien = DateTime.Now;
-					TienNo = "";
-					TienThu = "";
-					NoConLai = "";
 				}
 			});
 		}

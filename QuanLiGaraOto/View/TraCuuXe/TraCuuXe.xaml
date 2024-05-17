@@ -193,7 +193,38 @@
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
                                         FontSize="15"
-                                        Text="{Binding Debt,  StringFormat={}{0:N0} VNĐ}" />
+                                        Text="{Binding Debt, StringFormat={}{0:N0} VNĐ}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Width="auto" Header="">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button
+                                            Width="24.8"
+                                            Height="24.8"
+                                            BorderBrush="Transparent"
+                                            Click="Edit_Click">
+                                            <Button.Background>
+                                                <ImageBrush ImageSource="/QuanLiCoffeeShop;component/Resources/Icon/Edit.png" />
+                                            </Button.Background>
+                                        </Button>
+
+                                        <Button
+                                            Width="24.8"
+                                            Height="24.8"
+                                            Margin="12,0,0,0"
+                                            BorderBrush="Transparent"
+                                            Click="Delete_Click">
+                                            <Button.Background>
+                                                <ImageBrush ImageSource="/QuanLiCoffeeShop;component/Resources/Icon/DeleteBlue_Icon.png" />
+                                            </Button.Background>
+                                        </Button>
+                                    </StackPanel>
+
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
