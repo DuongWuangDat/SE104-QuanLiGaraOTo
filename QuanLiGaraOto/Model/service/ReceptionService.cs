@@ -221,6 +221,7 @@ namespace QuanLiGaraOto.Model.service
                 receptionUpdate.Customer.PhoneNumber = reception.Customer.PhoneNumber;
                 receptionUpdate.Customer.Address = reception.Customer.Address;
                 receptionUpdate.Customer.Email = reception.Customer.Email;
+                receptionUpdate.Customer.IsDeleted = false;
                 await context.SaveChangesAsync();
                 return (true, "Update reception successfully!");
             }
