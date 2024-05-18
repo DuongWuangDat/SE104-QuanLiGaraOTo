@@ -261,6 +261,9 @@
     <Compile Include="View\SuaChuaXe\ThemNoiDungSuaChua.xaml.cs">
       <DependentUpon>ThemNoiDungSuaChua.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\TraCuuXe\EditXe.xaml.cs">
+      <DependentUpon>EditXe.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\TraCuuXe\TraCuuXe.xaml.cs">
       <DependentUpon>TraCuuXe.xaml</DependentUpon>
     </Compile>
@@ -349,6 +352,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SuaChuaXe\ThemNoiDungSuaChua.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TraCuuXe\EditXe.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -447,6 +454,8 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Icon\modify.png" />
+    <Resource Include="Resources\Icon\delete.png" />
     <Resource Include="Resources\Icon\printer_ico.png" />
     <Resource Include="Resources\Icon\doanh_thu.png" />
     <Resource Include="Resources\Icon\ton_kho.png" />
