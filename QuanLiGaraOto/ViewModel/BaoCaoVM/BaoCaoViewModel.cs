@@ -20,6 +20,7 @@ using System.Windows.Media.Imaging;
 using System.Windows;
 using Microsoft.Office.Interop;
 using Microsoft.Office.Interop.Word;
+using System.Threading;
 
 namespace QuanLiGaraOto.ViewModel.BaoCaoVM
 {
@@ -153,102 +154,114 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
 
             PrintBaoCao = new RelayCommand<object>(_=> true, _ =>
             {
-                // Kiểm tra xem UserControl hiện tại có phải là BaoCaoDoanhThu không
-                if (CurrentUserControl is DoanhThu)
-                {
-                    
-                    // Tạo một tài liệu Word mới
-                    var wordApp = new Microsoft.Office.Interop.Word.Application();
-                    var document = wordApp.Documents.Add();
-                    // Thêm header
-                    foreach (Microsoft.Office.Interop.Word.Section section in document.Sections)
+                var thread = new Thread(() => {
+                    // Kiểm tra xem UserControl hiện tại có phải là BaoCaoDoanhThu không
+                    if (CurrentUserControl is DoanhThu)
                     {
-                        // Lấy header của mỗi section
-                        Microsoft.Office.Interop.Word.HeaderFooter header = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary];
-                        header.Range.Text = "Báo cáo doanh thu tháng "+ Month.ToString() +" năm " + Year.ToString();
-                        header.Range.Font.Size = 32;
-                        header.Range.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+
+                        // Tạo một tài liệu Word mới
+                        var wordApp = new Microsoft.Office.Interop.Word.Application();
+                        var document = wordApp.Documents.Add();
+                        // Thêm header
+                        foreach (Microsoft.Office.Interop.Word.Section section in document.Sections)
+                        {
+                            // Lấy header của mỗi section
+                            Microsoft.Office.Interop.Word.HeaderFooter header = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary];
+                            header.Range.Text = "Báo cáo doanh thu tháng " + Month.ToString() + " năm " + Year.ToString();
+                            header.Range.Font.Size = 32;
+                            header.Range.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                        }
+
+
+                        // Tạo bảng trong tài liệu Word
+                        var table = document.Tables.Add(document.Content, RevenueList.Count + 1, 5); // Số cột cố định là 5
+                        table.Borders.Enable = 1;
+
+                        // Điền dữ liệu từ RevenueList vào bảng
+                        table.Cell(1, 1).Range.Text = "STT";
+                        table.Cell(1, 2).Range.Text = "Hiệu xe";
+                        table.Cell(1, 3).Range.Text = "Số lượt sửa chữa";
+                        table.Cell(1, 4).Range.Text = "Thành tiền";
+                        table.Cell(1, 5).Range.Text = "Tỉ lệ";
+                        for (int i = 0; i < RevenueList.Count; i++)
+                        {
+                            var item = RevenueList[i];
+                            table.Cell(i + 2, 1).Range.Text = item.STT.ToString();
+                            table.Cell(i + 2, 2).Range.Text = item.BrandCar.Name;
+                            table.Cell(i + 2, 3).Range.Text = item.RepairCount.ToString();
+                            table.Cell(i + 2, 4).Range.Text = string.Format("{0:N0} VNĐ", item.Price);
+                            table.Cell(i + 2, 5).Range.Text = ((double)item.Ratio).ToString("F2");
+                        }
+                        Microsoft.Office.Interop.Word.Paragraph totalRevenueParagraph = document.Content.Paragraphs.Add();
+                        totalRevenueParagraph.Range.Text = "Tổng doanh thu: " + string.Format("{0:N0} VNĐ", TotalPrice);
+                        totalRevenueParagraph.Range.InsertParagraphAfter();
+                        // Lưu tài liệu
+                        string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads", "BaoCaoDoanhThu.docx");
+                        document.SaveAs2(filePath);
+                        document.Close();
+
+                        // Đóng ứng dụng Word
+                        wordApp.Quit();
+
+                        System.Windows.Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            MessageBoxCustom.Show(MessageBoxCustom.Success, "Báo cáo doanh thu đã được tạo thành công tại: " + filePath);
+                        });
                     }
-
-
-                    // Tạo bảng trong tài liệu Word
-                     var table = document.Tables.Add(document.Content, RevenueList.Count + 1, 5); // Số cột cố định là 5
-
-                    // Điền dữ liệu từ RevenueList vào bảng
-                    table.Cell(1, 1).Range.Text = "STT";
-                    table.Cell(1, 2).Range.Text = "Hiệu xe";
-                    table.Cell(1, 3).Range.Text = "Số lượt sửa chữa";
-                    table.Cell(1, 4).Range.Text = "Thành tiền";
-                    table.Cell(1, 5).Range.Text = "Tỉ lệ";
-                    for (int i = 0; i < RevenueList.Count; i++)
+                    // Kiểm tra xem UserControl hiện tại có phải là TonKho không
+                    else if (CurrentUserControl is TonKho)
                     {
-                        var item = RevenueList[i];
-                        table.Cell(i + 2, 1).Range.Text = item.STT.ToString();
-                        table.Cell(i + 2, 2).Range.Text = item.BrandCar.Name;
-                        table.Cell(i + 2, 3).Range.Text = item.RepairCount.ToString();
-                        table.Cell(i + 2, 4).Range.Text = string.Format("{0:N0} VNĐ", item.Price);
-                        table.Cell(i + 2, 5).Range.Text = ((double)item.Ratio).ToString("F2");
+                        // Tạo một tài liệu Word mới
+                        var wordApp = new Microsoft.Office.Interop.Word.Application();
+                        var document = wordApp.Documents.Add();
+                        // Thêm header
+                        foreach (Microsoft.Office.Interop.Word.Section section in document.Sections)
+                        {
+                            // Lấy header của mỗi section
+                            Microsoft.Office.Interop.Word.HeaderFooter header = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary];
+                            header.Range.Text = "Báo cáo tồn kho tháng " + Month.ToString() + " năm " + Year.ToString();
+                            header.Range.Font.Size = 32;
+                            header.Range.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                        }
+
+                        // Tạo bảng trong tài liệu Word
+                        var table = document.Tables.Add(document.Content, InventoryDetails.Count + 1, 4); // Số cột cố định là 4
+                        table.Borders.Enable = 1;
+
+                        // Điền dữ liệu từ InventoryDetails vào bảng
+                        table.Cell(1, 1).Range.Text = "Vật tư phụ tùng";
+                        table.Cell(1, 2).Range.Text = "Tồn đầu";
+                        table.Cell(1, 3).Range.Text = "Phát sinh";
+                        table.Cell(1, 4).Range.Text = "Tồn cuối";
+                        for (int i = 0; i < InventoryDetails.Count; i++)
+                        {
+                            var item = InventoryDetails[i];
+                            table.Cell(i + 2, 1).Range.Text = item.SupplyName;
+                            table.Cell(i + 2, 2).Range.Text = item.TonDau.ToString();
+                            table.Cell(i + 2, 3).Range.Text = item.PhatSinh.ToString();
+                            table.Cell(i + 2, 4).Range.Text = item.TonCuoi.ToString();
+                        }
+
+                        // Lưu tài liệu
+                        string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads", "BaoCaoTonKho.docx");
+                        document.SaveAs2(filePath);
+                        document.Close();
+
+                        // Đóng ứng dụng Word
+                        wordApp.Quit();
+
+                        System.Windows.Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            MessageBoxCustom.Show(MessageBoxCustom.Success, "Báo cáo tồn kho đã được tạo thành công tại: " + filePath);
+                        });
                     }
-                    Microsoft.Office.Interop.Word.Paragraph totalRevenueParagraph = document.Content.Paragraphs.Add();
-                    totalRevenueParagraph.Range.Text = "Tổng doanh thu: " + string.Format("{0:N0} VNĐ", TotalPrice);
-                    totalRevenueParagraph.Range.InsertParagraphAfter();
-                    // Lưu tài liệu
-                    string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads", "BaoCaoDoanhThu.docx");
-                    document.SaveAs2(filePath);
-                    document.Close();
-
-                    // Đóng ứng dụng Word
-                    wordApp.Quit();
-
-                    MessageBoxCustom.Show(MessageBoxCustom.Success,"Báo cáo doanh thu đã được tạo thành công tại: " + filePath);
-                }
-                // Kiểm tra xem UserControl hiện tại có phải là TonKho không
-                else if (CurrentUserControl is TonKho)
-                {
-                    // Tạo một tài liệu Word mới
-                    var wordApp = new Microsoft.Office.Interop.Word.Application();
-                    var document = wordApp.Documents.Add();
-                    // Thêm header
-                    foreach (Microsoft.Office.Interop.Word.Section section in document.Sections)
+                    else
                     {
-                        // Lấy header của mỗi section
-                        Microsoft.Office.Interop.Word.HeaderFooter header = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary];
-                        header.Range.Text = "Báo cáo tồn kho tháng " + Month.ToString() + " năm " + Year.ToString();
-                        header.Range.Font.Size = 32;
-                        header.Range.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, "Vui lòng mở báo cáo trước khi in.");
                     }
-
-                    // Tạo bảng trong tài liệu Word
-                    var table = document.Tables.Add(document.Content, InventoryDetails.Count + 1, 4); // Số cột cố định là 4
-
-                    // Điền dữ liệu từ InventoryDetails vào bảng
-                    table.Cell(1, 1).Range.Text = "Vật tư phụ tùng";
-                    table.Cell(1, 2).Range.Text = "Tồn đầu";
-                    table.Cell(1, 3).Range.Text = "Phát sinh";
-                    table.Cell(1, 4).Range.Text = "Tồn cuối";
-                    for (int i = 0; i < InventoryDetails.Count; i++)
-                    {
-                        var item = InventoryDetails[i];
-                        table.Cell(i + 2, 1).Range.Text = item.SupplyName;
-                        table.Cell(i + 2, 2).Range.Text = item.TonDau.ToString();
-                        table.Cell(i + 2, 3).Range.Text = item.PhatSinh.ToString();
-                        table.Cell(i + 2, 4).Range.Text = item.TonCuoi.ToString();
-                    }
-
-                    // Lưu tài liệu
-                    string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads", "BaoCaoTonKho.docx");
-                    document.SaveAs2(filePath);
-                    document.Close();
-
-                    // Đóng ứng dụng Word
-                    wordApp.Quit();
-
-                    MessageBoxCustom.Show(MessageBoxCustom.Success, "Báo cáo tồn kho đã được tạo thành công tại: " + filePath);
-                }
-                else
-                {
-                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Vui lòng mở Báo cáo trước khi in.");
-                }
+                });
+                thread.SetApartmentState(ApartmentState.STA);
+                thread.Start();
             });
 
             // InventoryCommand
@@ -259,12 +272,7 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                 var curMonth = curDate.Month;
                 var curYear = curDate.Year;
                 CurrentUserControl = new UserControl();
-                if (Year > curYear)
-                {
-                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Năm lớn hơn hiện tại, vui lòng nhập lại.");
-                    return;
-                }
-                else if (Month > (curMonth - 1) && Year == curYear)
+                if (Month > (curMonth - 1) && Year == curYear)
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Chỉ có thể xem dữ liệu các tháng trước, vui lòng nhập lại.");
                     return ;
@@ -289,12 +297,7 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                 var curMonth = curDate.Month;
                 var curYear = curDate.Year;
                 CurrentUserControl = new UserControl();
-                if (Year > curYear)
-                {
-                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Năm lớn hơn năm hiện tại, vui lòng nhập lại.");
-                    return;
-                }
-                else if (Month > (curMonth - 1) && Year == curYear)
+                if (Month > (curMonth - 1) && Year == curYear)
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Chỉ có thể xem dữ liệu các tháng trước, vui lòng nhập lại.");
                     return;
