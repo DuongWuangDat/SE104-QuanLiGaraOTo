@@ -490,6 +490,10 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
                 {
 
                     supplyColection = new ObservableCollection<SupplyDTO>(await SuppliesService.Ins.GetAllSupply());
+                    spDetailCollection= new ObservableCollection<SuppliesInputDetailDTO>();
+                    SelectedSp = null;
+                    Count = null;
+                    PriceSp = null;
                     MessageBoxCustom.Show(MessageBoxCustom.Success, "Thêm thành công");
 
                 }
@@ -651,11 +655,6 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
                 if(isSuccess)
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Success, "Thêm thành công");
-                    LicensePlate = null;
-                    Content = null;
-                    wageSelected = null;
-                    NgaySuaChua = DateTime.Now;
-                    rpdtCollection = new ObservableCollection<RepairDetailDTO>();
                 }
                 else
                 {
