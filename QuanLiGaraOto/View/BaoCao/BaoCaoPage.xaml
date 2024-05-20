@@ -203,12 +203,11 @@
                     <Label Name="NullData"
                         Width="auto"
                         Height="50"
-                        FontSize="24"
-                        FontWeight="Bold"
-                        Foreground="Red"
+                        FontSize="22"
+                        Foreground="Gray"
                         Visibility="{Binding IsNullVisible}"
                         Content="Dữ liệu không tồn tại" 
-                        Margin="600,80,600,300"/>
+                        Margin="610,200,610,200"/>
                 </Grid>
             </Grid>
         </Grid >
