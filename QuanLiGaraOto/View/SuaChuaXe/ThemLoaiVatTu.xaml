@@ -72,7 +72,6 @@
             </StackPanel>
 
             <Button Command="{Binding AddSuppliesName}"
-                    CommandParameter="{Binding ElementName=addBrandField}"
                     Background="#3093A0"
                     materialDesign:ButtonAssist.CornerRadius="20"
                     Width="106"
