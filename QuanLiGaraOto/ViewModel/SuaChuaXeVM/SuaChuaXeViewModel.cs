@@ -105,7 +105,7 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
         public string Count
         {
             get { return _count; }
-            set { _count = value; }
+            set { _count = value;  OnPropertyChanged(); }
         }
 
         private string _priceSp;
@@ -113,7 +113,7 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
         public string PriceSp
         {
             get { return _priceSp; }
-            set { _priceSp = value; }
+            set { _priceSp = value; OnPropertyChanged(); }
         }
 
         private SupplyDTO _selectedSp;
@@ -121,7 +121,7 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
         public SupplyDTO SelectedSp
         {
             get { return _selectedSp; }
-            set { _selectedSp = value; }
+            set { _selectedSp = value; OnPropertyChanged(); }
         }
 
         public SuppliesInputDetailDTO SelectedSpDetail { get; set; }
