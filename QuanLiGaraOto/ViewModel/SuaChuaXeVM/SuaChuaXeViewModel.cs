@@ -420,7 +420,7 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
                 if (isSuccess)
                 {
                     SupplyName = null;
-                    supplyColection.Add(newSupply);
+                    supplyColection = new ObservableCollection<SupplyDTO>(await SuppliesService.Ins.GetAllSupply());
                     MessageBoxCustom.Show(MessageBoxCustom.Success, "Thêm thành công");
                 }
                 else
