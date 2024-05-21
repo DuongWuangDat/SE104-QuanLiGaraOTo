@@ -132,7 +132,7 @@ namespace QuanLiGaraOto.Model.service
                     var repair = new Repair
                     {
                         ReceptionID = newRepair.Reception.ID,
-                        RepairDate = DateTime.Now,
+                        RepairDate = newRepair.RepairDate,
                         IsDeleted = false,
                     };
 
