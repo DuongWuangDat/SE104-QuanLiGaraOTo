@@ -89,18 +89,10 @@ namespace QuanLiGaraOto.Model.service
                 using (var context = new QuanLiGaraOtoEntities())
                 {
                     var brandCar = await context.BrandCars.Where(b => b.ID == id).FirstOrDefaultAsync();
-                    if (brandCar.Receptions.Count > 0)
-                    {
-                        return (false, "Brand car is already in use!");
-                    }
 
                     if (brandCar == null)
                     {
                         return (false, "Brand car is not exist!");
-                    }
-                    foreach (var revenueDetail in brandCar.RevenueDetails)
-                    {
-                        context.RevenueDetails.Remove(revenueDetail);
                     }
                     brandCar.IsDeleted = true;
                     await context.SaveChangesAsync();

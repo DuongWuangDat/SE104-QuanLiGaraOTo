@@ -303,7 +303,7 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
                 var (isSucess, msg) = await WageService.Ins.AddNewWage(newWage);
                 if (isSucess)
                 {
-                    wageCollection.Add(newWage);
+                    wageCollection = new ObservableCollection<WageDTO>(await WageService.Ins.GetAllWage());
                     MessageBoxCustom.Show(MessageBoxCustom.Success, "Thêm thành công");
                 }
                 else
@@ -524,6 +524,10 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
 
             AddContent = new RelayCommand<object>(p => { return true; }, async (p) =>
             {
+                if(wageSelected == null || Content == null || Content == "")
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Vui lòng nhập đủ thông tin"); return;
+                }
                 var price = wageSelected.Price;
                 var newRepairDetail = new RepairDetailDTO
                 {
@@ -589,6 +593,10 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
 
             AddRecordRpSpDt = new RelayCommand<object>(p => { return true; }, (p) =>
             {
+                if(CountSupply == "" || CountSupply==null || SelectedSupplyDt == null)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Vui lòng nhập đủ thông tin"); return;
+                }
                 if (int.TryParse(CountSupply, out int rs) == false)
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Định dạng dữ liệu không đúng");
@@ -633,7 +641,7 @@ namespace QuanLiGaraOto.ViewModel.SuaChuaXeVM
 
             AddRepair = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
-                if (LicensePlate == null || LicensePlate == "" || rpdtCollection.ToArray().Length == 0 || wageSelected == null || Content == ""|| Content == null)
+                if (LicensePlate == null || LicensePlate == "" || rpdtCollection.ToArray().Length == 0 )
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Vui lòng nhập đủ thông tin"); return;
                 }

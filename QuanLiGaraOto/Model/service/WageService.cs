@@ -82,10 +82,6 @@ namespace QuanLiGaraOto.Model.service
                     {
                         return (false, "Wage is not exist!");
                     }
-                    if (wage.RepairDetails.Count > 0)
-                    {
-                        return (false, "This wage is used in repair details!");
-                    }
                     wage.IsDeleted = true;
                     await context.SaveChangesAsync();
                     return (true, "Delete wage successfully!");
