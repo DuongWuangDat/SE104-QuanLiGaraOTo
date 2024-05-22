@@ -40,12 +40,6 @@ namespace QuanLiGaraOto.ViewModel.CaiDatQuyDinhVM
             set { check = value; OnPropertyChanged(); }
         }
 
-        private String _apDung;
-        public String ApDung
-        {
-            get { return _apDung; }
-            set {  _apDung = value; OnPropertyChanged();}
-        }
 
         private ParameterDTO soXeSuaChuaToiDa = new ParameterDTO();
         public ParameterDTO SoXeSuaChuaToiDa
@@ -78,18 +72,15 @@ namespace QuanLiGaraOto.ViewModel.CaiDatQuyDinhVM
                 var xeParamater = new ParameterDTO();
                 xeParamater.Value = await ParameterService.Ins.SoXeSuaChuaTrongNgay();
                 SoXeSuaChuaToiDa = xeParamater;
-                ApDung = "";
                 var IsCheck = await ParameterService.Ins.ApDungPhat();
                 if (IsCheck)
                 {
                     Check = 1;
-                    ApDung = "Có";
                     ApDungQÐKiemTraSoTienThu.Value = 1;
                 }
                 else
                 {
                     Check = 0;
-                    ApDung = "Không";
                     ApDungQÐKiemTraSoTienThu.Value = 0;
                 }
             });
@@ -125,7 +116,6 @@ namespace QuanLiGaraOto.ViewModel.CaiDatQuyDinhVM
                 var (success, message) = await ParameterService.Ins.UpdateParameter("ApDungQÐKiemTraSoTienThu", (float)(check));
                 if(success)
                 {
-                    if(check==1) { ApDung = "Có"; } else { ApDung = "Không"; }
                     resultmessage += "Áp dụng quy định kiểm tra tiền thu: " + message ;
                 }
                 else
