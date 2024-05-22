@@ -101,14 +101,16 @@
                             <CheckBox
                                 Grid.Row="2"
                                 x:Name="ApDungQÐKiemTraSoTienThu"
-                                Width="80"
-                                Height="50"
+                                Width="35"
+                                Height="35"
+                                materialDesign:CheckBoxAssist.CheckBoxSize="35"
                                 FontSize="20"
                                 Foreground="Black"
                                 HorizontalContentAlignment="Center"
                                 VerticalContentAlignment="Bottom"
+                                Margin="5,0,0,0"
                                 IsChecked="{Binding Check, Mode=TwoWay}"
-                                Content="{Binding ApDung}"
+                                Content=""
                                 Background="#259FBA" />
 
                             <!-- hàng 3 -->
