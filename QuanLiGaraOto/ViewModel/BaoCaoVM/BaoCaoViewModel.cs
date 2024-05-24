@@ -128,6 +128,12 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
             // PageCommand
             FirstLoad = new RelayCommand<object>(_=> true, _=>
             {
+                IsVisible = Visibility.Hidden;
+                IsNullVisible = Visibility.Hidden;
+                if(CurrentUserControl is DoanhThu)
+                {
+                    IsVisible = Visibility.Visible;
+                }
                 var curDate = DateTime.Now;
                 var curYear = curDate.Year;
                 var years = Enumerable.Range(2020, (curYear - 2019)).ToList();
@@ -137,7 +143,6 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                 MonthList = new ObservableCollection<int>(months);
                 Year = curYear;
                 Month = curMonth;
-                CurrentUserControl = new UserControl();
             });
             OpenBaoCaoTonKho = new RelayCommand<object>(_ => true, async (param) =>
             {
@@ -148,7 +153,7 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
             OpenBaoCaoDoanhThu = new RelayCommand<object>(_ => true,async (param) =>
             {
                 
-                IsVisible = Visibility.Visible;
+                IsVisible = Visibility.Hidden;
                 IsNullVisible = Visibility.Hidden;
                 GetRevenue.Execute(null);
             });
