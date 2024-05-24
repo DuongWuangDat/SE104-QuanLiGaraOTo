@@ -137,6 +137,7 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                 MonthList = new ObservableCollection<int>(months);
                 Year = curYear;
                 Month = curMonth;
+                CurrentUserControl = new UserControl();
             });
             OpenBaoCaoTonKho = new RelayCommand<object>(_ => true, async (param) =>
             {
@@ -286,7 +287,7 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                     curTonKho = new TonKho();
                     CurrentUserControl = curTonKho;
                 }
-                if(CurrentInventoryReport == null || CurrentInventoryReport.InventoryReportDetails.Count == 0) { IsNullVisible = Visibility.Visible; }
+                if(CurrentInventoryReport == null || CurrentInventoryReport.InventoryReportDetails.Count == 0) { IsNullVisible = Visibility.Visible; IsVisible = Visibility.Hidden; }
             });
 
             // Revenue Command
@@ -307,6 +308,7 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                 if (RevenueReport != null && RevenueReport.RevenueDetails.Count != 0)
                 {
                     IsNullVisible = Visibility.Hidden;
+                    IsVisible = Visibility.Visible;
                     TotalPrice = (decimal)RevenueReport.TotalPrice;
                     RevenueList = new ObservableCollection<RevenueDetailDTO>(RevenueReport.RevenueDetails);
                     for (int i = 0; i < RevenueList.Count; i++)
@@ -316,7 +318,7 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                     curDoanhThu = new DoanhThu();
                     CurrentUserControl = curDoanhThu;
                 } 
-                if(RevenueReport == null || RevenueReport.RevenueDetails.Count == 0) { IsNullVisible = Visibility.Visible; }
+                if(RevenueReport == null || RevenueReport.RevenueDetails.Count == 0) { IsNullVisible = Visibility.Visible; IsVisible = Visibility.Hidden; }
             });
 
         }
