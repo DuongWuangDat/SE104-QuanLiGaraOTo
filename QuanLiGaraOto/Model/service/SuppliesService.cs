@@ -68,6 +68,11 @@ namespace QuanLiGaraOto.Model.service
                             supplyExist.InputPrices = 0;
                             supplyExist.OutputPrices = 0;
                             await context.SaveChangesAsync();
+                            var isSuccessExist = await InvetoryReportService.Ins.AddNewSupply(supplyExist);
+                            if (!isSuccessExist)
+                            {
+                                return (false, "Something went wrong");
+                            }
                             return (true, "Add new supply successfully!");
                         }
                         return (false, "Supply is already exist!");
