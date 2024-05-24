@@ -176,7 +176,7 @@ namespace QuanLiGaraOto.Model.service
             {
                 using (var context = new QuanLiGaraOtoEntities())
                 {
-                    var count = await context.Receptions.Where(r => DbFunctions.TruncateTime(r.CreatedAt) == date.Date).CountAsync();
+                    var count = await context.Receptions.Where(r => DbFunctions.TruncateTime(r.CreatedAt) == date.Date && r.IsDeleted == false).CountAsync();
 
                     Console.WriteLine(date.Date);
                     return count;
