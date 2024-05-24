@@ -54,6 +54,18 @@ namespace QuanLiGaraOto.Model.service
             {
                 using (var context = new QuanLiGaraOtoEntities())
                 {
+                    var wageExistd = await context.Wages.Where(w => w.Name == newWage.Name).FirstOrDefaultAsync();
+                    if(wageExistd!=null)
+                    {
+                        if (wageExistd.IsDeleted == true)
+                        {
+                            wageExistd.IsDeleted = false;
+                            wageExistd.Price = newWage.Price;
+                            await context.SaveChangesAsync();
+                            return (true, "Add new wage successfully!");
+                        }
+                        return (false, "Wage is already exist!");
+                    };
                     var wage = new Wage
                     {
                         Name = newWage.Name,
