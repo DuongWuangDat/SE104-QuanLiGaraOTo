@@ -205,6 +205,10 @@ namespace QuanLiGaraOto.Model.service
                 {
                     var inventoryReport = await GetCurrentInventoryReport();
                     var detail = await context.InventoryReportDetails.Where(b => b.SuppliesID == supplyId && b.InventoryReportID == inventoryReport.ID).FirstOrDefaultAsync();
+                    if(detail == null)
+                    {
+                        return true;
+                    }
                     context.InventoryReportDetails.Remove(detail);
                     await context.SaveChangesAsync();
                     return true;
