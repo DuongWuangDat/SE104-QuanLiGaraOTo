@@ -125,6 +125,9 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
         public BaoCaoViewModel() { 
             IsVisible = Visibility.Hidden;
             IsNullVisible = Visibility.Hidden;
+            var curTime = DateTime.Now;
+            Year = curTime.Year;
+            Month = (curTime.Month - 1);
             // PageCommand
             FirstLoad = new RelayCommand<object>(_=> true, _=>
             {
@@ -141,8 +144,6 @@ namespace QuanLiGaraOto.ViewModel.BaoCaoVM
                 var curMonth = (curDate.Month-1);
                 var months = Enumerable.Range(1, 12).ToList();
                 MonthList = new ObservableCollection<int>(months);
-                Year = curYear;
-                Month = curMonth;
             });
             OpenBaoCaoTonKho = new RelayCommand<object>(_ => true, async (param) =>
             {
