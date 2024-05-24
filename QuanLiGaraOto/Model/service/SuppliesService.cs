@@ -58,6 +58,20 @@ namespace QuanLiGaraOto.Model.service
             {
                 using (var context = new QuanLiGaraOtoEntities())
                 {
+                    var supplyExist = await context.Supplies.Where(s => s.Name == newSupply.Name).FirstOrDefaultAsync();
+                    if (supplyExist != null)
+                    {
+                        if (supplyExist.IsDeleted == true)
+                        {
+                            supplyExist.IsDeleted = false;
+                            supplyExist.CountInStock = 0;
+                            supplyExist.InputPrices = 0;
+                            supplyExist.OutputPrices = 0;
+                            await context.SaveChangesAsync();
+                            return (true, "Add new supply successfully!");
+                        }
+                        return (false, "Supply is already exist!");
+                    }
                     var supply = new Supply
                     {
                         Name = newSupply.Name,
