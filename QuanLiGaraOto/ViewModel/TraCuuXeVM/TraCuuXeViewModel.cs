@@ -129,6 +129,10 @@ namespace QuanLiGaraOto.ViewModel.TraCuuXeVM
 			FirstLoad = new RelayCommand<object>(_ => true, async _ =>
 			{
 				XeList = await ReceptionService.Ins.GetAllReception();
+				if(XeList == null)
+				{
+					return;
+				}
 				XeCollection = new ObservableCollection<ReceptionDTO>(XeList);
 			});
 

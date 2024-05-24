@@ -173,6 +173,14 @@ namespace QuanLiGaraOto.ViewModel.PhieuThuTienVM
 						if (customersTrungTen.Count == 0)
 						{
 							MessageBoxCustom.Show(MessageBoxCustom.Error, "Không tìm thấy khách hàng");
+							HoTenChuXe = "";
+							SoDienThoaiList = new ObservableCollection<string>();
+							Email = "";
+							BienSoXeList = new ObservableCollection<string>();
+							TienNo = "";
+							TienThu = "";
+							NoConLai = "";
+							NgayThuTien = DateTime.Now;
 						}
 						else
 						{
