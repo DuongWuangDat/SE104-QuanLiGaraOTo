@@ -232,6 +232,10 @@ namespace QuanLiGaraOto.Model.service
             using(var context = new QuanLiGaraOtoEntities())
             {
                 var reception = await context.Receptions.Where(r => r.ID == id).FirstOrDefaultAsync();
+                if(reception.Repairs.Count > 0)
+                {
+                    return (false, "Reception has repair, can't delete!");
+                }
                 if (reception == null)
                 {
                     return (false, "Reception not found!");
