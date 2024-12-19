@@ -10,7 +10,7 @@ namespace QuanLiGaraOto.DTOs
         public Nullable<int> RepairCount { get; set; }
         public Nullable<double> Ratio { get; set; }
         public Nullable<decimal> Price { get; set; }
-    
+        public Nullable<int> STT { get; set; }
         public BrandCarDTO BrandCar { get; set; }
     }
 }

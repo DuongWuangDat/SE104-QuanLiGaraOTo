@@ -1,5 +1,4 @@
-﻿using QuanLiGaraOto.ViewModel.SuaChuaXeVM;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,25 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QuanLiGaraOto.View.SuaChuaXe
+namespace QuanLiGaraOto.View.BaoCao
 {
     /// <summary>
-    /// Interaction logic for QuanLiVatTuPhuTung.xaml
+    /// Interaction logic for BaoCaoPage.xaml
     /// </summary>
-    public partial class QuanLiVatTuPhuTung : Window
+    public partial class BaoCaoPage : Page
     {
-        public QuanLiVatTuPhuTung()
+        public BaoCaoPage()
         {
             InitializeComponent();
-        }
-
-
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            (DataContext as SuaChuaXeViewModel).DeleteSupplies.Execute(new object());
         }
     }
 }

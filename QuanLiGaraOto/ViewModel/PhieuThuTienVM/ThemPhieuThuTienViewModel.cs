@@ -5,6 +5,7 @@ using QuanLiGaraOto.View.MessageBox;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Timers;
 using System.Windows;
@@ -20,7 +21,11 @@ namespace QuanLiGaraOto.ViewModel.PhieuThuTienVM
 		public string HoTenChuXe
 		{
 			get { return hoTenChuXe; }
-			set { hoTenChuXe = value; }
+			set
+			{
+				hoTenChuXe = value;
+				OnPropertyChanged();
+			}
 		}
 
 		private string dienThoai;
@@ -117,6 +122,19 @@ namespace QuanLiGaraOto.ViewModel.PhieuThuTienVM
 		public ICommand KeyUpTienThu { get; set; }
 		private ReceptionDTO reception;
 
+		public bool IsValidEmail(string email)
+		{
+			try
+			{
+				var addr = new System.Net.Mail.MailAddress(email);
+				return addr.Address == email;
+			}
+			catch
+			{
+				return false;
+			}
+		}
+
 		public ThemPhieuThuTienViewModel()
 		{
 			NgayThuTien = DateTime.Now;
@@ -129,13 +147,11 @@ namespace QuanLiGaraOto.ViewModel.PhieuThuTienVM
 					if (receptions == null)
 					{
 						MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi xảy ra khi kết nối với cơ sở dữ liệu");
-						(p as Window).Close();
 					}
 				}
 				catch (Exception)
 				{
 					MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi xảy ra khi kết nối với cơ sở dữ liệu");
-					(p as Window).Close();
 				}
 			});
 
@@ -174,20 +190,25 @@ namespace QuanLiGaraOto.ViewModel.PhieuThuTienVM
 			SelectionChangedSoDienThoai = new RelayCommand<object>((p) => { return true; }, (p) =>
 			{
 				ComboBox comboBox = p as ComboBox;
-				DienThoai = (string)comboBox.SelectedValue;
-				string emailMatch = customersTrungTen.Find(x => x.PhoneNumber == (string)comboBox.SelectedValue).Email;
-				if (emailMatch != null)
+				if (comboBox.SelectedValue != null)
 				{
-					Email = emailMatch;
-				}
-				BienSoXeList = new ObservableCollection<string>();
-				foreach (ReceptionDTO reception in receptions)
-				{
-					if (reception.Customer.PhoneNumber == (string)comboBox.SelectedValue && !BienSoXeList.Contains(reception.LicensePlate))
+					DienThoai = (string)comboBox.SelectedValue;
+					string emailMatch = customersTrungTen.Find(x => x.PhoneNumber == (string)comboBox.SelectedValue).Email;
+					if (emailMatch != null)
 					{
-						BienSoXeList.Add(reception.LicensePlate);
+						Email = emailMatch;
+					}
+					BienSoXeList = new ObservableCollection<string>();
+					foreach (ReceptionDTO reception in receptions)
+					{
+						if (reception.Customer.PhoneNumber == (string)comboBox.SelectedValue && !BienSoXeList.Contains(reception.LicensePlate))
+						{
+							BienSoXeList.Add(reception.LicensePlate);
+						}
 					}
 				}
+
+
 			});
 
 			SelectionChangedBienSoXe = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -209,10 +230,10 @@ namespace QuanLiGaraOto.ViewModel.PhieuThuTienVM
 				}
 			});
 
-			KeyUpTienThu = new RelayCommand<object>((p) => { return true; }, (p) =>
+			KeyUpTienThu = new RelayCommand<object>((p) => { return true; }, async (p) =>
 			{
 				TextBox textBox = p as TextBox;
-				if(!string.IsNullOrEmpty(textBox.Text))
+				if (!string.IsNullOrEmpty(textBox.Text))
 				{
 					System.Globalization.NumberFormatInfo nfi = new System.Globalization.NumberFormatInfo
 					{
@@ -220,23 +241,52 @@ namespace QuanLiGaraOto.ViewModel.PhieuThuTienVM
 						NumberDecimalSeparator = "."
 					};
 					string tienThuNumber = textBox.Text.Replace(",", "");
-					if (int.Parse(tienThuNumber) > int.Parse(TienNo.Replace(",", "")))
-					{
-						NoConLai = "";
-						MessageBoxCustom.Show(MessageBoxCustom.Error, "Số tiền thu không được lớn hơn số tiền nợ");
-						return;
-					}
+					//bool apDungKiemTraTienThu = await ParameterService.Ins.ApDungPhat();
+					//if (apDungKiemTraTienThu && int.Parse(tienThuNumber) > int.Parse(TienNo.Replace(",", "")))
+					//{
+					//	NoConLai = "";
+					//	MessageBoxCustom.Show(MessageBoxCustom.Error, "Số tiền thu không được lớn hơn số tiền nợ");
+					//	return;
+					//}
 					int integerPart = (int.Parse(TienNo.Replace(",", "")) - int.Parse(tienThuNumber));
 					NoConLai = integerPart.ToString("N0", nfi);
-				}	
+				}
 			});
 
 			ThemPhieuThuTien = new RelayCommand<object>((p) => { return true; }, async (p) =>
 			{
+
+				//bool apDungKiemTraTienThu = await ParameterService.Ins.ApDungPhat();
+
+				if (NgayThuTien > DateTime.Now)
+				{
+					MessageBoxCustom.Show(MessageBoxCustom.Error, "Ngày thu tiền không được lớn hơn ngày hiện tại");
+					return;
+				}
 				if (string.IsNullOrEmpty(HoTenChuXe) || string.IsNullOrEmpty(DienThoai) || string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(BienSoXe) || string.IsNullOrEmpty(TienNo) || string.IsNullOrEmpty(TienThu))
 				{
-					MessageBoxCustom.Show(MessageBoxCustom.Success, "Vui lòng nhập đầy đủ thông tin");
+					MessageBoxCustom.Show(MessageBoxCustom.Error, "Vui lòng nhập đầy đủ thông tin");
 					return;
+				}
+				if (!IsValidEmail(Email))
+				{
+					MessageBoxCustom.Show(MessageBoxCustom.Error, "Email không hợp lệ");
+					return;
+				}
+				//if (apDungKiemTraTienThu && int.Parse(TienThu.Replace(",", "")) > int.Parse(TienNo.Replace(",", "")))
+				//{
+				//	MessageBoxCustom.Show(MessageBoxCustom.Error, "Số tiền thu không được lớn hơn số tiền nợ");
+				//	return;
+				//}	
+				if (Email != reception.Customer.Email)
+				{
+					reception.Customer.Email = Email;
+					var (isSuccess, message) = await CustomerService.Ins.updateUserEmail(reception.Customer.ID, Email);
+					if (!isSuccess)
+					{
+						MessageBoxCustom.Show(MessageBoxCustom.Error, "Cập nhật email không thành công");
+						return;
+					}
 				}
 				BillDTO newBill = new BillDTO
 				{
@@ -246,13 +296,30 @@ namespace QuanLiGaraOto.ViewModel.PhieuThuTienVM
 				};
 				try
 				{
-					await BillService.Ins.AddNewBill(newBill);
+					var (isSuccess, message) = await BillService.Ins.AddNewBill(newBill);
+
+					if (isSuccess)
+					{
+						MessageBoxCustom.Show(MessageBoxCustom.Success, message);
+						HoTenChuXe = "";
+						SoDienThoaiList = new ObservableCollection<string>();
+						Email = "";
+						BienSoXeList = new ObservableCollection<string>();
+						NgayThuTien = DateTime.Now;
+						TienNo = "";
+						TienThu = "";
+						NoConLai = "";
+					}
+					else
+					{
+						MessageBoxCustom.Show(MessageBoxCustom.Error, message);
+					}
+
 				}
 				catch (Exception)
 				{
 					MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi xảy ra khi thêm phiếu thu tiền");
 				}
-				(p as Window).Close();
 			});
 		}
 	}

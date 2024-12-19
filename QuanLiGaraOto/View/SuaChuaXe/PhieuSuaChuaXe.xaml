@@ -1,8 +1,8 @@
 ﻿<Page x:Class="QuanLiGaraOto.View.SuaChuaXe.PhieuSuaChuaXe"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       xmlns:converter="clr-namespace:QuanLiGaraOto.Converters"
       xmlns:local="clr-namespace:QuanLiGaraOto.View.SuaChuaXe"
@@ -15,7 +15,7 @@
       TextOptions.TextRenderingMode="Auto"
       FontFamily="{DynamicResource MaterialDesignFont}"
       d:DesignHeight="800"
-      d:DesignWidth="1536"    
+      d:DesignWidth="1536"
       DataContext="{StaticResource SuaChuaXeVM}"
       mc:Ignorable="d">
 
@@ -25,9 +25,8 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <Grid 
-    Background="#3F7B88" 
-    Margin="0,10,0,0">
+    <Grid Background="#3F7B88"
+          Margin="0,10,0,0">
         <Grid Margin="30,30,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -43,33 +42,30 @@
 
                 <!--  Button Thêm  -->
                 <Grid Grid.Column="1">
-                    <Button
-                    MinWidth="200"
-                    MinHeight="50"
-                    MaxWidth="200"
-                    MaxHeight="50"
-                    Margin="-197,0,0,12"
-                    HorizontalAlignment="Left"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    materialDesign:ButtonAssist.CornerRadius="20"
-                    materialDesign:ElevationAssist.Elevation="Dp3"
-                    Background="White"
-                    BorderThickness="0"
-                    Command="{Binding QuanLiVatTuPhuTungOpen}"
-                    CommandParameter="phieuSuaChuaXePage"
-                    Style="{StaticResource MaterialDesignRaisedLightButton}">
+                    <Button MinWidth="200"
+                            MinHeight="50"
+                            MaxWidth="200"
+                            MaxHeight="50"
+                            Margin="-197,0,0,12"
+                            HorizontalAlignment="Left"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            materialDesign:ButtonAssist.CornerRadius="20"
+                            materialDesign:ElevationAssist.Elevation="Dp3"
+                            Background="White"
+                            BorderThickness="0"
+                            Command="{Binding QuanLiVatTuPhuTungOpen}"
+                            CommandParameter="phieuSuaChuaXePage"
+                            Style="{StaticResource MaterialDesignRaisedLightButton}">
                         <StackPanel Orientation="Horizontal">
-                            <Image
-                            MaxWidth="30"
-                            MaxHeight="30"
-                            Source="/QuanLiGaraOto;component/Resources/Icon/Add.png" />
-                            <TextBlock
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            FontFamily="Roboto Condensed"
-                            FontWeight="Bold"
-                            Foreground="#3093A0">
+                            <Image MaxWidth="30"
+                                   MaxHeight="30"
+                                   Source="/QuanLiGaraOto;component/Resources/Icon/Add.png" />
+                            <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontFamily="Roboto Condensed"
+                                       FontWeight="Bold"
+                                       Foreground="#3093A0">
                             Vật tư phụ tùng
                             </TextBlock>
                         </StackPanel>
@@ -77,72 +73,72 @@
                 </Grid>
 
                 <!--  Button Thêm  -->
-                <Grid Grid.Column="1" Grid.ColumnSpan="2" Margin="409,8,41,-8">
+                <Grid Grid.Column="1"
+                      Grid.ColumnSpan="2"
+                      Margin="409,8,41,-8">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="22*"/>
-                        <RowDefinition Height="9*"/>
+                        <RowDefinition Height="22*" />
+                        <RowDefinition Height="9*" />
                     </Grid.RowDefinitions>
-                    <Button
-                    MinWidth="200"
-                    MinHeight="50"
-                    MaxWidth="200"
-                    MaxHeight="50"
-                    Margin="-189,-7,0,1"
-                    HorizontalAlignment="Left"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    materialDesign:ButtonAssist.CornerRadius="20"
-                    materialDesign:ElevationAssist.Elevation="Dp3"
-                    Background="White"
-                    BorderThickness="0"
-                    Command="{Binding QuanLiTienCongOpen}"
-                    CommandParameter="phieuSuaChuaXePage"
-                    Style="{StaticResource MaterialDesignRaisedLightButton}">
+                    <Button MinWidth="200"
+                            MinHeight="50"
+                            MaxWidth="200"
+                            MaxHeight="50"
+                            Margin="-189,-7,0,1"
+                            HorizontalAlignment="Left"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            materialDesign:ButtonAssist.CornerRadius="20"
+                            materialDesign:ElevationAssist.Elevation="Dp3"
+                            Background="White"
+                            BorderThickness="0"
+                            Command="{Binding QuanLiTienCongOpen}"
+                            CommandParameter="phieuSuaChuaXePage"
+                            Style="{StaticResource MaterialDesignRaisedLightButton}">
                         <StackPanel Orientation="Horizontal">
-                            <Image
-                            MaxWidth="30"
-                            MaxHeight="30"
-                            Source="/Resources/Icon/Add.png" />
-                            <TextBlock
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            FontFamily="Roboto Condensed"
-                            FontWeight="Bold"
-                            Foreground="#3093A0"><Run Text="Tiền Công"/>
+                            <Image MaxWidth="30"
+                                   MaxHeight="30"
+                                   Source="/Resources/Icon/Add.png" />
+                            <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontFamily="Roboto Condensed"
+                                       FontWeight="Bold"
+                                       Foreground="#3093A0"><Run Text="Tiền Công" />
                             </TextBlock>
                         </StackPanel>
                     </Button>
                 </Grid>
             </Grid>
 
-            <Border
-            Grid.Row="1"
-            Width="1200"
-            Height="600"
-            CornerRadius="20"
-            Background="White" Margin="138,24,138,0"/>
+            <Border Grid.Row="1"
+                    Width="1200"
+                    Height="600"
+                    CornerRadius="20"
+                    Background="White"
+                    Margin="138,24,138,0" />
             <Grid Width="876"
-                  Margin="0,24,0,0"
-                  HorizontalAlignment="Center"
+                  Margin="330,24,0,0"
+                  HorizontalAlignment="Left"
                   Background="Transparent"
                   Grid.Row="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition Height="2.7*" />
-                    <RowDefinition Height="1.5*" />
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="1.2*"/>
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="1.3*" />
                 </Grid.RowDefinitions>
 
-                <TextBlock
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                FontFamily="Roboto Condensed"
-                FontSize="25"
-                FontWeight="Bold" Margin="0,64,0,0">
+                <TextBlock HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           FontFamily="Roboto Condensed"
+                           FontSize="25"
+                           FontWeight="Bold"
+                           Margin="0,64,0,0">
                 Thêm phiếu sửa chữa
                 </TextBlock>
 
-                <Grid Grid.Row="1" Margin="0,10,0,210" Grid.RowSpan="2">
+                <Grid Grid.Row="1"
+                      Margin="0,10,0,140"
+                      Grid.RowSpan="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
@@ -151,251 +147,251 @@
                     <StackPanel Margin="0,0,10,0">
                         <StackPanel.Resources>
                             <Style TargetType="StackPanel">
-                                <Setter Property="Margin" Value="0,0,0,10" />
+                                <Setter Property="Margin"
+                                        Value="0,0,0,10" />
                             </Style>
                         </StackPanel.Resources>
 
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock
-                            VerticalAlignment="Center"
-                            FontFamily="Roboto Condensed"
-                            FontSize="17"
-                            FontWeight="Regular">
+                            <TextBlock VerticalAlignment="Center"
+                                       FontFamily="Roboto Condensed"
+                                       FontSize="17"
+                                       FontWeight="Regular">
                             Biển số xe:
                             </TextBlock>
-                            <TextBox
-                            Name="bienSoXeTextBox"
-                            Width="280"
-                            Margin="10,0"
-                            VerticalAlignment="Center"
-                            materialDesign:TextFieldAssist.TextBoxViewMargin="0"
-                            FontFamily="Roboto Condensed"
-                            FontSize="17"
-                            FontWeight="Regular"
-                            Text="{Binding LicensePlate}">
+                            <TextBox Name="bienSoXeTextBox"
+                                     Width="280"
+                                     Margin="10,0"
+                                     VerticalAlignment="Center"
+                                     materialDesign:TextFieldAssist.TextBoxViewMargin="0"
+                                     FontFamily="Roboto Condensed"
+                                     FontSize="17"
+                                     FontWeight="Regular"
+                                     Text="{Binding LicensePlate}">
                             </TextBox>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                FontFamily="Roboto Condensed"
-                                FontSize="17"
-                                FontWeight="Regular">
+                            <TextBlock VerticalAlignment="Center"
+                                       FontFamily="Roboto Condensed"
+                                       FontSize="17"
+                                       FontWeight="Regular">
                                 Nội dung:
                             </TextBlock>
-                            <TextBox
-                                Name="noiDungTextBox"
-                                Width="280"
-                                Margin="10,0"
-                                VerticalAlignment="Center"
-                                materialDesign:TextFieldAssist.TextBoxViewMargin="0"
-                                FontFamily="Roboto Condensed"
-                                FontSize="17"
-                                FontWeight="Regular"
-                                Text="{Binding Content}">
+                            <TextBox Name="noiDungTextBox"
+                                     Width="280"
+                                     Margin="10,0"
+                                     VerticalAlignment="Center"
+                                     materialDesign:TextFieldAssist.TextBoxViewMargin="0"
+                                     FontFamily="Roboto Condensed"
+                                     FontSize="17"
+                                     FontWeight="Regular"
+                                     Text="{Binding Content}">
                             </TextBox>
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal" Height="32">
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                FontFamily="Roboto Condensed"
-                                FontSize="17"
-                                FontWeight="Regular">
+                        <StackPanel Orientation="Horizontal"
+                                    Height="32">
+                            <TextBlock VerticalAlignment="Center"
+                                       FontFamily="Roboto Condensed"
+                                       FontSize="17"
+                                       FontWeight="Regular">
                                 Tiền công:
                             </TextBlock>
-                            <ComboBox
-                                Name="tienCongComboBox"
-                                Margin="10,0"
-                                VerticalAlignment="Top"
-                                materialDesign:TextFieldAssist.TextBoxViewMargin="0"
-                                FontFamily="Roboto Condensed"
-                                FontSize="17"
-                                FontWeight="Regular"
-                                IsEditable="False"
-                                Style="{StaticResource MaterialDesignComboBox}" Grid.Row="1" Width="280" Height="31">   
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="SelectionChanged">
-                                        <i:InvokeCommandAction Command="" />
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
+                            <ComboBox Name="tienCongComboBox"
+                                      Margin="10,0"
+                                      VerticalAlignment="Top"
+                                      materialDesign:TextFieldAssist.TextBoxViewMargin="0"
+                                      FontFamily="Roboto Condensed"
+                                      FontSize="17"
+                                      FontWeight="Regular"
+                                      IsEditable="False"
+                                      Style="{StaticResource MaterialDesignComboBox}"
+                                      Grid.Row="1"
+                                      Width="280"
+                                      Height="31"
+                                      ItemsSource="{Binding wageCollection}"
+                                      DisplayMemberPath="Name"
+                                      SelectedItem="{Binding wageSelected}">
                             </ComboBox>
                         </StackPanel>
                     </StackPanel>
 
-                    <StackPanel Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,10" Width="438">
+                    <StackPanel Grid.Column="1"
+                                HorizontalAlignment="Center"
+                                Margin="0,0,0,10"
+                                Width="438">
                         <StackPanel.Resources>
                             <Style TargetType="StackPanel">
-                                <Setter Property="Margin" Value="0,0,0,10" />
+                                <Setter Property="Margin"
+                                        Value="0,0,0,10" />
                             </Style>
                         </StackPanel.Resources>
 
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock
-                            VerticalAlignment="Center"
-                            FontFamily="Roboto Condensed"
-                            FontSize="17"
-                            FontWeight="Regular">
+                            <TextBlock VerticalAlignment="Center"
+                                       FontFamily="Roboto Condensed"
+                                       FontSize="17"
+                                       FontWeight="Regular">
                             Ngày sửa chữa:
                             </TextBlock>
-                            <DatePicker
-                            Width="250"
-                            Margin="10,0"
-                            materialDesign:TextFieldAssist.TextBoxViewMargin="0"
-                            FontSize="17"
-                            SelectedDate="{Binding NgaySuaChua, Mode=TwoWay}" />
+                            <DatePicker Width="250"
+                                        Margin="10,0"
+                                        materialDesign:TextFieldAssist.TextBoxViewMargin="0"
+                                        FontSize="17"
+                                        SelectedDate="{Binding NgaySuaChua, Mode=TwoWay}" />
                         </StackPanel>
 
-                        <Button 
-                            Command="{Binding ThemNoiDungVaoBang}"
-                            CommandParameter="{Binding ElementName=phieuSuaChuaXePage}"
-                            MinWidth="120"
-                            MinHeight="50"
-                            MaxWidth="151"
-                            MaxHeight="57"
-                            Margin="20,25,50,0"
-                            HorizontalAlignment="Right"
-                            HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center"
-                            materialDesign:ButtonAssist.CornerRadius="10"
-                            materialDesign:ElevationAssist.Elevation="Dp3"
-                            Background="#3093A0"
-                            BorderThickness="0">    
+                        <Button Command="{Binding AddContent}"
+                                Width="Auto"
+                                Height="50"
+                                MaxWidth="151"
+                                MaxHeight="57"
+                                Margin="20,25,50,0"
+                                HorizontalAlignment="Right"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                materialDesign:ButtonAssist.CornerRadius="10"
+                                materialDesign:ElevationAssist.Elevation="Dp3"
+                                Background="#3093A0"
+                                BorderThickness="0">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    FontFamily="Roboto Condensed"
-                                    FontSize="16"
-                                    FontWeight="Bold"
-                                    Foreground="White">
-                                    Thêm nội dung   
+                                <TextBlock HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontFamily="Roboto Condensed"
+                                           FontSize="16"
+                                           FontWeight="Bold"
+                                           Foreground="White">
+                                    Thêm nội dung
                                 </TextBlock>
                             </StackPanel>
                         </Button>
                     </StackPanel>
+                    <Border Margin="0,130,0,0"
+                            Padding="10"
+                            HorizontalAlignment="Center"
+                            Background="White"
+                            CornerRadius="35"
+                            Grid.ColumnSpan="2">
+                        <DataGrid x:Name="dataGrid"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Top"
+                                  AutoGenerateColumns="False"
+                                  Background="White"
+                                  CanUserReorderColumns="False"
+                                  CanUserResizeColumns="False"
+                                  CanUserSortColumns="True"
+                                  ColumnWidth="SizeToCells"
+                                  IsReadOnly="True"
+                                  SelectionMode="Single"
+                                  SelectionUnit="FullRow"
+                                  ItemsSource="{Binding rpdtCollection}"
+                                  SelectedItem="{Binding SelectedRpdt}">
+                            <DataGrid.CellStyle>
+                                <Style BasedOn="{StaticResource MaterialDesignDataGridCell}"
+                                       TargetType="DataGridCell">
+                                    <Setter Property="BorderThickness"
+                                            Value="0" />
+                                    <Setter Property="FocusVisualStyle"
+                                            Value="{x:Null}" />
+                                </Style>
+                            </DataGrid.CellStyle>
 
-                    <DataGrid 
-                        x:Name="ContentDatagrid"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Background="White"
-                        CanUserReorderColumns="False"
-                        CanUserResizeColumns="False"
-                        CanUserSortColumns="True"
-                        ColumnWidth="SizeToCells"
-                        IsReadOnly="True"
-                        AutoGenerateColumns="False" 
-                        Margin="280,136,0,0"
-                        ItemsSource="{Binding NoiDungSuaChuaCollection}"
-                        SelectionMode="Single"
-                        SelectionUnit="FullRow" 
-                        Grid.ColumnSpan="2" Height="36">
-                        <DataGrid.CellStyle>
-                            <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
-                                <Setter Property="BorderThickness" Value="0" />
-                                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Items.Count, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" Value="0">
-                                        <Setter Property="Visibility" Value="Collapsed" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DataGrid.CellStyle>
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Width="auto"
+                                                        Header="Nội dung"
+                                                        SortMemberPath="Content">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock HorizontalAlignment="Left"
+                                                       VerticalAlignment="Center"
+                                                       FontSize="15"
+                                                       Text="{Binding Content}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
 
-                        <DataGrid.Columns>
-                            <DataGridTemplateColumn
-                            Width="auto"
-                            Header="Nội dung"
-                            SortMemberPath="">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Width="auto"
+                                                        Header="Tiền công"
+                                                        SortMemberPath="WageName">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock HorizontalAlignment="Left"
+                                                       VerticalAlignment="Center"
+                                                       FontSize="15"
+                                                       Text="{Binding WageName}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn
-                            Width="auto"
-                            Header="Tiền công"
-                            SortMemberPath="">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Width="auto"
+                                                        Header="Tổng thành tiền"
+                                                        SortMemberPath="Price">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock HorizontalAlignment="Left"
+                                                       VerticalAlignment="Center"
+                                                       FontSize="15"
+                                                       Text="{Binding Price, StringFormat={}{0:N0} VNĐ}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Width="24.8"
+                                                        Height="24.8"
+                                                        BorderBrush="Transparent"
+                                                        Click="Button_Click">
+                                                    <Button.Background>
+                                                        <ImageBrush ImageSource="/QuanLiGaraOto;component/Resources/Img/information.png" />
+                                                    </Button.Background>
+                                                </Button>
 
-                            <DataGridTemplateColumn
-                            Width="auto"
-                            Header="Tổng thành tiền"
-                            SortMemberPath="">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
+                                                <Button Width="24.8"
+                                                        Height="24.8"
+                                                        Margin="5,0,0,0"
+                                                        BorderBrush="Transparent"
+                                                        Click="Button_Click_1">
+                                                    <Button.Background>
+                                                        <ImageBrush ImageSource="/QuanLiGaraOto;component/Resources/Img/delete_button.png" />
+                                                    </Button.Background>
+                                                </Button>
+                                            </StackPanel>
 
-                            <DataGridTemplateColumn 
-                                Header="">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Border Margin="19,0,0,0"
-                                            Background="Transparent"
-                                            Width="20"
-                                            Height="20"
-                                            BorderThickness="0"
-                                            HorizontalAlignment="Left"
-                                            Cursor="Hand">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                    <i:InvokeCommandAction Command="{Binding ElementName=ContentDatagrid, Path=DataContext.AddSupllies }" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                            <Image Source="/QuanLiGaraOto;component/Resources/Img/information.png" />
-                                        </Border>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Border>
+
                 </Grid>
 
                 <StackPanel Orientation="Horizontal"
-                            Grid.Row="2">
-                    <Button Command="{Binding ResetReceptionCM}"
+                            Grid.Row="2"
+                            VerticalAlignment="Top"
+                            >
+                    <Button Command="{Binding ResetRepair}"
                             Content="Thêm mới"
                             VerticalAlignment="Top"
                             FontSize="26"
                             FontWeight="Bold"
-                            Margin="300,70,0,0"
+                            Margin="300,20,0,0"
                             Height="57"
                             Width="262"
                             Background="#B71010"
                             BorderBrush="Transparent"
                             Foreground="White"
-                            materialDesign:ButtonAssist.CornerRadius="20" />    
+                            materialDesign:ButtonAssist.CornerRadius="20" />
 
-                    <Button Command="{Binding AddReceptionCM}"
+                    <Button Command="{Binding AddRepair}"
                             Content="Thêm phiếu sửa chữa"
                             VerticalAlignment="Top"
                             FontSize="26"
                             FontWeight="Bold"
-                            Margin="20,70,0,0"
+                            Margin="20,20,0,0"
             
                             Height="57"
                             Width="290"

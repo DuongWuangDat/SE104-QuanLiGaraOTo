@@ -13,14 +13,14 @@
         AllowsTransparency="True"
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="None"     
+        WindowStyle="None"
         DataContext="{StaticResource SuaChuaXeVM}"
         mc:Ignorable="d">
 
     <Border materialDesign:ElevationAssist.Elevation="Dp4"
-    Background="White"
-    BorderThickness="0"
-    CornerRadius="20">
+            Background="White"
+            BorderThickness="0"
+            CornerRadius="20">
         <Grid Width="768"
               Margin="20,0,0,0"
               HorizontalAlignment="Left"
@@ -32,26 +32,35 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                FontFamily="Roboto Condensed"
-                FontSize="25"
-                FontWeight="Bold">
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontFamily="Roboto Condensed"
+                       FontSize="25"
+                       FontWeight="Bold">
                 Nhập tiền công
             </TextBlock>
 
-            <TextBlock Grid.Row="1" Margin="354,19,305,271" FontFamily="Roboto Condensed" FontSize="17" FontWeight="Regular" Text="Đơn giá nhập:" />
+            <TextBlock Grid.Row="1"
+                       Margin="354,19,305,271"
+                       FontFamily="Roboto Condensed"
+                       FontSize="17"
+                       FontWeight="Regular"
+                       Text="Đơn giá nhập:" />
 
             <!-- Ô nhập giá -->
-            <TextBox Grid.Row="1" Margin="468,10,202,268" FontFamily="Roboto Condensed" FontSize="17" FontWeight="Regular" Text="{Binding DonGiaNhap}" />
+            <TextBox Grid.Row="1"
+                     Margin="468,10,202,268"
+                     FontFamily="Roboto Condensed"
+                     FontSize="17"
+                     FontWeight="Regular"
+                     Text="{Binding Price}" />
 
-            <!-- ComboBox -->
-            <TextBlock
-                VerticalAlignment="Top"
-                FontFamily="Roboto Condensed"
-                FontSize="17"
-                FontWeight="Regular" Margin="10,22,452,0" Grid.Row="1">
+            <TextBlock VerticalAlignment="Top"
+                       FontFamily="Roboto Condensed"
+                       FontSize="17"
+                       FontWeight="Regular"
+                       Margin="10,22,452,0"
+                       Grid.Row="1">
                 Tên tiền công:
             </TextBlock>
             <TextBox Name="bienSoXeTextBox"
@@ -63,74 +72,95 @@
                      FontWeight="Regular"
                      Text="{Binding WageName}"
                      Grid.Row="1" />
-            
-            <!-- Nút Thêm -->
-            <Button 
-            Grid.Row="1" 
-            Margin="612,11,34,0" 
-            Content="Thêm" 
-            VerticalAlignment="Top" 
-            Width="80" 
-            Height="40"
-            Background="#3093A0"
-            BorderBrush="Transparent"
-            Foreground="White"
-            materialDesign:ButtonAssist.CornerRadius="20"/>
 
-            <Border
-                Grid.Row="1"
-                Margin="0,73,0,0"
-                Padding="10"
-                HorizontalAlignment="Center"
-                Background="White"
-                CornerRadius="35">  
-                <DataGrid
-                    x:Name="dataGrid"
-                    HorizontalAlignment="Center"
+            <!-- Nút Thêm -->
+            <Button Grid.Row="1"
+                    Margin="612,11,34,0"
+                    Content="Thêm"
                     VerticalAlignment="Top"
-                    AutoGenerateColumns="False"
+                    Width="80"
+                    Height="40"
+                    Background="#3093A0"
+                    BorderBrush="Transparent"
+                    Foreground="White"
+                    materialDesign:ButtonAssist.CornerRadius="20" 
+                    Command="{Binding AddWage}"/>
+
+            <Border Grid.Row="1"
+                    Margin="0,73,0,100"
+                    Padding="10"
+                    HorizontalAlignment="Center"
                     Background="White"
-                    CanUserReorderColumns="False"
-                    CanUserResizeColumns="False"
-                    CanUserSortColumns="True"
-                    ColumnWidth="SizeToCells"
-                    IsReadOnly="True"
-                    SelectionMode="Single"
-                    SelectionUnit="FullRow">    
+                    Grid.RowSpan="2"
+                    CornerRadius="35">
+                <DataGrid x:Name="dataGrid"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Top"
+                          AutoGenerateColumns="False"
+                          Background="White"
+                          CanUserReorderColumns="False"
+                          CanUserResizeColumns="False"
+                          CanUserSortColumns="True"
+                          ColumnWidth="SizeToCells"
+                          IsReadOnly="True"
+                          SelectionMode="Single"
+                          SelectionUnit="FullRow"
+                          ItemsSource="{Binding wageCollection}"
+                          SelectedItem="{Binding SelectedWage}"
+                          >
                     <DataGrid.CellStyle>
-                        <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
-                            <Setter Property="BorderThickness" Value="0" />
-                            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                        <Style BasedOn="{StaticResource MaterialDesignDataGridCell}"
+                               TargetType="DataGridCell">
+                            <Setter Property="BorderThickness"
+                                    Value="0" />
+                            <Setter Property="FocusVisualStyle"
+                                    Value="{x:Null}" />
                         </Style>
                     </DataGrid.CellStyle>
 
                     <DataGrid.Columns>
-                        <DataGridTemplateColumn
-                        Width="auto"
-                        Header="Tên"
-                        SortMemberPath="ID">
+                        <DataGridTemplateColumn Width="auto"
+                                                Header="Tên"
+                                                SortMemberPath="Name">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                         /> 
+                                    <TextBlock HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
+                                               FontSize="15" 
+                                               Text="{Binding Name}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn
-                            Width="auto"
-                            Header="Đơn giá bán"
-                            SortMemberPath="Customer.Name"> 
+                        <DataGridTemplateColumn Width="auto"
+                                                Header="Đơn giá bán"
+                                                SortMemberPath="Price">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                         /> 
+                                    <TextBlock HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
+                                               FontSize="15"
+                                               Text="{Binding Price, StringFormat={}{0:N0} VNĐ}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Width="auto"
+                                                Header="">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Width="24.8"
+                                                Height="24.8"
+                                                BorderBrush="Transparent"
+                                                Click="Button_Click_1">
+                                            <Button.Background>
+                                                <ImageBrush ImageSource="/QuanLiGaraOto;component/Resources/Img/delete_button.png" />
+                                            </Button.Background>
+                                        </Button>
+                                    </StackPanel>
+
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -138,20 +168,19 @@
                 </DataGrid>
             </Border>
 
-            <Button 
-                Grid.Row="2" 
-                Command="{Binding HoanTatClose}"
-                CommandParameter="{Binding ElementName=danhSachTienCongWindow}"
-                Margin="0,0,45,27" 
-                Content="Hoàn tất" 
-                HorizontalAlignment="Right" 
-                VerticalAlignment="Bottom"
-                Height="40"
-                Width="100" 
-                Background="#3093A0"
-                BorderBrush="Transparent"
-                Foreground="White"
-                materialDesign:ButtonAssist.CornerRadius="20" Click="Button_Click"/>    
+            <Button Grid.Row="2"
+                    Command="{Binding wageClose}"
+                    CommandParameter="{Binding ElementName=danhSachTienCongWindow}"
+                    Margin="0,0,45,27"
+                    Content="Hoàn tất"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Height="40"
+                    Width="100"
+                    Background="#3093A0"
+                    BorderBrush="Transparent"
+                    Foreground="White"
+                    materialDesign:ButtonAssist.CornerRadius="20"/>
         </Grid>
     </Border>
 </Window>

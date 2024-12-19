@@ -1,0 +1,151 @@
+﻿<Page x:Class="QuanLiGaraOto.View.CaiDatQD.CaiDatQuyDinh"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:local="clr-namespace:QuanLiGaraOto.View.BaoCao"
+  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+  xmlns:materialDesignControls="http://materialdesigninxaml.net/winfx/xaml/themes" 
+  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+  mc:Ignorable="d" 
+  d:DesignHeight="800" d:DesignWidth="1536"
+  DataContext="{StaticResource CaiDatQuyDinhVM}"
+  Title="PageCaiDatQuyDinh"
+  >
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FirstLoad}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid Background="#3F7B88">
+        <Grid Margin="30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="6*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel
+             Grid.Column="0"
+             Width="auto"
+             Orientation="Horizontal">
+                    <!--  Search Box  -->
+
+                    <Grid>
+                        <Image
+                         Width="45"
+                         Height="45"
+                         Margin="0,0,0,0"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Center"
+                         Source="/QuanLiGaraOto;component/Resources/Icon/bao_cao_thang_ico_white.png" />
+
+                        <TextBlock Text="Cài đặt quy định" FontSize="30" FontWeight="Bold" 
+                               Margin="60,0,0,0" Foreground="White" VerticalAlignment="Center" />
+                    </Grid>
+
+                </StackPanel>
+            </Grid>
+            <Line X1="0" Y1="0" X2="1500" Y2="0" MaxWidth="1500" Stroke="White" VerticalAlignment="Bottom" 
+            Margin="0,0,0,0" StrokeThickness="5"/>
+
+            
+            <Grid Grid.Row="1">
+                <Border
+                Margin="0,0,0,0"
+                Background="White"
+                Width="1190"
+                Height="530"
+                CornerRadius="20">
+                    <StackPanel DataContext="{StaticResource CaiDatQuyDinhVM}">
+                        <Grid Margin="0,50,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition MinWidth="150" Width="7*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="70"/>
+                            </Grid.RowDefinitions>
+                            <!-- hàng 0 -->
+                            <Label Grid.Row="0" Content="Số xe sửa chữa tối đa trong ngày:" FontSize="25" FontWeight="Bold"
+                                       Margin="50,0,0,0" VerticalAlignment="Center" />
+                            <TextBox
+                                Grid.Row="0"
+                                x:Name="SoXeSuaChuaToiDa"
+                                Width="80"
+                                Height="50"
+                                FontSize="20"
+                                Foreground="Black"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Bottom"
+                                Text="{Binding SoXeSuaChuaToiDa.Value, Mode=TwoWay}"
+                                Background="#DEFFEF"
+                                IsEnabled="True"
+                                PreviewTextInput="SoXeSuaChua_PreviewTextInput"/>
+                            <!-- hàng 1 -->
+                            
+                            <!-- hàng 2 -->
+                            <Label Grid.Row="2" Content="Áp Dụng kiểm tra số tiền thu" FontSize="25" FontWeight="Bold"
+                                   Margin="50,0,0,0" VerticalAlignment="Center" />
+                            <CheckBox
+                                Grid.Row="2"
+                                x:Name="ApDungQÐKiemTraSoTienThu"
+                                Width="80"
+                                Height="50"
+                                FontSize="20"
+                                Foreground="Black"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Bottom"
+                                IsChecked="{Binding Check, Mode=TwoWay}"
+                                Content="{Binding ApDung}"
+                                Background="#259FBA" />
+
+                            <!-- hàng 3 -->
+                            <Label Grid.Row="4" Content="Tỉ lệ tính đơn giá" FontSize="25" FontWeight="Bold"
+                                   Margin="50,0,0,0" VerticalAlignment="Center" />
+                            <TextBox
+                                Grid.Row="4"
+                                x:Name="TiLeTinhDonGiaBan"
+                                Width="80"
+                                Height="50"
+                                FontSize="20"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Bottom"
+                                Foreground="Black"
+                                Background="#DEFFEF"
+                                Text="{Binding TiLeTinhDonGiaBan.Value, StringFormat={}{0:F2}, Mode=TwoWay}"
+                                IsEnabled="True" 
+                                PreviewTextInput="TiLeTinhDonGiaBan_PreviewTextInput"/>
+                            <!-- hàng 6 -->
+                            <Button
+                                Grid.Row="6"
+                                Height="60"
+                                Width="180"
+                                HorizontalAlignment="Right"
+                                Margin="0,0,60,0"
+                                Background="#3F7B88"
+                                materialDesign:ButtonAssist.CornerRadius="10"
+                                Command="{Binding UpdateParameter}"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                ToolTip="MaterialDesignRaisedButton with Round Corners">
+                                <TextBlock Text="Apply" FontSize="24" FontWeight="Bold"/>
+                            </Button>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid >
+
+    </Grid>
+</Page>

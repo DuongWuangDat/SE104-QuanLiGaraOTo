@@ -261,7 +261,7 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="RepairDetail">
-              <PropertyRef Name="RepairID" />
+              <PropertyRef Name="WageID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -785,7 +785,7 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="RepairDetail">
-              <PropertyRef Name="RepairID" />
+              <PropertyRef Name="WageID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

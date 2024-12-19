@@ -11,6 +11,6 @@ namespace QuanLiGaraOto.DTOs
         public Nullable<decimal> PriceItem { get; set; }
     
         public SupplyDTO Supply { get; set; }
-        public SuppliesInputDTO SuppliesInput { get; set; }
+        //public SuppliesInputDTO SuppliesInput { get; set; }
     }
 }

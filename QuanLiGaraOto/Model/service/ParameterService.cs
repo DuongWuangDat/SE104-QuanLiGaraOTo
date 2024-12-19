@@ -1,4 +1,5 @@
 ﻿using QuanLiGaraOto.DTOs;
+using QuanLiGaraOto.View.MessageBox;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -27,90 +28,134 @@ namespace QuanLiGaraOto.Model.service
 
         public async Task<List<ParameterDTO>> GetAllParameter()
         {
-            using(var context = new QuanLiGaraOtoEntities())
+            try
             {
-                var listParameter = (from s in context.Parameters
-                                    select new ParameterDTO
-                                    {
-                                         Name = s.Name,
-                                         Value = s.Value
-                                     }).ToListAsync();
-                return await listParameter;
+                using (var context = new QuanLiGaraOtoEntities())
+                {
+                    var listParameter = (from s in context.Parameters
+                                         select new ParameterDTO
+                                         {
+                                             Name = s.Name,
+                                             Value = s.Value
+                                         }).ToListAsync();
+                    return await listParameter;
+                }
+            }catch(Exception e)
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Không thể kết nối với dữ liệu");
+                return null;
             }
+            
         }
 
         public async Task<(bool,string)> UpdateParameter(string name, float value)
         {
-            using (var context = new QuanLiGaraOtoEntities())
+            try
             {
-                var parameter = await context.Parameters.FirstOrDefaultAsync(x => x.Name == name);
-                if(name == "TiLeTinhDonGiaBan")
+                using (var context = new QuanLiGaraOtoEntities())
                 {
-                   await SuppliesService.Ins.UpdateTiLe((double)value);
-                }
-                if(name == "SoXeSuaChuaToiDa")
-                {
-                   var numberOfCar = await ReceptionService.Ins.CountByDate(DateTime.Now);
-                    if(numberOfCar > value)
+                    var parameter = await context.Parameters.FirstOrDefaultAsync(x => x.Name == name);
+                    if (name == "TiLeTinhDonGiaBan")
                     {
-                          return (false, "Số xe sửa chữa trong ngày đã vượt quá số xe tối đa");
-                     }
+                        await SuppliesService.Ins.UpdateTiLe((double)value);
+                    }
+                    if (name == "SoXeSuaChuaToiDa")
+                    {
+                        var numberOfCar = await ReceptionService.Ins.CountByDate(DateTime.Now);
+                        if (numberOfCar > value)
+                        {
+                            return (false, "Số xe sửa chữa trong ngày đã vượt quá số xe tối đa");
+                        }
+                    }
+                    parameter.Value = value;
+                    await context.SaveChangesAsync();
+                    return (true, "Sửa parameter thành công");
                 }
-                parameter.Value = value;
-                await context.SaveChangesAsync();
-                return (true, "Sửa parameter thành công");
+            }catch(Exception e)
+            {
+                return (false, null);
             }
+            
         }
 
         public async Task<double> GetValueByName(string name)
         {
-            using (var context = new QuanLiGaraOtoEntities())
+            try
             {
-                var parameter = await context.Parameters.FirstOrDefaultAsync(x => x.Name == name);
-                if (parameter == null)
+                using (var context = new QuanLiGaraOtoEntities())
                 {
-                    return -1;
+                    var parameter = await context.Parameters.FirstOrDefaultAsync(x => x.Name == name);
+                    if (parameter == null)
+                    {
+                        return -1;
+                    }
+                    return (double)parameter.Value;
                 }
-                return (double)parameter.Value;
+            }catch(Exception e)
+            {
+                return -1;
             }
+            
         }
 
         public async Task<double> GetRatio()
         {
-            using (var context = new QuanLiGaraOtoEntities())
+            try
             {
-                var parameter = await context.Parameters.FirstOrDefaultAsync(x => x.Name == "TiLeTinhDonGiaBan");                                                                                   
-                if (parameter == null)
+                using (var context = new QuanLiGaraOtoEntities())
                 {
-                    return -1;
+                    var parameter = await context.Parameters.FirstOrDefaultAsync(x => x.Name == "TiLeTinhDonGiaBan");
+                    if (parameter == null)
+                    {
+                        return -1;
+                    }
+                    return (double)parameter.Value;
                 }
-                return (double)parameter.Value;
+            }catch(Exception e)
+            {
+                return -1;
             }
+            
         }
 
         public async Task<bool> ApDungPhat()
         {
-            using(var context = new QuanLiGaraOtoEntities())
+            try
             {
-                var parameter = await context.Parameters.FirstOrDefaultAsync(x => x.Name == "ApDungQÐKiemTraSoTienThu");
-                if(parameter.Value == 1)
+                using (var context = new QuanLiGaraOtoEntities())
                 {
-                    return true;
+                    var parameter = await context.Parameters.FirstOrDefaultAsync(x => x.Name == "ApDungQÐKiemTraSoTienThu");
+                    if (parameter.Value == 1)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
-                else
-                {
-                    return false;
-                }
+            }catch(Exception e)
+            {
+                return false;
             }
+            
         }
 
         public async Task<int> SoXeSuaChuaTrongNgay()
         {
-            using(var context = new QuanLiGaraOtoEntities())
+            try
             {
-                var parameter = await context.Parameters.FirstOrDefaultAsync(x => x.Name == "SoXeSuaChuaToiDa");
-                return (int)parameter.Value;
+                using (var context = new QuanLiGaraOtoEntities())
+                {
+                    var parameter = await context.Parameters.FirstOrDefaultAsync(x => x.Name == "SoXeSuaChuaToiDa");
+                    return (int)parameter.Value;
+                }
+
+            }catch(Exception e)
+            {
+                return -1;
             }
+            
         }
     }
 }

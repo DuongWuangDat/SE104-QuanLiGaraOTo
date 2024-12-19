@@ -1,6 +1,7 @@
 ﻿using QuanLiGaraOto.DTOs;
 using QuanLiGaraOto.Model;
 using QuanLiGaraOto.Model.service;
+using QuanLiGaraOto.View.MessageBox;
 using QuanLiGaraOto.View.PhieuThuTien;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -62,16 +63,18 @@ namespace QuanLiGaraOto.ViewModel.PhieuThuTienVM
 
 			ThemPhieuThuTienOpen = new RelayCommand<object>(_ => true, async _ =>
 			{
-				Window mainWindow = Application.Current.MainWindow; // Lấy cửa sổ chính
-				mainWindow.Opacity = 0.5; // Làm mờ cửa sổ chính
+				new DeleteMessageBox().ShowDialog();
 
-				Window dialogWindow = new ThemPhieuThuTien();
-				dialogWindow.ShowDialog(); // Hiển thị cửa sổ dialog
+				//Window mainWindow = Application.Current.MainWindow; // Lấy cửa sổ chính
+				//mainWindow.Opacity = 0.5; // Làm mờ cửa sổ chính
 
-				bills = await BillService.Ins.GetAllBill();
+				//Window dialogWindow = new ThemPhieuThuTien();
+				//dialogWindow.ShowDialog(); // Hiển thị cửa sổ dialog
 
-				PhieuThuTienCollection = new ObservableCollection<BillDTO>(bills);
-				mainWindow.Opacity = 1.0;
+				//bills = await BillService.Ins.GetAllBill();
+
+				//PhieuThuTienCollection = new ObservableCollection<BillDTO>(bills);
+				//mainWindow.Opacity = 1.0;
 			});
 		}
 	}

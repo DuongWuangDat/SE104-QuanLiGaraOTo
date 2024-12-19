@@ -8,14 +8,18 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="409.6"
     Height="224"
-    WindowStyle="None"
+    AllowsTransparency="True"
     Background="Transparent"
     FontFamily="{DynamicResource MaterialDesignFont}"
+    MouseLeftButtonDown="Window_MouseLeftButtonDown"
+    ResizeMode="NoResize"
     TextElement.FontSize="8.32"
     TextElement.FontWeight="Regular"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
     mc:Ignorable="d">
     <Grid>
         <Border
